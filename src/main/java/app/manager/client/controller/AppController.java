@@ -22,7 +22,7 @@ public class AppController {
 
     @Autowired
     private LoginService loginService;
-    @GetMapping("")
+    @GetMapping("/")
     public String getHome(){
         return "home";
     }
@@ -43,6 +43,8 @@ public class AppController {
 //             Login Failed
         } else {
 //            Login Successed
+
+
         }
 
 //        RestTemplate restTemplate = new RestTemplate();
