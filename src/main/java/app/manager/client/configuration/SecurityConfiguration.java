@@ -21,15 +21,17 @@ public class SecurityConfiguration {
         httpSecurity
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorizatizeHttpRequests -> authorizatizeHttpRequests
-                        .requestMatchers("/"
-                                , "/api/register"
-                                , "/api/authenticate"
-                                , "/login"
-                                , "/css/**"
-                        )
-                        .permitAll()
-                        .anyRequest()
-                        .authenticated()
+//                        .requestMatchers("/"
+//                                , "/api/register"
+//                                , "/api/authenticate"
+//                                , "/login"
+//                                , "/static/**"
+//                        )
+//                        .permitAll()
+//                        .anyRequest()
+//                        .authenticated()
+                                .anyRequest()
+                                .permitAll()
                 )
                 .sessionManagement(sessionManagement -> sessionManagement
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

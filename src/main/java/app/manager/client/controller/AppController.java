@@ -1,5 +1,6 @@
 package app.manager.client.controller;
 
+import app.manager.client.model.Item;
 import app.manager.client.model.ResponseObject;
 import app.manager.client.model.Role;
 import app.manager.client.model.User;
@@ -9,9 +10,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -25,6 +24,13 @@ public class AppController {
     @GetMapping("/")
     public String getHome(){
         return "home";
+    }
+
+    @PostMapping("/makePayment")
+    public void makePayment(@RequestBody List<Item> items){
+        for(Item item : items) {
+            System.out.println(item.name() + " - " + item.quantity());
+        }
     }
 
     @GetMapping("/login")
