@@ -9,10 +9,10 @@ function getImageLabel(imageInput) {
     var isTrue = false;
 
     itemNames.forEach(function(itemName) {
-    if(itemName == labelValue){
-        addQuantity(itemName);
-        isTrue = true;
-    }
+        if(itemName == labelValue){
+            addQuantity(itemName);
+            isTrue = true;
+        }
     });
 
     if(!isTrue){
@@ -23,32 +23,34 @@ function getImageLabel(imageInput) {
 // Hàm để lấy giá trị từ mỗi dòng
 function getValues() {
     // Lấy tất cả các phần tử có class "quantityInput"
-    var inputElements = document.querySelectorAll('#quantity');
+    var inputElements = document.querySelectorAll('.order-quantity');
     var row, itemName, quantity;
     var itemNames = [];
 
     // Duyệt qua từng phần tử để lấy giá trị
     inputElements.forEach(function(inputElement) {
-    row = inputElement.closest('.row'); // Tìm phần tử gần nhất có class "row"
-    itemName = row.querySelector('.col-md').innerText;
-    quantity = inputElement.value;
+        row = inputElement.closest('.row'); // Tìm phần tử gần nhất có class "row"
+        itemName = row.querySelector('.order-name').innerText;
+        quantity = inputElement.value;
 
-    if(!itemNames.includes(itemName)) {
-        itemNames.push(itemName);
-    }
+        if(!itemNames.includes(itemName)) {
+            itemNames.push(itemName);
+        }
     });
 
     return itemNames;
 }
 
 function addQuantity(labelValue){
-    var inputElements = document.querySelectorAll('#quantity');
+    var inputElements = document.querySelectorAll('.order-quantity');
 
     inputElements.forEach(function(inputElement) {
         var row = inputElement.closest('.row'); // Tìm phần tử gần nhất có class "row"
-        var itemName = row.querySelector('.col-md').innerText;
+        var itemName = row.querySelector('.order-name').innerText;
         var quantity = parseInt(inputElement.value);
 
+        console.log(itemName)
+        console.log(quantity)
          if(itemName == labelValue){
             quantity += 1;
             inputElement.value = quantity;
