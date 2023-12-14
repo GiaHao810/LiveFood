@@ -1,20 +1,17 @@
 package app.manager.client.controller;
 
-import app.manager.client.model.Item;
+import app.manager.client.model.Order;
 import app.manager.client.model.ResponseObject;
 import app.manager.client.model.Role;
 import app.manager.client.model.User;
 import app.manager.client.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class AppController {
@@ -26,11 +23,16 @@ public class AppController {
         return "home";
     }
 
-    @PostMapping("/makePayment")
-    public void makePayment(@RequestBody List<Item> items){
-        for(Item item : items) {
-            System.out.println(item.name() + " - " + item.quantity());
+    @PostMapping("/submitProducts")
+    public ResponseEntity<String> submitProducts(@RequestBody List<Order> orders){
+
+//        Lưu thông tin Order vào DB
+        System.out.println("Order:");
+        for(Order order : orders) {
+            System.out.println(order.name() + " - " + order.quantity());
         }
+
+        return ResponseEntity.ok("OK");
     }
 
     @GetMapping("/login")

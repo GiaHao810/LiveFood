@@ -60,15 +60,11 @@ function addNewRow(labelValue){
     var newRow = document.createElement("div");
     newRow.className = "row";
     newRow.innerHTML = `
-        <div class="row">
-            <div class="col-md">${labelValue}</div>
-            <div class="col-md">
-                <input type="number" id="quantity" value="1" min="1">
-            </div>
-            <div class="col-md">
-                <button class="delete-button" onclick="delItem(this)">Del</button>
-            </div>
-        </div>
+        <li class="row">
+            <div class="col-md order-name" >${labelValue}</div>
+            <input class="col-md order-quantity" type="number" value="1" min="1">
+            <button class="col-md delete-button" onclick="delItem(this)">Del</button>
+        </li>
     `;
 
     document.getElementById("ordertable").appendChild(newRow);
@@ -81,56 +77,27 @@ function delItem(button){
     }
 }
 
-function sendItemsToApi(items) {
-    fetch('/makePayment', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(items),
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('API Response:', data);
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-}
+function submitProductList(){
+    var productList = [];
+    var listItems = document.querySelectorAll("#ordertable li");
 
-function makePayment(){
-    var listItems = getItems();
+    listItems.forEach(function(item){
+        var itemNameElement = item.querySelector('.item-name');
+        var itemName = itemNameElement.textContent || itemNameElement.innerText;
 
-    // In mảng ra console để kiểm tra
-    console.log(listItems);
+        var itemQuantity = item.querySelector('.item-quantity').value;
 
-    sendItemsToApi(listItems);
-}
-
-// Thêm một đối tượng mới vào mảng
-function addItem(quantity, labelName, items) {
-    var newItem = {
-        quantity: quantity,
-        labelName: labelName
-    };
-
-    items.push(newItem);
-}
-
-function getItems() {
-    // Lấy tất cả các phần tử có class "quantityInput"
-    var inputElements = document.querySelectorAll('#quantity');
-    var row, itemName, quantity;
-    var listItems = [];
-
-    // Duyệt qua từng phần tử để lấy giá trị
-    inputElements.forEach(function(inputElement) {
-    row = inputElement.closest('.row'); // Tìm phần tử gần nhất có class "row"
-    itemName = row.querySelector('.col-md').innerText;
-    quantity = inputElement.value;
-
-    addItem(quantity, itemName, listItems);
+        productList.push({
+            name: itemName,
+            quantity: itemQuantity
+        });
     });
 
-    return listItems;
+    axios.post('/submitProducts', productList)
+        .then(function (response) {
+            console.log(response.data);
+        })
+        .catch(function (error){
+            console.error(error);
+        })
 }
