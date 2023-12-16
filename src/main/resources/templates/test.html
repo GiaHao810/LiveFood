@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:each="product : ${productList}">
+    <div>
+        <h2 th:text="${product.name}"></h2>
+        <p th:text="'Price: $' + ${product.price}"></p>
+        <img th:src="@{/image/{imageName}(imageName=${product.imagePath})}" alt="Product Image">
+    </div>
+</div>
+</body>
+</html>

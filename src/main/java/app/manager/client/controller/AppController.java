@@ -1,9 +1,9 @@
 package app.manager.client.controller;
 
-import app.manager.client.model.Order;
-import app.manager.client.model.ResponseObject;
-import app.manager.client.model.Role;
-import app.manager.client.model.User;
+import app.manager.client.dto.ResponseObject;
+import app.manager.client.model.*;
+import app.manager.client.repository.OrderRepository;
+import app.manager.client.repository.ProductRepository;
 import app.manager.client.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,18 +18,25 @@ public class AppController {
 
     @Autowired
     private LoginService loginService;
+    @Autowired
+    private ProductRepository productRepository;
+    @Autowired
+    private OrderRepository orderRepository;
     @GetMapping("/")
-    public String getHome(){
+    public String getHome(Model model){
+        List<Product> productList = productRepository.findAll();
+        model.addAttribute("productList", productList);
+        for (Product product : productList){
+            System.out.println(product.toString());
+        }
         return "home";
     }
 
-    @PostMapping("/submitProducts")
-    public ResponseEntity<String> submitProducts(@RequestBody List<Order> orders){
+    @PostMapping("/submitOrder")
+    public ResponseEntity<String> submitProducts(@RequestBody List<Order> order){
 
-//        Lưu thông tin Order vào DB
-        System.out.println("Order:");
-        for(Order order : orders) {
-            System.out.println(order.name() + " - " + order.quantity());
+        for(Order orders : order){
+            orderRepository.save(orders);
         }
 
         return ResponseEntity.ok("OK");

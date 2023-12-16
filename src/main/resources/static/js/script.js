@@ -1,13 +1,13 @@
 function getImageLabel(imageInput) {
     // Lấy đối tượng label tương ứng với input image
-    var label = imageInput.nextElementSibling;
+    var listItems = imageInput.closest('li');
+    var imageURL = imageInput.src;
+    var itemPrice = listItems.querySelector('.product-price').value;
+    var labelValue = listItems.querySelector('.product-name').innerText;
 
-    var labelValue = label.textContent || label.innerText;
-
+//  Kiểm tra sản phẩm đã có trên Order Table
     var itemNames = getValues();
-
     var isTrue = false;
-
     itemNames.forEach(function(itemName) {
         if(itemName == labelValue){
             addQuantity(itemName);
@@ -15,8 +15,9 @@ function getImageLabel(imageInput) {
         }
     });
 
+//  Nếu sản phẩm chưa có thì thêm vào Order Table
     if(!isTrue){
-        addNewRow(labelValue);
+        addNewRow(labelValue, itemPrice, imageURL);
     }
 }
 
@@ -49,8 +50,8 @@ function addQuantity(labelValue){
         var itemName = row.querySelector('.order-name').innerText;
         var quantity = parseInt(inputElement.value);
 
-        console.log(itemName)
-        console.log(quantity)
+//        console.log(itemName)
+//        console.log(quantity)
          if(itemName == labelValue){
             quantity += 1;
             inputElement.value = quantity;
@@ -58,19 +59,21 @@ function addQuantity(labelValue){
     });
 }
 
-function addNewRow(labelValue){
-    var newRow = document.createElement("div");
+function addNewRow(labelValue, itemPrice, imageURL){
+    var newRow = document.createElement("li");
     newRow.className = "row";
     newRow.innerHTML = `
-        <li class="row">
-            <div class="col-md order-name" >${labelValue}</div>
+            <label class="col-md order-name" >${labelValue}</label>
+            <input class="order-url" type="hidden" value="${imageURL}">
+            <input class="order-price" type="hidden" value="${itemPrice}">
             <input class="col-md order-quantity" type="number" value="1" min="1">
             <button class="col-md delete-button" onclick="delItem(this)">Del</button>
-        </li>
     `;
 
     document.getElementById("ordertable").appendChild(newRow);
 }
+
+
 
 function delItem(button){
     var row = button.closest('.row');
@@ -79,23 +82,36 @@ function delItem(button){
     }
 }
 
-function submitProductList(){
-    var productList = [];
+function submitProductDTOList(){
+    var order = [];
+    var productDTOList = [];
+    var totalPrice = 0.0;
     var listItems = document.querySelectorAll("#ordertable li");
 
+// Tạo danh sách sản phẩm
     listItems.forEach(function(item){
-        var itemNameElement = item.querySelector('.item-name');
+        var itemNameElement = item.querySelector('.order-name');
         var itemName = itemNameElement.textContent || itemNameElement.innerText;
+        var itemPrice = parseFloat(item.querySelector('.order-price').value);
+        var itemQuantity = parseFloat(item.querySelector('.order-quantity').value);
 
-        var itemQuantity = item.querySelector('.item-quantity').value;
+        totalPrice += itemPrice * itemQuantity;
 
-        productList.push({
+        productDTOList.push({
             name: itemName,
+            price: itemPrice,
             quantity: itemQuantity
         });
     });
 
-    axios.post('/submitProducts', productList)
+//  Tạo Order
+    order.push({
+        customerName: "John",
+        totalPrice: totalPrice,
+        productDTOList: productDTOList
+    });
+
+    axios.post('/submitOrder', order)
         .then(function (response) {
             console.log(response.data);
         })

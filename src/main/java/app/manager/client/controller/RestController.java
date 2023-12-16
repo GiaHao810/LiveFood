@@ -4,7 +4,7 @@ import app.manager.client.auth.AuthenticationRequest;
 import app.manager.client.auth.AuthenticationResponse;
 import app.manager.client.auth.RegisterRequest;
 import app.manager.client.configuration.AuthenticationService;
-import app.manager.client.model.ResponseObject;
+import app.manager.client.dto.ResponseObject;
 import app.manager.client.model.User;
 import app.manager.client.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Optional;
 

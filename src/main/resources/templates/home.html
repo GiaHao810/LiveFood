@@ -52,36 +52,43 @@
     <div class="body">
         <div class="row">
             <div class="col-8">
-                <div class="row">
-                    <div class="col-md-4">    
-                        <input type="image" src="/static/image/orange.jpg" alt="Image" onclick="getImageLabel(this)">
-                        <label>Nước cam</label>
-                    </div>
-                    <div class="col-md-4">
-                        <input type="image" src="/static/image/dưa%20gang.jpg" alt="Image" onclick="getImageLabel(this)">
-                        <label>Dưa gang</label>
-                    </div>
-                    <div class="col-md-4">
-                        <input type="image" src="/static/image/dưa%20hấu.jpg" alt="Image" onclick="getImageLabel(this)">
-                        <label>Dưa hấu</label>
-                    </div>
-                    <div class="col-md-4">
-                        <input type="image" src="/static/image/dưa%20leo.jpg" alt="Image" onclick="getImageLabel(this)">
-                        <label>Dưa leo</label>
-                    </div>
-                    <div class="col-md-4">
-                        <input type="image" src="/static/image/dưa%20lưới.jpg" alt="Image" onclick="getImageLabel(this)">
-                        <label>Dưa lưới</label>
-                    </div>
-                    <div class="col-md-4">
-                        <input type="image" src="/static/image/thanh%20long.jpg" alt="Image" onclick="getImageLabel(this)">
-                        <label>Thanh long</label>
-                    </div>
-                    <div class="col-md-4">
-                        <input type="image" src="/static/image/ổi.jpg" alt="Image" onclick="getImageLabel(this)">
-                        <label>Ổi</label>
-                    </div>
-                </div>
+                <ul class="row product-table">
+                    <li th:each="product : ${productList}" class="col-md-4" >
+                        <input class="product-price" type="hidden" th:value="${product.price}">
+                        <input class="product-image" type="image" onclick="getImageLabel(this)" th:src="@{/image/{imageName}(imageName=${product.imagePath})}" alt="Product Image">
+                        <label class="product-name" th:text="${product.name}"></label>
+                    </li>
+                </ul>
+<!--                <ul class="row">-->
+<!--                    <li class="col-md-4">-->
+<!--                        <input type="image" src="/static/image/orange.jpg" alt="Image" onclick="getImageLabel(this)">-->
+<!--                        <label>Nước cam</label>-->
+<!--                    </li>-->
+<!--                    <li class="col-md-4">-->
+<!--                        <input type="image" src="/static/image/dưa%20gang.jpg" alt="Image" onclick="getImageLabel(this)">-->
+<!--                        <label>Dưa gang</label>-->
+<!--                    </li>-->
+<!--                    <li class="col-md-4">-->
+<!--                        <input type="image" src="/static/image/dưa%20hấu.jpg" alt="Image" onclick="getImageLabel(this)">-->
+<!--                        <label>Dưa hấu</label>-->
+<!--                    </li>-->
+<!--                    <li class="col-md-4">-->
+<!--                        <input type="image" src="/static/image/dưa%20leo.jpg" alt="Image" onclick="getImageLabel(this)">-->
+<!--                        <label>Dưa leo</label>-->
+<!--                    </li>-->
+<!--                    <li class="col-md-4">-->
+<!--                        <input type="image" src="/static/image/dưa%20lưới.jpg" alt="Image" onclick="getImageLabel(this)">-->
+<!--                        <label>Dưa lưới</label>-->
+<!--                    </li>-->
+<!--                    <li class="col-md-4">-->
+<!--                        <input type="image" src="/static/image/thanh%20long.jpg" alt="Image" onclick="getImageLabel(this)">-->
+<!--                        <label>Thanh long</label>-->
+<!--                    </li>-->
+<!--                    <li class="col-md-4">-->
+<!--                        <input type="image" src="/static/image/ổi.jpg" alt="Image" onclick="getImageLabel(this)">-->
+<!--                        <label>Ổi</label>-->
+<!--                    </li>-->
+<!--                </ul>-->
             </div>
             <ul class="col-4" id="ordertable">
                 <div class="row">
@@ -90,6 +97,13 @@
                     <div class="col-sm"></div>
                 </div>
 <!--                <li class="row">-->
+<!--                    <label class="col-md order-name" >${labelValue}</label>-->
+<!--                    <input class="order-url" type="hidden" value="${imageURL}">-->
+<!--                    <input class="order-price" type="hidden" value="${itemPrice}">-->
+<!--                    <input class="col-md order-quantity" type="number" value="1" min="1">-->
+<!--                    <button class="col-md delete-button" onclick="delItem(this)">Del</button>-->
+<!--                </li>-->
+                <!--                <li class="row">-->
 <!--                    <div class="col-md order-name" >Nuoc cam</div>-->
 <!--                    <input type="number" class="order-quantity col-md" value="1" min="1">-->
 <!--                    <button class="delete-button col-md" onclick="delItem(this)">Del</button>-->
@@ -104,41 +118,8 @@
 <!--                    <input type="number" class="order-quantity col-md" value="1" min="1">-->
 <!--                    <button class="delete-button col-md" onclick="delItem(this)">Del</button>-->
 <!--                </li>-->
+                <button class="row cashier" type="submit" onclick="submitProductDTOList()">Thanh toan</button>
             </ul>
-<!--            <form action="" method="post" class="col-4" id="ordertable">-->
-<!--            <div class="col-4" id="ordertable">-->
-<!--                <div class="row">-->
-<!--                    <div class="col-sm">Ten mon</div>-->
-<!--                    <div class="col-sm">-->
-<!--                        <label>So luong</label>-->
-<!--                    </div>-->
-<!--                    <div class="col-sm"></div>-->
-<!--                </div>-->
-<!--                <div class="row">-->
-<!--                    <div class="col-md">Nuoc cam</div>-->
-<!--                    <div class="col-md">-->
-<!--                        <input type="number" class="order-quantity" value="1" min="1">-->
-<!--                    </div>-->
-<!--                    <div class="col-md">-->
-<!--                        <button class="delete-button" onclick="delItem(this)">Del</button>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="row">-->
-<!--                    <div class="col-md">Thanh long</div>-->
-<!--                    <div class="col-md">-->
-<!--                        <input type="number" class="order-quantity" value="1" min="1">-->
-<!--                    </div>-->
-<!--                    <div class="col-md">-->
-<!--                        <button class="delete-button" onclick="delItem(this)">Del</button>-->
-<!--                    </div>-->
-<!--                </div>-->
-                <div class="row">
-                    <div class="cashier">
-                        <button type="submit" onclick="submitProductList()">Thanh toan</button>
-                    </div>
-                </div>
-<!--            </form>-->
-<!--            </div>-->
           </div>
     </div>
 

@@ -1,22 +1,26 @@
-.body .col-8 .col-md-4 input {
+.product-image {
     height: 80%;
     width: 100%;
     object-fit: cover;
     transition: opacity 0.1s ease;
 }
 
-.body .col-8 .col-md-4 label {
+.product-table {
+    list-style-type: none;
+}
+
+.product-name {
     display: block;
     margin-top: 5px;
     text-align: center;
 }
 
-.body .col-8 .col-md-4 input:hover {
+.product-table .product-image:hover {
     transform: scale(1.1);
     transition: transform 0.3s ease;
 }
 
-.cashier button {
+#ordertable .cashier {
     display: flex;
     justify-content: space-around;
     align-items: flex-end;
@@ -24,12 +28,11 @@
     position: fixed;
     bottom: 0;
     right: 0;
-    width: 648px;
+    width: 34%;
     transition: transform 0.3s ease;
 }
 
-.cashier button:hover {
-    transform: translateY(10px);
+#ordertable .cashier:hover {
     transform: scale(1.1);
 }
 

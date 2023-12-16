@@ -1,6 +1,6 @@
 package app.manager.client.service;
 
-import app.manager.client.model.ResponseObject;
+import app.manager.client.dto.ResponseObject;
 import app.manager.client.model.User;
 import app.manager.client.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
