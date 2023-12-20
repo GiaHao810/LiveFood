@@ -50,8 +50,6 @@ function addQuantity(labelValue){
         var itemName = row.querySelector('.order-name').innerText;
         var quantity = parseInt(inputElement.value);
 
-//        console.log(itemName)
-//        console.log(quantity)
          if(itemName == labelValue){
             quantity += 1;
             inputElement.value = quantity;
@@ -73,8 +71,6 @@ function addNewRow(labelValue, itemPrice, imageURL){
     document.getElementById("ordertable").appendChild(newRow);
 }
 
-
-
 function delItem(button){
     var row = button.closest('.row');
     if (row) {
@@ -82,11 +78,12 @@ function delItem(button){
     }
 }
 
-function submitProductDTOList(){
-    var order = [];
+function submitOrder(){
+    var order = {};
     var productDTOList = [];
     var totalPrice = 0.0;
     var listItems = document.querySelectorAll("#ordertable li");
+    var customerName = document.querySelector("#customerName").value;
 
 // Tạo danh sách sản phẩm
     listItems.forEach(function(item){
@@ -105,11 +102,9 @@ function submitProductDTOList(){
     });
 
 //  Tạo Order
-    order.push({
-        customerName: "John",
-        totalPrice: totalPrice,
-        productDTOList: productDTOList
-    });
+    order.customerName = customerName;
+    order.totalPrice = totalPrice.toFixed(1);
+    order.productDTOList = productDTOList;
 
     axios.post('/submitOrder', order)
         .then(function (response) {
@@ -118,4 +113,54 @@ function submitProductDTOList(){
         .catch(function (error){
             console.error(error);
         })
+}
+
+function openPopup() {
+    var popup = document.getElementById("orderInformationTable-container");
+    popup.style.display = "block";
+
+    var order = {};
+    var productDTOList = [];
+    var totalPrice = 0.0;
+    var listItems = document.querySelectorAll("#ordertable li");
+    var ul = document.getElementById('orderInformation');
+
+// Tạo danh sách sản phẩm
+    listItems.forEach(function(item){
+        var itemNameElement = item.querySelector('.order-name');
+        var itemName = itemNameElement.textContent || itemNameElement.innerText;
+        var itemPrice = parseFloat(item.querySelector('.order-price').value);
+        var itemQuantity = parseFloat(item.querySelector('.order-quantity').value);
+
+        totalPrice += itemPrice * itemQuantity;
+
+        var newRow = document.createElement('li');
+        newRow.className = 'row';
+        newRow.innerHTML = `
+            <div class="col-md">${itemName}</div>
+            <div class="col-md">${itemPrice}</div>
+            <div class="col-md">${itemQuantity}</div>
+        `
+        ul.appendChild(newRow);
+    });
+        var totalPriceRow = document.createElement('p');
+        totalPriceRow.className = 'row';
+        totalPriceRow.innerText = `
+            Tổng giá tiền: ${totalPrice.toFixed(1)} VND
+        `
+        ul.appendChild(totalPriceRow);
+}
+
+function closePopup() {
+    var popup = document.getElementById("orderInformationTable-container");
+    popup.style.display = "none";
+    var ul = document.getElementById('orderInformation');
+
+    ul.innerHTML = `
+       <li class="row">
+            <div class="col-md">Tên sản phẩm</div>
+            <div class="col-md">Giá</div>
+            <div class="col-md">Số lượng</div>
+        </li>
+    `
 }

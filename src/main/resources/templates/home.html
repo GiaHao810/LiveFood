@@ -118,11 +118,33 @@
 <!--                    <input type="number" class="order-quantity col-md" value="1" min="1">-->
 <!--                    <button class="delete-button col-md" onclick="delItem(this)">Del</button>-->
 <!--                </li>-->
-                <button class="row cashier" type="submit" onclick="submitProductDTOList()">Thanh toan</button>
+                <button class="row cashier" type="submit" onclick="openPopup()">Thanh toan</button>
             </ul>
           </div>
     </div>
 
+    <div id="orderInformationTable-container" class="orderInformationTable-container">
+        <div id="orderInformationTable">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <div class="row">
+                <label for="customerName" class="col-sm">Tên Khách Hàng</label>
+                <input class="col-sm" id="customerName" type="text" required>
+            </div>
+            <ul class="row" id="orderInformation">
+                <li class="row">
+                    <div class="col-md">Tên sản phẩm</div>
+                    <div class="col-md">Giá</div>
+                    <div class="col-md">Số lượng</div>
+                </li>
+            </ul>
+            <button class="row" onclick="submitOrder()">Submit</button>
+        </div>
+    </div>
+
+<!--    MessageBox hiển thị thông báo -->
+    <div class="">
+
+    </div>
 
     <div class="footer">Footer</div>
 </body>

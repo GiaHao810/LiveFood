@@ -14,32 +14,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
+@RequestMapping
 public class AppController {
 
     @Autowired
     private LoginService loginService;
     @Autowired
     private ProductRepository productRepository;
-    @Autowired
-    private OrderRepository orderRepository;
-    @GetMapping("/")
+    @GetMapping("/manager")
     public String getHome(Model model){
         List<Product> productList = productRepository.findAll();
         model.addAttribute("productList", productList);
-        for (Product product : productList){
-            System.out.println(product.toString());
-        }
         return "home";
-    }
-
-    @PostMapping("/submitOrder")
-    public ResponseEntity<String> submitProducts(@RequestBody List<Order> order){
-
-        for(Order orders : order){
-            orderRepository.save(orders);
-        }
-
-        return ResponseEntity.ok("OK");
     }
 
     @GetMapping("/login")
