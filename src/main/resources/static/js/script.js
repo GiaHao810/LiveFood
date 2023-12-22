@@ -151,7 +151,7 @@ function openPopup() {
         ul.appendChild(totalPriceRow);
 }
 
-function closePopup() {
+function closeOrderInformationTable() {
     var popup = document.getElementById("orderInformationTable-container");
     popup.style.display = "none";
     var ul = document.getElementById('orderInformation');
@@ -163,4 +163,24 @@ function closePopup() {
             <div class="col-md">Số lượng</div>
         </li>
     `
+}
+
+function openMessageBox(message, event){
+    var popup = document.querySelector('.messagebox-container');
+    popup.style.display = 'block';
+
+    adjustMessageBox(message, event);
+}
+
+function closeMessageBox(){
+    var popup = document.querySelector('.messagebox-container');
+    popup.style.display = 'none';
+}
+
+function adjustMessageBox(message, event){
+    var message_content = document.getElementById('message-content');
+
+    message_content.textContent = message;
+
+    document.getElementById('#t-btn').addEventListener("click", submitOrder);
 }

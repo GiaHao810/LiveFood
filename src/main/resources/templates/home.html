@@ -53,7 +53,7 @@
         <div class="row">
             <div class="col-8">
                 <ul class="row product-table">
-                    <li th:each="product : ${productList}" class="col-md-4" >
+                    <li th:each="product : ${productList}" class="col-md-2" >
                         <input class="product-price" type="hidden" th:value="${product.price}">
                         <input class="product-image" type="image" onclick="getImageLabel(this)" th:src="@{/image/{imageName}(imageName=${product.imagePath})}" alt="Product Image">
                         <label class="product-name" th:text="${product.name}"></label>
@@ -125,7 +125,7 @@
 
     <div id="orderInformationTable-container" class="orderInformationTable-container">
         <div id="orderInformationTable">
-            <span class="close" onclick="closePopup()">&times;</span>
+            <span class="close" onclick="closeOrderInformationTable()">&times;</span>
             <div class="row">
                 <label for="customerName" class="col-sm">Tên Khách Hàng</label>
                 <input class="col-sm" id="customerName" type="text" required>
@@ -137,13 +137,20 @@
                     <div class="col-md">Số lượng</div>
                 </li>
             </ul>
-            <button class="row" onclick="submitOrder()">Submit</button>
+            <button class="row" onclick="openMessageBox('Vui lòng kiểm tra kỹ Order và nếu không có gì sai sót có thể ấn [YES] để tiếp tục', submitOrder)">Submit</button>
         </div>
     </div>
 
 <!--    MessageBox hiển thị thông báo -->
-    <div class="">
-
+    <div class="messagebox-container">
+        <div class="messagebox">
+            <span class="close" onclick="closeMessageBox()">&times;</span>
+                <h2 id="message-content"></h2>
+                <div class="button-container">
+                    <button id="t-btn">YES</button>
+                    <button id="f-btn" onclick="closeMessageBox()">NO</button>
+                </div>
+        </div>
     </div>
 
     <div class="footer">Footer</div>
