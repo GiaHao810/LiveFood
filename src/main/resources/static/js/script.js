@@ -109,10 +109,13 @@ function submitOrder(){
     axios.post('/submitOrder', order)
         .then(function (response) {
             console.log(response.data);
+            closeMessageBox();
+            closeOrderInformationTable();
         })
         .catch(function (error){
             console.error(error);
         })
+
 }
 
 function openPopup() {
@@ -165,11 +168,11 @@ function closeOrderInformationTable() {
     `
 }
 
-function openMessageBox(message, event){
+function openMessageBox(message, openEvent){
     var popup = document.querySelector('.messagebox-container');
     popup.style.display = 'block';
 
-    adjustMessageBox(message, event);
+    adjustMessageBox(message, openEvent);
 }
 
 function closeMessageBox(){
@@ -177,10 +180,10 @@ function closeMessageBox(){
     popup.style.display = 'none';
 }
 
-function adjustMessageBox(message, event){
+function adjustMessageBox(message, openEvent){
     var message_content = document.getElementById('message-content');
 
     message_content.textContent = message;
 
-    document.getElementById('#t-btn').addEventListener("click", submitOrder);
+    document.getElementById('t-btn').addEventListener("click", submitOrder);
 }
