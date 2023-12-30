@@ -1,6 +1,6 @@
-html body {
-    height: 100%;
-    width: 100%;
+html, body {
+    margin: 0;
+    padding: 0;
 }
 
 .product-image {
@@ -8,6 +8,39 @@ html body {
     width: 100%;
     object-fit: cover;
     transition: opacity 0.1s ease;
+}
+
+.product-price {
+    text-align: center;
+}
+
+.product-table li {
+    padding-bottom: 2%;
+}
+.image-logo {
+    width: 100%;
+}
+
+.navbar-brand {
+    width: 10%;
+}
+
+.nav-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+}
+
+.nav-order {
+    width: 130px;
+    padding: 10px 10px;
+}
+
+.color {
+    height: 1px;
+    width: 100%;
+    background: green;
 }
 
 li {
@@ -29,7 +62,6 @@ li {
     display: flex;
     justify-content: space-around;
     align-items: flex-end;
-    background-color: yellow;
     position: fixed;
     bottom: 0;
     right: 0;
@@ -37,15 +69,16 @@ li {
     transition: transform 0.3s ease;
 }
 
-#ordertable .cashier:hover {
-    transform: scale(1.1);
-}
-
 #ordertable .delete-button {
     width: 100%;
 }
 
-#ordertable .delete-button:hover {
+button {
+    border-radius: 15px;
+    padding: 10px 60px;
+}
+
+button:hover {
     transform: scale(1.1);
     transition: transform 0.3s ease;
 }
@@ -58,7 +91,6 @@ li {
     width: 100%;
     height: 100%;
     background-color: rgba(0,0,0,0.5);
-    animation: appearAnimation 2s forwards;
 }
 
 #orderInformationTable {
@@ -69,7 +101,8 @@ li {
     background-color: #fff;
     padding: 20px;
     border-radius: 5px;
-    animation: appearAnimation 2s forwards;
+    opacity: 0;
+    animation: fadeIn 2s forwards;
 }
 
 .close {
@@ -80,12 +113,7 @@ li {
     cursor: pointer;
 }
 
-button {
-    border-radius: 15px;
-    padding: 10px 60px;
-}
-
-.messagebox-container {
+.confirmbox-container {
     display: none;
     position: fixed;
     top: 0;
@@ -95,7 +123,7 @@ button {
     background-color: rgba(0,0,0,0.5);
 }
 
-.messagebox {
+.confirmbox {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -103,7 +131,8 @@ button {
     background-color: #fff;
     padding: 20px;
     border-radius: 5px;
-    animation: appearAnimation 2s forwards;
+    opacity: 0;
+    animation: fadeIn 2s forwards;
 }
 
 .button-container {
@@ -111,15 +140,36 @@ button {
     justify-content: space-evenly;
 }
 
-@keyframes appearAnimation {
+#total-price {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    position: fixed;
+    bottom: 5%;
+}
+
+#customer-name{
+    display: flex;
+    justify-content: flex-end;
+    align-item: flex-end;
+    position: absolute;
+    bottom: 10%
+}
+
+@keyframes fadeIn {
     0% {
-        width: 0;
-        height: 0;
         opacity: 0;
     }
     100% {
-        width: 100%;
-        height: 100%;
         opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    100% {
+        opacity: 1;
+    }
+    0% {
+        opacity: 0;
     }
 }

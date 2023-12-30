@@ -10,149 +10,169 @@
     <title>Home</title>
 </head>
 <body>
-    <div class="header">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-              <a class="navbar-brand" href="#">Manager</a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  <li class="nav-order">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                  </li>
-                  <!-- <li class="nav-order">
-                    <a class="nav-link" href="#">Link</a>
-                  </li>
-                  <li class="nav-order dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Dropdown
+    <div class="main-container">
+        <div class="header">
+            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">
+                        <img src="../static/image/logo.png" alt="logo" class="image-logo">
                     </a>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-order" href="#">Action</a></li>
-                      <li><a class="dropdown-order" href="#">Another action</a></li>
-                      <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-order" href="#">Something else here</a></li>
-                    </ul>
-                  </li>
-                  <li class="nav-order">
-                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                  </li> -->
-                </ul>
-                <form class="d-flex" role="search">
-                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                  <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-              </div>
-            </div>
-          </nav>
-    </div>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-order">
+                                <a class="nav-link active" aria-current="page" href="#">
+                                    Home
+                                </a>
+                            </li>
+                            <!--                  <li class="nav-order">-->
+                            <!--                    <a class="nav-link" href="#">Link</a>-->
+                            <!--                  </li>-->
+                            <li class="nav-order dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Dropdown
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-order" href="#">Action</a></li>
+                                    <li><a class="dropdown-order" href="#">Another action</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-order" href="#">Something else here</a></li>
+                                </ul>
+                            </li>
+                            <!--                  <li class="nav-order">-->
+                            <!--                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>-->
+                            <!--                  </li>-->
+                        </ul>
+                        <form class="d-flex" role="search">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </nav>
+            <div class="color"></div>
+        </div>
 
-    <div class="body">
-        <div class="row">
-            <div class="col-8">
-                <ul class="row product-table">
-                    <li th:each="product : ${productList}" class="col-md-2" >
-                        <input class="product-price" type="hidden" th:value="${product.price}">
-                        <input class="product-image" type="image" onclick="getImageLabel(this)" th:src="@{/image/{imageName}(imageName=${product.imagePath})}" alt="Product Image">
-                        <label class="product-name" th:text="${product.name}"></label>
+
+        <div class="body">
+            <div class="row">
+                <div class="col-8">
+                    <ul class="row product-table">
+                        <li th:each="product : ${productList}" class="col-md-2 border border-5 rounded m-2 p-2" >
+                            <input class="product-price" type="hidden" th:value="${product.price}">
+                            <input class="product-image" type="image" onclick="getImageLabel(this)" th:src="@{/image/{imageName}(imageName=${product.imagePath})}" alt="Product Image">
+                            <label class="product-name" th:text="${product.name}"></label>
+                            <p class="product-price" th:text="${product.price}"></p>
+                        </li>
+                    </ul>
+                    <!--                <ul class="row">-->
+                    <!--                    <li class="col-md-4">-->
+                    <!--                        <input type="image" src="/static/image/orange.jpg" alt="Image" onclick="getImageLabel(this)">-->
+                    <!--                        <label>Nước cam</label>-->
+                    <!--                    </li>-->
+                    <!--                    <li class="col-md-4">-->
+                    <!--                        <input type="image" src="/static/image/dưa%20gang.jpg" alt="Image" onclick="getImageLabel(this)">-->
+                    <!--                        <label>Dưa gang</label>-->
+                    <!--                    </li>-->
+                    <!--                    <li class="col-md-4">-->
+                    <!--                        <input type="image" src="/static/image/dưa%20hấu.jpg" alt="Image" onclick="getImageLabel(this)">-->
+                    <!--                        <label>Dưa hấu</label>-->
+                    <!--                    </li>-->
+                    <!--                    <li class="col-md-4">-->
+                    <!--                        <input type="image" src="/static/image/dưa%20leo.jpg" alt="Image" onclick="getImageLabel(this)">-->
+                    <!--                        <label>Dưa leo</label>-->
+                    <!--                    </li>-->
+                    <!--                    <li class="col-md-4">-->
+                    <!--                        <input type="image" src="/static/image/dưa%20lưới.jpg" alt="Image" onclick="getImageLabel(this)">-->
+                    <!--                        <label>Dưa lưới</label>-->
+                    <!--                    </li>-->
+                    <!--                    <li class="col-md-4">-->
+                    <!--                        <input type="image" src="/static/image/thanh%20long.jpg" alt="Image" onclick="getImageLabel(this)">-->
+                    <!--                        <label>Thanh long</label>-->
+                    <!--                    </li>-->
+                    <!--                    <li class="col-md-4">-->
+                    <!--                        <input type="image" src="/static/image/ổi.jpg" alt="Image" onclick="getImageLabel(this)">-->
+                    <!--                        <label>Ổi</label>-->
+                    <!--                    </li>-->
+                    <!--                </ul>-->
+                </div>
+                <ul class="col-4" id="ordertable">
+                    <div class="row">
+                        <div class="col-sm">Tên sản phẩm</div>
+                        <div class="col-sm">Số lượng</div>
+                        <div class="col-sm"></div>
+                    </div>
+                    <!--                <li class="row">-->
+                    <!--                    <label class="col-md order-name" >${labelValue}</label>-->
+                    <!--                    <input class="order-url" type="hidden" value="${imageURL}">-->
+                    <!--                    <input class="order-price" type="hidden" value="${itemPrice}">-->
+                    <!--                    <input class="col-md order-quantity" type="number" value="1" min="1">-->
+                    <!--                    <button class="col-md delete-button" onclick="delItem(this)">Del</button>-->
+                    <!--                </li>-->
+                    <!--                <li class="row">-->
+                    <!--                    <div class="col-md order-name" >Nuoc cam</div>-->
+                    <!--                    <input type="number" class="order-quantity col-md" value="1" min="1">-->
+                    <!--                    <button class="delete-button col-md" onclick="delItem(this)">Del</button>-->
+                    <!--                </li>-->
+                    <!--                <li class="row">-->
+                    <!--                    <div class="col-md order-name" >Thanh long</div>-->
+                    <!--                    <input type="number" class="order-quantity col-md" value="1" min="1">-->
+                    <!--                    <button class="delete-button col-md" onclick="delItem(this)">Del</button>-->
+                    <!--                </li>-->
+                    <!--                <li class="row">-->
+                    <!--                    <div class="col-md order-name" >Buoi</div>-->
+                    <!--                    <input type="number" class="order-quantity col-md" value="1" min="1">-->
+                    <!--                    <button class="delete-button col-md" onclick="delItem(this)">Del</button>-->
+                    <!--                </li>-->
+                    <div class="col" id="customer-name">
+                        <h4>Tên Khách hàng:</h4>
+                        <label>
+                            <input type="text" class="border border-3 rounded h-100">
+                        </label>
+                    </div>
+                    <div class="col" id="total-price">
+                        <h3>Tông số tiền: <span id="total-price-value">0 ₫</span></h3>
+                    </div>
+                    <button class="row cashier" type="submit" onclick="toggleOrderInformationTable()">Thanh Toán</button>
+                </ul>
+            </div>
+        </div>
+
+        <div id="orderInformationTable-container" class="orderInformationTable-container">
+            <div id="orderInformationTable">
+                <span class="close" onclick="toggleOrderInformationTable()">&times;</span>
+                <div class="row">
+                    <h4 class="col-sm">Tên Khách Hàng</h4>
+                    <h4 class="customer-name col-sm"></h4>
+                </div>
+                <ul class="row" id="orderInformation">
+                    <li class="row">
+                        <div class="col-md">Tên sản phẩm</div>
+                        <div class="col-md">Giá</div>
+                        <div class="col-md">Số lượng</div>
                     </li>
                 </ul>
-<!--                <ul class="row">-->
-<!--                    <li class="col-md-4">-->
-<!--                        <input type="image" src="/static/image/orange.jpg" alt="Image" onclick="getImageLabel(this)">-->
-<!--                        <label>Nước cam</label>-->
-<!--                    </li>-->
-<!--                    <li class="col-md-4">-->
-<!--                        <input type="image" src="/static/image/dưa%20gang.jpg" alt="Image" onclick="getImageLabel(this)">-->
-<!--                        <label>Dưa gang</label>-->
-<!--                    </li>-->
-<!--                    <li class="col-md-4">-->
-<!--                        <input type="image" src="/static/image/dưa%20hấu.jpg" alt="Image" onclick="getImageLabel(this)">-->
-<!--                        <label>Dưa hấu</label>-->
-<!--                    </li>-->
-<!--                    <li class="col-md-4">-->
-<!--                        <input type="image" src="/static/image/dưa%20leo.jpg" alt="Image" onclick="getImageLabel(this)">-->
-<!--                        <label>Dưa leo</label>-->
-<!--                    </li>-->
-<!--                    <li class="col-md-4">-->
-<!--                        <input type="image" src="/static/image/dưa%20lưới.jpg" alt="Image" onclick="getImageLabel(this)">-->
-<!--                        <label>Dưa lưới</label>-->
-<!--                    </li>-->
-<!--                    <li class="col-md-4">-->
-<!--                        <input type="image" src="/static/image/thanh%20long.jpg" alt="Image" onclick="getImageLabel(this)">-->
-<!--                        <label>Thanh long</label>-->
-<!--                    </li>-->
-<!--                    <li class="col-md-4">-->
-<!--                        <input type="image" src="/static/image/ổi.jpg" alt="Image" onclick="getImageLabel(this)">-->
-<!--                        <label>Ổi</label>-->
-<!--                    </li>-->
-<!--                </ul>-->
-            </div>
-            <ul class="col-4" id="ordertable">
                 <div class="row">
-                    <div class="col-sm">Tên sản phẩm</div>
-                    <div class="col-sm">Số lượng</div>
-                    <div class="col-sm"></div>
+                    <button onclick="submitOrder()">Xác Nhận</button>
                 </div>
-<!--                <li class="row">-->
-<!--                    <label class="col-md order-name" >${labelValue}</label>-->
-<!--                    <input class="order-url" type="hidden" value="${imageURL}">-->
-<!--                    <input class="order-price" type="hidden" value="${itemPrice}">-->
-<!--                    <input class="col-md order-quantity" type="number" value="1" min="1">-->
-<!--                    <button class="col-md delete-button" onclick="delItem(this)">Del</button>-->
-<!--                </li>-->
-                <!--                <li class="row">-->
-<!--                    <div class="col-md order-name" >Nuoc cam</div>-->
-<!--                    <input type="number" class="order-quantity col-md" value="1" min="1">-->
-<!--                    <button class="delete-button col-md" onclick="delItem(this)">Del</button>-->
-<!--                </li>-->
-<!--                <li class="row">-->
-<!--                    <div class="col-md order-name" >Thanh long</div>-->
-<!--                    <input type="number" class="order-quantity col-md" value="1" min="1">-->
-<!--                    <button class="delete-button col-md" onclick="delItem(this)">Del</button>-->
-<!--                </li>-->
-<!--                <li class="row">-->
-<!--                    <div class="col-md order-name" >Buoi</div>-->
-<!--                    <input type="number" class="order-quantity col-md" value="1" min="1">-->
-<!--                    <button class="delete-button col-md" onclick="delItem(this)">Del</button>-->
-<!--                </li>-->
-                <button class="row cashier" type="submit" onclick="openPopup()">Thanh toan</button>
-            </ul>
-          </div>
-    </div>
-
-    <div id="orderInformationTable-container" class="orderInformationTable-container">
-        <div id="orderInformationTable">
-            <span class="close" onclick="closeOrderInformationTable()">&times;</span>
-            <div class="row">
-                <label for="customerName" class="col-sm">Tên Khách Hàng</label>
-                <input class="col-sm" id="customerName" type="text" required>
             </div>
-            <ul class="row" id="orderInformation">
-                <li class="row">
-                    <div class="col-md">Tên sản phẩm</div>
-                    <div class="col-md">Giá</div>
-                    <div class="col-md">Số lượng</div>
-                </li>
-            </ul>
-            <button class="row" onclick="openMessageBox('Vui lòng kiểm tra kỹ Order và nếu không có gì sai sót có thể ấn [YES] để tiếp tục', submitOrder)">Submit</button>
         </div>
-    </div>
 
-<!--    MessageBox hiển thị thông báo -->
-    <div class="messagebox-container">
-        <div class="messagebox">
-            <span class="close" onclick="closeMessageBox()">&times;</span>
-                <h2 id="message-content"></h2>
+        <!--    MessageBox hiển thị thông báo -->
+        <div class="confirmbox-container">
+            <div class="confirmbox">
+                <span class="close" onclick="toggleConfirmBox()">&times;</span>
+                <h2 id="confirm-content"></h2>
                 <div class="button-container">
                     <button id="t-btn">YES</button>
-                    <button id="f-btn" onclick="closeMessageBox()">NO</button>
+                    <button id="f-btn" onclick="toggleConfirmBox()">NO</button>
                 </div>
+            </div>
         </div>
-    </div>
 
-    <div class="footer">Footer</div>
+        <div class="footer">Footer</div>
+    </div>
 </body>
 </html>
