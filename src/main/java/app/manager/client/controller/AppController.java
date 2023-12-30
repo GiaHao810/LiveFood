@@ -21,7 +21,7 @@ public class AppController {
     private LoginService loginService;
     @Autowired
     private ProductRepository productRepository;
-    @GetMapping("/manager")
+    @GetMapping("/")
     public String getHome(Model model){
         List<Product> productList = productRepository.findAll();
         model.addAttribute("productList", productList);
