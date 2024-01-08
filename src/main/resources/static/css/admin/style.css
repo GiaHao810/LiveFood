@@ -152,7 +152,7 @@ button:hover {
     display: flex;
     justify-content: flex-end;
     align-item: flex-end;
-    position: absolute;
+    position: fixed;
     bottom: 10%
 }
 

@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
-    <script src="../../static/js/script.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/admin/style.css">
+    <script src="../../static/js/admin/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title>Home</title>
 </head>
 <body>
     <div class="main-container">
         <div class="header">
-            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">
                         <img src="../../static/image/logo/logo.png" alt="logo" class="image-logo">
@@ -67,36 +67,6 @@
                             <p class="product-price" th:text="${product.price}"></p>
                         </li>
                     </ul>
-                    <!--                <ul class="row">-->
-                    <!--                    <li class="col-md-4">-->
-                    <!--                        <input type="image" src="/static/image/orange.jpg" alt="Image" onclick="getImageLabel(this)">-->
-                    <!--                        <label>Nước cam</label>-->
-                    <!--                    </li>-->
-                    <!--                    <li class="col-md-4">-->
-                    <!--                        <input type="image" src="/static/image/dưa%20gang.jpg" alt="Image" onclick="getImageLabel(this)">-->
-                    <!--                        <label>Dưa gang</label>-->
-                    <!--                    </li>-->
-                    <!--                    <li class="col-md-4">-->
-                    <!--                        <input type="image" src="/static/image/dưa%20hấu.jpg" alt="Image" onclick="getImageLabel(this)">-->
-                    <!--                        <label>Dưa hấu</label>-->
-                    <!--                    </li>-->
-                    <!--                    <li class="col-md-4">-->
-                    <!--                        <input type="image" src="/static/image/dưa%20leo.jpg" alt="Image" onclick="getImageLabel(this)">-->
-                    <!--                        <label>Dưa leo</label>-->
-                    <!--                    </li>-->
-                    <!--                    <li class="col-md-4">-->
-                    <!--                        <input type="image" src="/static/image/dưa%20lưới.jpg" alt="Image" onclick="getImageLabel(this)">-->
-                    <!--                        <label>Dưa lưới</label>-->
-                    <!--                    </li>-->
-                    <!--                    <li class="col-md-4">-->
-                    <!--                        <input type="image" src="/static/image/thanh%20long.jpg" alt="Image" onclick="getImageLabel(this)">-->
-                    <!--                        <label>Thanh long</label>-->
-                    <!--                    </li>-->
-                    <!--                    <li class="col-md-4">-->
-                    <!--                        <input type="image" src="/static/image/ổi.jpg" alt="Image" onclick="getImageLabel(this)">-->
-                    <!--                        <label>Ổi</label>-->
-                    <!--                    </li>-->
-                    <!--                </ul>-->
                 </div>
                 <ul class="col-4" id="ordertable">
                     <div class="row">
@@ -104,28 +74,6 @@
                         <div class="col-sm">Số lượng</div>
                         <div class="col-sm"></div>
                     </div>
-                    <!--                <li class="row">-->
-                    <!--                    <label class="col-md order-name" >${labelValue}</label>-->
-                    <!--                    <input class="order-url" type="hidden" value="${imageURL}">-->
-                    <!--                    <input class="order-price" type="hidden" value="${itemPrice}">-->
-                    <!--                    <input class="col-md order-quantity" type="number" value="1" min="1">-->
-                    <!--                    <button class="col-md delete-button" onclick="delItem(this)">Del</button>-->
-                    <!--                </li>-->
-                    <!--                <li class="row">-->
-                    <!--                    <div class="col-md order-name" >Nuoc cam</div>-->
-                    <!--                    <input type="number" class="order-quantity col-md" value="1" min="1">-->
-                    <!--                    <button class="delete-button col-md" onclick="delItem(this)">Del</button>-->
-                    <!--                </li>-->
-                    <!--                <li class="row">-->
-                    <!--                    <div class="col-md order-name" >Thanh long</div>-->
-                    <!--                    <input type="number" class="order-quantity col-md" value="1" min="1">-->
-                    <!--                    <button class="delete-button col-md" onclick="delItem(this)">Del</button>-->
-                    <!--                </li>-->
-                    <!--                <li class="row">-->
-                    <!--                    <div class="col-md order-name" >Buoi</div>-->
-                    <!--                    <input type="number" class="order-quantity col-md" value="1" min="1">-->
-                    <!--                    <button class="delete-button col-md" onclick="delItem(this)">Del</button>-->
-                    <!--                </li>-->
                     <div class="col" id="customer-name">
                         <h4>Tên Khách hàng:</h4>
                         <label>

@@ -19,5 +19,8 @@ import java.util.List;
 @Controller
 @RequestMapping("/")
 public class ClientController {
-
+    @GetMapping("/home")
+    public String getHome(){
+        return "client/home";
+    }
 }
