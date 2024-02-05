@@ -57,7 +57,7 @@
 
 
         <div class="body">
-            <div class="row">
+            <div class="row" id="body">
                 <div class="col-8">
                     <ul class="row product-table">
                         <li th:each="product : ${productList}" class="col-md-2 border border-5 rounded m-2 p-2" >
@@ -68,23 +68,26 @@
                         </li>
                     </ul>
                 </div>
-                <ul class="col-4" id="ordertable">
-                    <div class="row">
-                        <div class="col-sm">Tên sản phẩm</div>
-                        <div class="col-sm">Số lượng</div>
-                        <div class="col-sm"></div>
-                    </div>
-                    <div class="col" id="customer-name">
-                        <h4>Tên Khách hàng:</h4>
-                        <label>
-                            <input type="text" class="border border-3 rounded h-100">
-                        </label>
-                    </div>
-                    <div class="col" id="total-price">
-                        <h3>Tổng số tiền: <span id="total-price-value">0 đ</span></h3>
-                    </div>
-                    <button class="row cashier" type="submit" onclick="toggleOrderInformationTable()">Thanh Toán</button>
-                </ul>
+                <div class="col-4 order-table">
+                    <ul id="ordertable">
+                        <div class="col" id="customer-name">
+                            <h4>Tên Khách hàng:</h4>
+                            <label>
+                                <input type="text" class="border border-3 rounded h-100">
+                            </label>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm">Tên sản phẩm</div>
+                            <div class="col-sm">Số lượng</div>
+                            <div class="col-sm"></div>
+                        </div>
+
+                        <div class="col" id="total-price">
+                            <h3>Tổng số tiền: <span id="total-price-value">0 đ</span></h3>
+                        </div>
+                        <button class="row cashier" type="submit" onclick="toggleOrderInformationTable()">Thanh Toán</button>
+                    </ul>
+                </div>
             </div>
         </div>
 

@@ -1,8 +1,6 @@
-html, body {
-    margin: 0;
-    padding: 0;
+#body {
+    width: 100%;
 }
-
 .product-image {
     height: 80%;
     width: 100%;
@@ -64,8 +62,7 @@ li {
     align-items: flex-end;
     position: fixed;
     bottom: 0;
-    right: 0;
-    width: 34%;
+    width: 32%;
     transition: transform 0.3s ease;
 }
 
@@ -150,10 +147,6 @@ button:hover {
 
 #customer-name{
     display: flex;
-    justify-content: flex-end;
-    align-item: flex-end;
-    position: fixed;
-    bottom: 10%
 }
 
 @keyframes fadeIn {
@@ -172,4 +165,10 @@ button:hover {
     0% {
         opacity: 0;
     }
+}
+
+.order-table {
+    max-height: 500px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
 }
