@@ -260,11 +260,8 @@ function adjustTotalPrice(itemPrice, event){
     itemPrice = parseFloat(itemPrice).toFixed(3);
     itemPrice = itemPrice.toString().replace(/[^\d]/g,'');
 
-    console.log("Current: " + totalPriceValue);
-    console.log("Item: " + itemPrice);
     if(event === 'add'){
         totalPriceValue += parseFloat(itemPrice);
-        console.log("Final: " + totalPriceValue);
     } else if(event === 'sub') {
         totalPriceValue -= parseFloat(itemPrice);
     } else {
