@@ -64,7 +64,7 @@
                             <input class="product-price" type="hidden" th:value="${product.price}">
                             <input class="product-image" type="image" onclick="getImageLabel(this)" th:src="@{/image/{imageName}(imageName=${product.imagePath})}" alt="Product Image">
                             <label class="product-name" th:text="${product.name}"></label>
-                            <p class="product-price" th:text="${product.price}"></p>
+                            <p class="product-price" th:text="${@formatterUtil.formatCurrency(product.price)}"></p>
                         </li>
                     </ul>
                 </div>

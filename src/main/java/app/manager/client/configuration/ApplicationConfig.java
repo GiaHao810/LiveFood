@@ -1,6 +1,7 @@
 package app.manager.client.configuration;
 
 import app.manager.client.repository.UserRepository;
+import app.manager.client.util.FormatterUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -40,5 +41,10 @@ public class ApplicationConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public FormatterUtil formatterUtil() {
+        return new FormatterUtil();
     }
 }
