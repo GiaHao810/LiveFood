@@ -7,6 +7,9 @@
     <link rel="stylesheet" type="text/css" href="/static/css/admin/style.css">
     <script src="../../static/js/admin/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/444205d38d.js" crossorigin="anonymous"></script>
+
     <title>Home</title>
 </head>
 <body>
@@ -60,9 +63,9 @@
             <div class="row" id="body">
                 <div class="col-8">
                     <ul class="row product-table">
-                        <li th:each="product : ${productList}" class="col-md-2 border border-5 rounded m-2 p-2" >
+                        <li th:each="product : ${productList}" class="product-item col-md-2 border border-5 rounded m-2 p-2" >
                             <input class="product-price" type="hidden" th:value="${product.price}">
-                            <input class="product-image" type="image" onclick="getImageLabel(this)" th:src="@{/image/{imageName}(imageName=${product.imagePath})}" alt="Product Image">
+                            <input class="product-image" type="image" onclick="handleAddImage(this)" th:src="@{/image/{imageName}(imageName=${product.imagePath})}" alt="Product Image">
                             <label class="product-name" th:text="${product.name}"></label>
                             <p class="product-price" th:text="${@formatterUtil.formatCurrency(product.price)}"></p>
                         </li>
