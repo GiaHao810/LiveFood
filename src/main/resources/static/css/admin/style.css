@@ -1,22 +1,9 @@
 #body {
     width: 100%;
 }
-.product-image {
-    height: 80%;
-    width: 100%;
-    object-fit: cover;
-    transition: opacity 0.1s ease;
-}
-
-.product-price {
-    text-align: center;
-}
 
 .product-table li {
     padding-bottom: 2%;
-}
-.image-logo {
-    width: 100%;
 }
 
 .navbar-brand {
@@ -56,7 +43,7 @@ li {
     transition: transform 0.3s ease;
 }
 
-#ordertable .cashier {
+/* #ordertable .cashier {
     display: flex;
     justify-content: space-around;
     align-items: flex-end;
@@ -68,7 +55,7 @@ li {
 
 #ordertable .delete-button {
     width: 100%;
-}
+} */
 
 button {
     border-radius: 15px;
@@ -80,7 +67,7 @@ button:hover {
     transition: transform 0.3s ease;
 }
 
-.orderInformationTable-container {
+/* .orderInformationTable-container {
     display: none;
     position: fixed;
     top: 0;
@@ -147,7 +134,7 @@ button:hover {
 
 #customer-name{
     display: flex;
-}
+} */
 
 @keyframes fadeIn {
     0% {

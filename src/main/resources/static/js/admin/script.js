@@ -84,15 +84,9 @@ function handleTotalPriceChange(){
     }
     
     prodItems.each(function(){
-        curTotal = 
-            $(this)
-            .find('.order-price')
-            .val()
-         * 
-            $(this)
-            .find('.order-quantity')
-            .val()
-        ;
+        curTotal = $(this).find('.order-price').val()
+         * $(this).find('.order-quantity').val();
+
         total += curTotal;
     });
 
@@ -107,6 +101,5 @@ function formatCurrency(number) {
         minimumFractionDigits: 3
     });
 
-    // Áp dụng định dạng và trả về chuỗi định dạng
     return formatter.format(number);
 }
