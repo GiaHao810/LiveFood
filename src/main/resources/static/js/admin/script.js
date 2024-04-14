@@ -103,3 +103,26 @@ function formatCurrency(number) {
 
     return formatter.format(number);
 }
+
+function createBoard(){
+    var board = $("<div>").addClass("background").css({
+        "position" : "fixed",
+        "top" : "0",
+        "background-color" : "rgba(0, 0, 0, 0.4)",
+        "width" : "100%",
+        "height" : "100%",
+        "z-index" : "9999"
+    })
+    .append(
+        $("<div>").addClass("board").css({
+            "position": "fixed",
+            "top": "25%",
+            "left" : "25%",
+            "background-color" : "white",
+            "width" : "50%",
+            "height" : "50%"
+        })
+    );
+
+    $("body").append(board);
+}

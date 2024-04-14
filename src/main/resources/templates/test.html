@@ -1,16 +1,46 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<style>
+.grid-container {
+  display: grid;
+  grid-template-columns: 80px 80px 80px 80px 80px 80px;
+  grid-template-rows: 80px;
+  gap: 10px;
+  background-color: #2196F3;
+  padding: 10px;
+}
+
+.grid-container > div {
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  padding: 20px 0;
+  font-size: 30px;
+}
+</style>
 </head>
 <body>
-<div th:each="product : ${productList}">
-    <div>
-        <h2 th:text="${product.name}"></h2>
-        <p th:text="'Price: $' + ${product.price}"></p>
-        <img th:src="@{/image/{imageName}(imageName=${product.imagePath})}" alt="Product Image">
-    </div>
+
+<h1>The grid-template-rows Property</h1>
+
+<div class="grid-container">
+  <div>1</div>
+  <div>2</div>
+  <div>3</div>  
+  <div>4</div>
+  <div>5</div>
+  <div>6</div>
+<div>7</div>  
+<div>8</div>  
+<div>9</div>  
+<div>10</div>  
+<div>11</div>  
+            
 </div>
+
+<p>Use the <em>grid-template-rows</em> property to specify the size (height) of each row.</p>
+
 </body>
 </html>
+
+

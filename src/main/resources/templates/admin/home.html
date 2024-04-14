@@ -74,21 +74,26 @@
                 <div class="col-4 order-table">
                     <ul id="ordertable">
                         <div class="col" id="customer-name">
-                            <h4>Tên Khách hàng:</h4>
+                            <h4 class="d-inline-block">Khách hàng:</h4>
                             <label>
-                                <input type="text" class="border border-3 rounded h-100">
+                                <span>
+                                    <button class="customer-btn" type="button" onclick="createBoard()">
+                                        <i class="fa-solid fa-user"></i>
+                                    </button>
+                                </span>
+                                    <!-- <i class="fa-solid fa-user-plus"></i> -->
                             </label>
                         </div>
                         <div class="row">
                             <div class="col-sm">Tên sản phẩm</div>
-                            <div class="col-sm">Số lượng</div>
+                            <div class="col-sm">Số lượng (kg)</div>
                             <div class="col-sm"></div>
                         </div>
 
                         <div class="col" id="total-price">
                             <h3>Tổng số tiền: <span id="total-price-value">0 đ</span></h3>
                         </div>
-                        <button class="row cashier" type="submit" onclick="toggleOrderInformationTable()">Thanh Toán</button>
+                        <button class="row cashier" type="submit" onclick="">Thanh Toán</button>
                     </ul>
                 </div>
             </div>
