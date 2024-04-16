@@ -61,8 +61,8 @@
 
         <div class="body">
             <div class="row" id="body">
-                <div class="col-8">
-                    <ul class="row product-table align-items-center text-center">
+                <div class="col-8 product-table">
+                    <ul class="row product-list align-items-center text-center">
                         <li th:each="product : ${productList}" class="product-item col-md-2 border border-5 rounded m-2 p-2" >
                             <input class="product-price" type="hidden" th:value="${product.price}">
                             <input class="product-image w-100" type="image"  onclick="handleAddImage(this)" th:src="@{/image/{imageName}(imageName=${product.imagePath})}" alt="Product Image">
@@ -72,29 +72,72 @@
                     </ul>
                 </div>
                 <div class="col-4 order-table">
-                    <ul id="ordertable">
-                        <div class="col" id="customer-name">
-                            <h4 class="d-inline-block">Khách hàng:</h4>
-                            <label>
-                                <span>
-                                    <button class="customer-btn" type="button" onclick="handleCreateBoard()">
-                                        <i class="fa-solid fa-user"></i>
-                                    </button>
-                                </span>
-                                    <!-- <i class="fa-solid fa-user-plus"></i> -->
-                            </label>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm">Tên sản phẩm</div>
-                            <div class="col-sm">Số lượng (kg)</div>
-                            <div class="col-sm"></div>
-                        </div>
 
-                        <div class="col" id="total-price">
-                            <h3>Tổng số tiền: <span id="total-price-value">0 đ</span></h3>
+                    <div class="row">
+                        <ul id="ordertable">
+                            <li class="row">
+                                <div class="col-sm">Tên sản phẩm</div>
+                                <div class="col-sm">Số lượng (kg)</div>
+                                <div class="col-sm">Action</div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="row position-absolute bottom-0">
+                        <div class="order-detail">
+                            <div class="detail-payment row">
+                                <p>Details Payment</p>
+                            </div>
+    
+                            <div class="d-inline row" id="customer-name margin ms-1">
+                                <span class="d-inline">Customer </span>
+                                <span class="d-inline">
+                                    <span>
+                                        <button class="customer-btn" type="button" onclick="handleCreateBoard()">
+                                            <i class="fa-solid fa-user"></i>
+                                        </button>
+                                    </span>
+                                        <!-- <i class="fa-solid fa-user-plus"></i> -->
+                                </span>
+                            </div>
+    
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="product-sub-total row">
+                                        <p>Sub Total</p>
+                                    </div>
+        
+                                    <div class="product-tax row">
+                                        <p>Tax (10%)</p>
+                                    </div>
+        
+                                    <div class="product-discount row">
+                                        <p>Discount</p>
+                                    </div>
+                                </div>
+        
+                                <div class="col-4">
+                                    <div class="product-sub-total-value row">
+                                        <p>0 đ</p>
+                                    </div>
+        
+                                    <div class="product-tax-value row">
+                                        <p>0 đ</p>
+                                    </div>
+        
+                                    <div class="product-discount-value row">
+                                        <p>0 đ</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row" id="total-price">
+                                <p>Total: <span id="total-price-value">0 đ</span></p>
+                            </div>
                         </div>
-                        <button class="row cashier" type="submit" onclick="">Thanh Toán</button>
-                    </ul>
+                    </div>
+
+                    <button class="row place-order-btn" type="submit" onclick="">Place an Order</button>
                 </div>
             </div>
         </div>
@@ -103,8 +146,6 @@
         <div class="dialog-container">
 
         </div>
-
-        <div class="footer">Footer</div>
     </div>
 </body>
 </html>

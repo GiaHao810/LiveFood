@@ -3,7 +3,7 @@ function handleAddImage(imageInput) {
 
     if(!isProdInOrder(prod)) 
         addNewProdToOrder(prod);
-        handleTotalPriceChange();
+        handleTotalChange();
 }
 
 function addNewProdToOrder(prod){
@@ -29,7 +29,7 @@ function addNewProdToOrder(prod){
                     .attr('type', 'number')
                     .attr('min', '1')
                     .val(1)
-                    .change(handleTotalPriceChange)
+                    .change(handleTotalChange)
         ),
         $('<div>')
         .addClass('col')
@@ -66,21 +66,21 @@ function isProdInOrder(prod){
 
 function handleDelItemOrder(button){
     delProdFromOrder(button);
-    handleTotalPriceChange();
+    handleTotalChange();
 }
 
 function delProdFromOrder(button){
     $(button).closest('.product-item').remove();
 }
 
-function handleTotalPriceChange(){
+function handleSubTotalChange(){
     var prodItems = $('#ordertable').find('li.product-item');
     var total = 0.0;
     var curTotal = 0.0;
 
     if(prodItems.length === 0) {
-        $('#total-price-value').text('0 đ');
-        return;
+        $('.product-sub-total-value p').text('0 đ');
+        return 0;
     }
     
     prodItems.each(function(){
@@ -89,6 +89,42 @@ function handleTotalPriceChange(){
 
         total += curTotal;
     });
+
+    $('.product-sub-total-value p').text(formatCurrency(total));
+
+    return total;
+}
+
+function handleTaxChange(){
+    var tax = $('.product-sub-total-value p').text();
+
+    var numb = parseFloat(tax) / 10;
+
+    if(numb === 0){
+        $('.product-tax-value p').text("0 đ");
+        return numb;
+    }
+
+    $('.product-tax-value p').text(formatCurrency(numb));
+
+    return numb;
+}
+
+function handleDiscountChange(){
+    return 0;
+}
+
+function handleTotalChange(){
+    var subTotal = handleSubTotalChange();
+    var tax = handleTaxChange();
+    var discount = handleDiscountChange();
+
+    var total = (subTotal + tax) - discount;
+
+    if(total === 0){
+        $('#total-price-value').text('0 đ');
+        return;
+    }
 
     $('#total-price-value').text(formatCurrency(total));
 }
@@ -107,26 +143,9 @@ function formatCurrency(number) {
 function handleCreateBoard(){
     var duration = 1000;
 
-    var board = $("<div>").addClass("board").css({
-        "display" : "none",
-        "position": "fixed",
-        "top": "25%",
-        "left" : "25%",
-        "background-color" : "white",
-        "width" : "50%",
-        "height" : "50%",
-        "z-index" : "1021"
-    });
+    var board = $("<div>").addClass("board");
 
-    var background = $("<div>").addClass("background").css({
-        "display" : "none",
-        "position" : "fixed",
-        "top" : "0",
-        "background-color" : "rgba(0, 0, 0, 0.4)",
-        "width" : "100%",
-        "height" : "100%",
-        "z-index" : "1020"
-    });
+    var background = $("<div>").addClass("background");
 
     $("body").append(board, background);
 
