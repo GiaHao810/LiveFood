@@ -23,7 +23,7 @@ function getImageLabel(imageInput) {
         adjustTotalPrice(itemPrice, 'add');
     }
 }
-
+ 
 // Hàm để lấy giá trị từ mỗi dòng
 function getValues() {
     // Lấy tất cả các phần tử có class "quantityInput"
