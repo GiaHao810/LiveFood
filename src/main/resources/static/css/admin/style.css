@@ -55,6 +55,10 @@ li {
     transition: transform 0.3s ease;
 }
 
+input:focus{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
 button:hover {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     transform: scale(1.1);
@@ -151,21 +155,45 @@ button.place-order-btn {
     background: none;
 }
 
-.board-customer-avatar {
+.board-customer:last-child{
+    border:none;
+}
+
+.board-customer .customer-avatar {
     text-align: center;
     font-size: 3rem;
 }
 
-.board-customer-info {
+.board-customer .customer-info {
     align-self: center;
 }
 
-.board-customer-address {
+.board-customer .customer-info .customer-address {
     font-size: smaller;
     font-style: italic;
 }
 
-.board-customer-name {
+.board-customer .customer-info .customer-name {
     font-size: x-large;
     font-weight: bold;
+}
+
+.customer-board .customer-board-info {
+
+}
+
+.customer-board .customer-board-info .main-menu {
+    display: flex;
+    flex-direction: row;
+}
+
+.menu-add-user input#name,
+.menu-add-user input#address {
+    width: fit-content;
+}
+
+.menu-add-user-btn {
+    position: fixed;
+    right: 26%;
+    bottom: 27%;
 }

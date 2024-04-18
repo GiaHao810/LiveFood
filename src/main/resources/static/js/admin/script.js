@@ -184,15 +184,45 @@ function createCustomerBoard(){
             var list = '';
 
             response.forEach(customer => {
-                list += '<button type="button" class="row board-customer"><div class="col-4 board-customer-avatar"><i class="fa-solid fa-circle-user"></i></div><div class="col board-customer-info"><div class="row board-customer-name">'+ customer.name +'</div><div class="row board-customer-address">' + customer.address + '</div></div></button>';
+                list += '<button type="button" class="row board-customer"><div class="col-4 customer-avatar"><i class="fa-solid fa-circle-user"></i></div><div class="col customer-info"><div class="row customer-name">'+ customer.name +'</div><div class="row customer-address">' + customer.address + '</div></div></button>';
             });
         
-            var html = '<div class="customer-board"><div class="row"><div class="col-4"><div class="customer-board-list">' + list + '</div></div><div class="col-8">B</div></div></div>';
+            var html = '<div class="customer-board"><div class="row"><div class="col-4"><div class="customer-board-list">' + list + '</div></div><div class="col-8"><div class="customer-board-info"><div class="row"><ul class="main-menu"><li class="menu-item m-3"><button type="button" class="add-user-btn" onclick="createMenuAddUser()"><i class="fa-solid fa-user-plus"></i></button></li><li class="menu-item m-3"><button type="button" class="search-user-btn"><i class="fa-solid fa-magnifying-glass"></i></button></li></ul></div><div class="row menu-content"></div></div></div></div></div></div>';
         
             handleCreateBoard(html);
         },
         error: function(xhr, status, error) { // Xử lý lỗi khi yêu cầu thất bại
             console.error('Lỗi khi gửi yêu cầu đến API /customer/getAll:', error);
+        }
+    });
+}
+
+function handleMenuContent(menu){
+    if($(".menu-content").children().length === 0) {
+        $(".menu-content").html(menu);
+    } else {
+        $(".menu-content").empty().html(menu);
+    }
+}
+
+function createMenuAddUser(){
+    var menu = $("<div>").addClass("menu-add-user").html('<form action="#":action="@{/addCustomer}" method="post"><div class="row"><h1 class="text-center">Form Add Customer</h1></div><div class="row"><label for="name">Name</label><input type="text" name="user" id="name"></div><div class="row"><label for="address">Address</label><input type="text" name="user" id="address"></div><button class="menu-add-user-btn" type="submit">Submit</button></form>');
+
+    handleMenuContent(menu);
+}
+
+function search(){
+    var searchText = $('.board input#search-user-input').val().toLowerCase();
+
+    $('.customer-board-list button.board-customer').each(function(){
+        var itemText = $(this).text().toLowerCase();
+
+        console.log(itemText)
+        console.log(searchText)
+        if (itemText.indexOf(searchText) === -1) { // Kiểm tra xem mục có chứa từ khóa tìm kiếm không
+            $(this).hide(); // Nếu không, ẩn mục
+        } else {
+            $(this).show(); // Nếu có, hiển thị mục
         }
     });
 }
