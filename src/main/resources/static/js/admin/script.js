@@ -140,15 +140,17 @@ function formatCurrency(number) {
     return formatter.format(number);
 }
 
-function handleCreateBoard(){
+function handleCreateBoard(boardContent){
     var duration = 1000;
 
-    var board = $("<div>").addClass("board")
-                .append(
-                    $('<i>')
-                    .addClass("fa-solid fa-xmark close-btn")
-                );
+    var board =$("<div>").addClass("board border border-2 rounded shadow")
+                    .html(boardContent);
+
     var background = $("<div>").addClass("background");
+
+    board.append($('<button>').addClass('close-btn').append(
+        $('<i>').addClass('fa-regular fa-circle-xmark')
+    ));
 
     $("body").append(board, background);
 
@@ -170,5 +172,27 @@ function removeBoard(duration){
     });
     $('.background').fadeOut(duration, function(){
         $(this).remove();
+    });
+}
+
+function createCustomerBoard(){
+    $.ajax({
+        url: '/customer/getAll',
+        method: 'GET', 
+        dataType: 'json', 
+        success: function(response) { 
+            var list = '';
+
+            response.forEach(customer => {
+                list += '<button type="button" class="row board-customer"><div class="col-4 board-customer-avatar"><i class="fa-solid fa-circle-user"></i></div><div class="col board-customer-info"><div class="row board-customer-name">'+ customer.name +'</div><div class="row board-customer-address">' + customer.address + '</div></div></button>';
+            });
+        
+            var html = '<div class="customer-board"><div class="row"><div class="col-4"><div class="customer-board-list">' + list + '</div></div><div class="col-8">B</div></div></div>';
+        
+            handleCreateBoard(html);
+        },
+        error: function(xhr, status, error) { // Xử lý lỗi khi yêu cầu thất bại
+            console.error('Lỗi khi gửi yêu cầu đến API /customer/getAll:', error);
+        }
     });
 }

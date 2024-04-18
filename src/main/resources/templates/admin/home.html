@@ -76,15 +76,15 @@
                     <div class="row">
                         <ul id="ordertable">
                             <li class="row">
-                                <div class="col-sm">Tên sản phẩm</div>
-                                <div class="col-sm">Số lượng (kg)</div>
-                                <div class="col-sm">Action</div>
+                                <div class="col-sm text-center ">Tên sản phẩm</div>
+                                <div class="col-sm text-center  border-3">Số lượng (kg)</div>
+                                <div class="col-sm text-center  border-3">Action</div>
                             </li>
                         </ul>
                     </div>
 
                     <div class="row position-absolute bottom-0">
-                        <div class="order-detail">
+                        <div class="order-detail rounded border-1">
                             <div class="detail-payment row">
                                 <p>Details Payment</p>
                             </div>
@@ -93,7 +93,7 @@
                                 <span class="d-inline">Customer </span>
                                 <span class="d-inline">
                                     <span>
-                                        <button class="customer-btn" type="button" onclick="handleCreateBoard()">
+                                        <button class="customer-btn" type="button" onclick="createCustomerBoard()">
                                             <i class="fa-solid fa-user"></i>
                                         </button>
                                     </span>
@@ -134,14 +134,13 @@
                             <div class="row" id="total-price">
                                 <p>Total: <span id="total-price-value">0 đ</span></p>
                             </div>
+
+                            <button class="row place-order-btn" type="submit" onclick="">Place an Order</button>
                         </div>
                     </div>
-
-                    <button class="row place-order-btn" type="submit" onclick="">Place an Order</button>
                 </div>
             </div>
         </div>
-
         <!--    Dialog Box hiển thị thông báo -->
         <div class="dialog-container">
 

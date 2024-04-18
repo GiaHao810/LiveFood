@@ -62,16 +62,9 @@ button:hover {
 }
 
 .order-table {
-    max-height: 500px;
+    max-height: 29rem;
     overflow-y: auto;
     border: 1px solid #ccc;
-}
-
-
-.product-tax-value,
-.product-discount-value,
-.product-sub-total-value {
-
 }
 
 .product-tax-value,
@@ -88,6 +81,12 @@ button:hover {
 #total-price p {
     font-size: xx-large;
     font-weight: bold;
+}
+
+.order-detail {
+    background-color: lightgray;
+    width: 33rem;
+    margin: 0 0 1rem 1rem;
 }
 
 button.place-order-btn {
@@ -124,7 +123,9 @@ button.place-order-btn {
     right: 1%;
     top: 1%;
     font-size: xx-large;
-    cursor: pointer;
+    max-height: 2.5rem;
+    border: none;
+    background: white;
 }
 
 .delete-button {
@@ -132,6 +133,39 @@ button.place-order-btn {
     background: none;
 }
 
-.delete-button:hover {
+.customer-btn {
+    border: none;
+    background: none;
+}
 
+.customer-board-list {
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 26.35rem;
+}
+
+.board-customer {
+    border: none;
+    border-bottom: 1px solid;
+    width: 17rem;
+    background: none;
+}
+
+.board-customer-avatar {
+    text-align: center;
+    font-size: 3rem;
+}
+
+.board-customer-info {
+    align-self: center;
+}
+
+.board-customer-address {
+    font-size: smaller;
+    font-style: italic;
+}
+
+.board-customer-name {
+    font-size: x-large;
+    font-weight: bold;
 }
