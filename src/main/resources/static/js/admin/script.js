@@ -15,7 +15,7 @@ function addNewProdToOrder(prod){
     .addClass('product-item row p-2')
     .append(
         $('<div>')
-        .addClass('col border border-3 rounded')
+        .addClass('col border border-3 rounded-pill')
         .append(
             $('<label>')
                 .addClass('col-md order-name')
@@ -25,7 +25,7 @@ function addNewProdToOrder(prod){
             .addClass('col')
             .append(
                 $('<input>')
-                    .addClass('col-md order-quantity border border-3 rounded h-100')
+                    .addClass('col-md order-quantity border border-3 rounded-pill text-center h-100')
                     .attr('type', 'number')
                     .attr('min', '1')
                     .val(1)
@@ -143,8 +143,11 @@ function formatCurrency(number) {
 function handleCreateBoard(){
     var duration = 1000;
 
-    var board = $("<div>").addClass("board");
-
+    var board = $("<div>").addClass("board")
+                .append(
+                    $('<i>')
+                    .addClass("fa-solid fa-xmark close-btn")
+                );
     var background = $("<div>").addClass("background");
 
     $("body").append(board, background);
@@ -155,6 +158,10 @@ function handleCreateBoard(){
     background.click(function(){
         removeBoard(duration);
     });
+
+    $('.close-btn').click(function(){
+        removeBoard(duration);
+    })
 }
 
 function removeBoard(duration){
