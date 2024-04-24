@@ -1,26 +1,34 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> -->
+
+    <link rel="stylesheet" href="../../static/bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <script src="../../static/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../static/jquery.min.js"></script>
+
     <link rel="stylesheet" type="text/css" href="/static/css/admin/style.css">
     <script src="../../static/js/admin/script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/444205d38d.js" crossorigin="anonymous"></script>
 
     <title>Home</title>
 </head>
+
 <body>
     <div class="main-container">
         <div class="header">
-            <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
+            <!-- <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">
                         <img src="../../static/image/logo/logo.png" alt="logo" class="image-logo w-100">
                     </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -30,23 +38,26 @@
                                     Home
                                 </a>
                             </li>
-                            <!--                  <li class="nav-order">-->
-                            <!--                    <a class="nav-link" href="#">Link</a>-->
-                            <!--                  </li>-->
+                            <li class="nav-order">
+                                <a class="nav-link" href="#">Link</a>
+                            </li>
                             <li class="nav-order dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
                                     Dropdown
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-order" href="#">Action</a></li>
                                     <li><a class="dropdown-order" href="#">Another action</a></li>
-                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
                                     <li><a class="dropdown-order" href="#">Something else here</a></li>
                                 </ul>
                             </li>
-                            <!--                  <li class="nav-order">-->
-                            <!--                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>-->
-                            <!--                  </li>-->
+                            <li class="nav-order">
+                                <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                            </li>
                         </ul>
                         <form class="d-flex" role="search">
                             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -54,8 +65,11 @@
                         </form>
                     </div>
                 </div>
+            </nav> -->
+            
+            <nav class="">
+
             </nav>
-            <div class="color"></div>
         </div>
 
 
@@ -63,9 +77,11 @@
             <div class="row" id="body">
                 <div class="col-8 product-table">
                     <ul class="row product-list align-items-center text-center">
-                        <li th:each="product : ${productList}" class="product-item col-md-2 border border-5 rounded m-2 p-2" >
+                        <li th:each="product : ${productList}"
+                            class="product-item col-md-2 border border-5 rounded m-2 p-2">
                             <input class="product-price" type="hidden" th:value="${product.price}">
-                            <input class="product-image w-100" type="image"  onclick="handleAddImage(this)" th:src="@{/image/{imageName}(imageName=${product.imagePath})}" alt="Product Image">
+                            <input class="product-image w-100" type="image" onclick="handleAddImage(this)"
+                                th:src="@{/image/{imageName}(imageName=${product.imagePath})}" alt="Product Image">
                             <label class="product-name" th:text="${product.name}"></label>
                             <p class="product-price" th:text="${@formatterUtil.formatCurrency(product.price)}"></p>
                         </li>
@@ -88,49 +104,55 @@
                             <div class="detail-payment row">
                                 <p>Details Payment</p>
                             </div>
-    
+
                             <div class="d-inline row" id="customer-name margin ms-1">
                                 <span class="d-inline">Customer </span>
-                                <span class="d-inline">
-                                    <span>
-                                        <button class="customer-btn" type="button" onclick="createCustomerBoard()">
-                                            <i class="fa-solid fa-user"></i>
-                                        </button>
-                                    </span>
-                                        <!-- <i class="fa-solid fa-user-plus"></i> -->
+                                <span class="d-inline" id="customer-tag">
+                                    <button class="customer-btn" type="button" onclick="createCustomerBoard()">
+                                        <i class="fa-solid fa-user"></i>
+                                    </button>
+
+                                    <!-- <div class="customer-tag">
+                                        <div class="customer-name">
+                                            Vy
+                                        </div>
+                                        <div class="customer-address">
+                                            123 Binh Tien
+                                        </div>
+                                    </div> -->
                                 </span>
                             </div>
-    
+
                             <div class="row">
                                 <div class="col-4">
                                     <div class="product-sub-total row">
                                         <p>Sub Total</p>
                                     </div>
-        
+
                                     <div class="product-tax row">
                                         <p>Tax (10%)</p>
                                     </div>
-        
+
                                     <div class="product-discount row">
                                         <p>Discount</p>
                                     </div>
                                 </div>
-        
+
                                 <div class="col-4">
                                     <div class="product-sub-total-value row">
                                         <p>0 đ</p>
                                     </div>
-        
+
                                     <div class="product-tax-value row">
                                         <p>0 đ</p>
                                     </div>
-        
+
                                     <div class="product-discount-value row">
                                         <p>0 đ</p>
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="row" id="total-price">
                                 <p>Total: <span id="total-price-value">0 đ</span></p>
                             </div>
@@ -145,83 +167,123 @@
         <div class="dialog-container">
 
         </div>
+        <!-- <div class="board border border-2 rounded shadow" style="display: block;">
+            <div class="customer-board">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="customer-board-list"><button type="button" class="row board-customer">
+                                <div class="col-4 customer-avatar"><i class="fa-solid fa-circle-user"
+                                        aria-hidden="true"></i></div>
+                                <div class="col customer-info">
+                                    <div class="row customer-name">Trang</div>
+                                    <div class="row customer-address">779 Phố Hỷ</div>
+                                </div>
+                            </button><button type="button" class="row board-customer">
+                                <div class="col-4 customer-avatar"><i class="fa-solid fa-circle-user"
+                                        aria-hidden="true"></i></div>
+                                <div class="col customer-info">
+                                    <div class="row customer-name">Hưng</div>
+                                    <div class="row customer-address">90 Phố Yên Huỳnh Hằng</div>
+                                </div>
+                            </button><button type="button" class="row board-customer">
+                                <div class="col-4 customer-avatar"><i class="fa-solid fa-circle-user"
+                                        aria-hidden="true"></i></div>
+                                <div class="col customer-info">
+                                    <div class="row customer-name">Vi</div>
+                                    <div class="row customer-address">782 Phố Hy Hảo Tiển</div>
+                                </div>
+                            </button><button type="button" class="row board-customer">
+                                <div class="col-4 customer-avatar"><i class="fa-solid fa-circle-user"
+                                        aria-hidden="true"></i></div>
+                                <div class="col customer-info">
+                                    <div class="row customer-name">Đôn</div>
+                                    <div class="row customer-address">5 Phố Chương Huyền Nam</div>
+                                </div>
+                            </button><button type="button" class="row board-customer">
+                                <div class="col-4 customer-avatar"><i class="fa-solid fa-circle-user"
+                                        aria-hidden="true"></i></div>
+                                <div class="col customer-info">
+                                    <div class="row customer-name">Lam</div>
+                                    <div class="row customer-address">80 Phố La Hiền Mỹ</div>
+                                </div>
+                            </button><button type="button" class="row board-customer">
+                                <div class="col-4 customer-avatar"><i class="fa-solid fa-circle-user"
+                                        aria-hidden="true"></i></div>
+                                <div class="col customer-info">
+                                    <div class="row customer-name">Châu</div>
+                                    <div class="row customer-address">5 Phố Huỳnh</div>
+                                </div>
+                            </button><button type="button" class="row board-customer">
+                                <div class="col-4 customer-avatar"><i class="fa-solid fa-circle-user"
+                                        aria-hidden="true"></i></div>
+                                <div class="col customer-info">
+                                    <div class="row customer-name">Kiện</div>
+                                    <div class="row customer-address">45 Phố Đan</div>
+                                </div>
+                            </button><button type="button" class="row board-customer">
+                                <div class="col-4 customer-avatar"><i class="fa-solid fa-circle-user"
+                                        aria-hidden="true"></i></div>
+                                <div class="col customer-info">
+                                    <div class="row customer-name">Khúc</div>
+                                    <div class="row customer-address">1968 Phố Dã</div>
+                                </div>
+                            </button><button type="button" class="row board-customer">
+                                <div class="col-4 customer-avatar"><i class="fa-solid fa-circle-user"
+                                        aria-hidden="true"></i></div>
+                                <div class="col customer-info">
+                                    <div class="row customer-name">Băng</div>
+                                    <div class="row customer-address">1636 Phố Kiều Vương Hoán</div>
+                                </div>
+                            </button><button type="button" class="row board-customer">
+                                <div class="col-4 customer-avatar"><i class="fa-solid fa-circle-user"
+                                        aria-hidden="true"></i></div>
+                                <div class="col customer-info">
+                                    <div class="row customer-name">Thụy</div>
+                                    <div class="row customer-address">92 Phố Quách Chấn Đạo</div>
+                                </div>
+                            </button><button type="button" class="row board-customer">
+                                <div class="col-4 customer-avatar"><i class="fa-solid fa-circle-user"
+                                        aria-hidden="true"></i></div>
+                                <div class="col customer-info">
+                                    <div class="row customer-name">Minh</div>
+                                    <div class="row customer-address">4022 Phố Hạ</div>
+                                </div>
+                            </button></div>
+                    </div>
 
-        <!--  -->
-    <div class="board border border-2 rounded shadow" style="display: block;"><div class="customer-board"><div class="row"><div class="col-4"><div class="customer-board-list"><button type="button" class="row board-customer"><div class="col-4 customer-avatar"><i class="fa-solid fa-circle-user" aria-hidden="true"></i></div><div class="col customer-info"><div class="row customer-name">Trang</div><div class="row customer-address">779 Phố Hỷ</div></div></button><button type="button" class="row board-customer"><div class="col-4 customer-avatar"><i class="fa-solid fa-circle-user" aria-hidden="true"></i></div><div class="col customer-info"><div class="row customer-name">Hưng</div><div class="row customer-address">90 Phố Yên Huỳnh Hằng</div></div></button><button type="button" class="row board-customer"><div class="col-4 customer-avatar"><i class="fa-solid fa-circle-user" aria-hidden="true"></i></div><div class="col customer-info"><div class="row customer-name">Vi</div><div class="row customer-address">782 Phố Hy Hảo Tiển</div></div></button><button type="button" class="row board-customer"><div class="col-4 customer-avatar"><i class="fa-solid fa-circle-user" aria-hidden="true"></i></div><div class="col customer-info"><div class="row customer-name">Đôn</div><div class="row customer-address">5 Phố Chương Huyền Nam</div></div></button><button type="button" class="row board-customer"><div class="col-4 customer-avatar"><i class="fa-solid fa-circle-user" aria-hidden="true"></i></div><div class="col customer-info"><div class="row customer-name">Lam</div><div class="row customer-address">80 Phố La Hiền Mỹ</div></div></button><button type="button" class="row board-customer"><div class="col-4 customer-avatar"><i class="fa-solid fa-circle-user" aria-hidden="true"></i></div><div class="col customer-info"><div class="row customer-name">Châu</div><div class="row customer-address">5 Phố Huỳnh</div></div></button><button type="button" class="row board-customer"><div class="col-4 customer-avatar"><i class="fa-solid fa-circle-user" aria-hidden="true"></i></div><div class="col customer-info"><div class="row customer-name">Kiện</div><div class="row customer-address">45 Phố Đan</div></div></button><button type="button" class="row board-customer"><div class="col-4 customer-avatar"><i class="fa-solid fa-circle-user" aria-hidden="true"></i></div><div class="col customer-info"><div class="row customer-name">Khúc</div><div class="row customer-address">1968 Phố Dã</div></div></button><button type="button" class="row board-customer"><div class="col-4 customer-avatar"><i class="fa-solid fa-circle-user" aria-hidden="true"></i></div><div class="col customer-info"><div class="row customer-name">Băng</div><div class="row customer-address">1636 Phố Kiều Vương Hoán</div></div></button><button type="button" class="row board-customer"><div class="col-4 customer-avatar"><i class="fa-solid fa-circle-user" aria-hidden="true"></i></div><div class="col customer-info"><div class="row customer-name">Thụy</div><div class="row customer-address">92 Phố Quách Chấn Đạo</div></div></button><button type="button" class="row board-customer"><div class="col-4 customer-avatar"><i class="fa-solid fa-circle-user" aria-hidden="true"></i></div><div class="col customer-info"><div class="row customer-name">Minh</div><div class="row customer-address">4022 Phố Hạ</div></div></button></div></div>
-    
-    <div class="col-8">
-        <div class="customer-board-info">
-            <div class="row">
-                <ul class="main-menu">
-                    <li class="menu-item m-3">
-                        <button type="button" class="add-user-btn" onclick="createMenuAddUser()">
-                            <i class="fa-solid fa-user-plus"></i>
-                        </button>
-                    </li>
+                    <div class="col-8">
 
-                    <li class="menu-item m-3">
-                        <button type="button" class="search-user-btn">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </button>
-                    </li>
-                </ul>
+                        <div class="customer-board-info">
+                            <div class="row">
+                                <ul class="main-menu">
+                                    <li class="menu-item m-3">
+                                        <button type="button" class="add-user-btn" onclick="createMenuAddUser()">
+                                            <i class="fa-solid fa-user-plus"></i>
+                                        </button>
+                                    </li>
+
+                                    <li class="menu-item m-3">
+                                        <button type="button" class="search-user-btn">
+                                            <i class="fa-solid fa-magnifying-glass"></i>
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="row menu-content">
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div><button class="close-btn"><i class="fa-regular fa-circle-xmark" aria-hidden="true"></i></button>
+
+            <div class="search-user-input">
+                <input type="search" name="user" id="search-user-input" placeholder="Customer Name" onkeyup="search()">
             </div>
 
-            <div class="row menu-content">
-
-
-                <!-- <div class="menu-add-user">
-
-                    <form action="#" th:action="@{/addCustomer}" method="post">
-                        <div class="row">
-                            <h1 class="text-center">Form Add Customer</h1>
-                        </div>
-                        <div class="row">
-                            <label for="name">Name</label>
-                            <input type="text" name="user" id="name">
-                        </div>
-
-                        <div class="row">
-                            <label for="address">Address</label>
-                            <input type="text" name="user" id="address">
-                        </div>
-                            <button class="menu-add-user-btn" type="submit">Submit</button>
-                    </form>
-                </div> -->
-
-
-            </div>
-        </div>
-    </div>
-
-</div></div><button class="close-btn"><i class="fa-regular fa-circle-xmark" aria-hidden="true"></i></button>
-
-<div class="search-user-input">
-    <input type="search" name="user" id="search-user-input" placeholder="Customer Name" onkeyup="search()">
-</div>
-
-</div>
+        </div> -->
 </body>
+
 </html>
-
-<!-- <div class="col-8">
-    <div class="customer-board-info">
-        <div class="row">
-            <ul class="main-menu">
-                <li class="menu-item m-3">
-                    <button type="button" class="add-user-btn" onclick="createMenuAddUser()">
-                        <i class="fa-solid fa-user-plus"></i>
-                    </button>
-                </li>
-
-                <li class="menu-item m-3">
-                    <button type="button" class="search-user-btn">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
-                </li>
-            </ul>
-        </div>
-        <div class="row menu-content">
-        </div>
-    </div>
-</div> -->

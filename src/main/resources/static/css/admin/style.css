@@ -34,12 +34,6 @@ html, body {
     padding: 10px 10px;
 }
 
-.color {
-    height: 1px;
-    width: 100%;
-    background: green;
-}
-
 li {
     list-style-type: none;
 }
@@ -196,4 +190,22 @@ button.place-order-btn {
     position: fixed;
     right: 26%;
     bottom: 27%;
+}
+
+.customer-tag {
+    display: inline-block;
+    border-radius: 50px;
+    border: 1px solid;
+    width: 50%;
+    height: 20%;
+}
+
+.customer-tag .customer-name {
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.customer-tag .customer-name,
+.customer-tag .customer-address {
+    margin-left: 1rem;
 }

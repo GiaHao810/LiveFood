@@ -184,7 +184,7 @@ function createCustomerBoard(){
             var list = '';
 
             response.forEach(customer => {
-                list += '<button type="button" class="row board-customer"><div class="col-4 customer-avatar"><i class="fa-solid fa-circle-user"></i></div><div class="col customer-info"><div class="row customer-name">'+ customer.name +'</div><div class="row customer-address">' + customer.address + '</div></div></button>';
+                list += '<button type="button" class="row board-customer" onclick="handlePickCustomer(this)"><div class="col-4 customer-avatar"><i class="fa-solid fa-circle-user"></i></div><div class="col customer-info"><div class="row customer-name">'+ customer.name +'</div><div class="row customer-address">' + customer.address + '</div></div></button>';
             });
         
             var html = '<div class="customer-board"><div class="row"><div class="col-4"><div class="customer-board-list">' + list + '</div></div><div class="col-8"><div class="customer-board-info"><div class="row"><ul class="main-menu"><li class="menu-item m-3"><button type="button" class="add-user-btn" onclick="createMenuAddUser()"><i class="fa-solid fa-user-plus"></i></button></li><li class="menu-item m-3"><button type="button" class="search-user-btn"><i class="fa-solid fa-magnifying-glass"></i></button></li></ul></div><div class="row menu-content"></div></div></div></div></div></div>';
@@ -225,4 +225,15 @@ function search(){
             $(this).show(); // Nếu có, hiển thị mục
         }
     });
+}
+
+function handlePickCustomer(button){
+    var customerName = $(button).find(".customer-info .customer-name").text();
+    var customerAddress = $(button).find(".customer-info .customer-address").text();
+    var customerInfo = $("<div>").addClass("customer-tag").append(
+        $("<div>").addClass("customer-name").text(customerName),
+        $("<div>").addClass("customer-address").text(customerAddress)
+    );
+    $(".customer-tag").remove();
+    $("#customer-tag").append(customerInfo);
 }
