@@ -187,7 +187,7 @@ function createCustomerBoard(){
                 list += '<button type="button" class="row board-customer" onclick="handlePickCustomer(this)"><div class="col-4 customer-avatar"><i class="fa-solid fa-circle-user"></i></div><div class="col customer-info"><div class="row customer-name">'+ customer.name +'</div><div class="row customer-address">' + customer.address + '</div></div></button>';
             });
         
-            var html = '<div class="customer-board"><div class="row"><div class="col-4"><div class="customer-board-list">' + list + '</div></div><div class="col-8"><div class="customer-board-info"><div class="row"><ul class="main-menu"><li class="menu-item m-3"><button type="button" class="add-user-btn" onclick="createMenuAddUser()"><i class="fa-solid fa-user-plus"></i></button></li><li class="menu-item m-3"><button type="button" class="search-user-btn"><i class="fa-solid fa-magnifying-glass"></i></button></li></ul></div><div class="row menu-content"></div></div></div></div></div></div>';
+            var html = '<div class="customer-board"><div class="row"><div class="col-4"><div class="customer-board-list">' + list + '</div></div><div class="col-8"><div class="customer-board-info"><div class="row"><ul class="main-menu"><li class="menu-item m-3"><button type="button" class="add-user-btn" onclick="createMenuAddUser()"><i class="fa-solid fa-user-plus"></i></button></li><li class="menu-item m-3"><button type="button" class="search-user-btn" onclick="handleSearchBar()"><i class="fa-solid fa-magnifying-glass"></i></button></li></ul></div><div class="row menu-content"></div></div></div></div></div></div>';
         
             handleCreateBoard(html);
         },
@@ -195,6 +195,22 @@ function createCustomerBoard(){
             console.error('Lỗi khi gửi yêu cầu đến API /customer/getAll:', error);
         }
     });
+}
+
+function handleSearchBar(){
+    var searchInput = $("<div>").addClass("search-user-input").append(
+        $("<input>")
+            .attr({"id": "search-user-input",
+                    "placeholder" : "Customer Name"})
+            .keyup(searchUser)
+    )
+    var board = $(".customer-board");
+
+    if(!board.find(".search-user-input").length > 0) {
+        board.append(searchInput);
+    } else {
+        board.find(".search-user-input").remove();
+    }
 }
 
 function handleMenuContent(menu){
@@ -211,7 +227,7 @@ function createMenuAddUser(){
     handleMenuContent(menu);
 }
 
-function search(){
+function searchUser(){
     var searchText = $('.board input#search-user-input').val().toLowerCase();
 
     $('.customer-board-list button.board-customer').each(function(){

@@ -209,3 +209,9 @@ button.place-order-btn {
 .customer-tag .customer-address {
     margin-left: 1rem;
 }
+
+.search-user-input {
+    position: fixed;
+    top: 21%;
+    left: 25%;
+}
