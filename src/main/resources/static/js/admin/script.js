@@ -1,5 +1,5 @@
 function handleAddImage(imageInput) {
-    var prod = $(imageInput).closest('li');
+    let prod = $(imageInput).closest('li');
 
     if(!isProdInOrder(prod)) 
         addNewProdToOrder(prod);
@@ -7,11 +7,11 @@ function handleAddImage(imageInput) {
 }
 
 function addNewProdToOrder(prod){
-    var prodPrice = prod.find('input.product-price').val();
-    var prodURL = prod.find('.product-image').attr("src");
-    var prodName = prod.find('.product-name').text();
+    let prodPrice = prod.find('input.product-price').val();
+    let prodURL = prod.find('.product-image').attr("src");
+    let prodName = prod.find('.product-name').text();
 
-    var newProd = $('<li>')
+    let newProd = $('<li>')
     .addClass('product-item row p-2')
     .append(
         $('<div>')
@@ -52,8 +52,8 @@ function addNewProdToOrder(prod){
 }   
 
 function isProdInOrder(prod){
-    var prodItems = $('#ordertable').find('li.product-item');
-    var isFound = false;
+    let prodItems = $('#ordertable').find('li.product-item');
+    let isFound = false;
 
     prodItems.each(function(){
         if(prod.find('.product-name').text() === $(this).find('.order-name').text()) 
@@ -74,9 +74,9 @@ function delProdFromOrder(button){
 }
 
 function handleSubTotalChange(){
-    var prodItems = $('#ordertable').find('li.product-item');
-    var total = 0.0;
-    var curTotal = 0.0;
+    let prodItems = $('#ordertable').find('li.product-item');
+    let total = 0.0;
+    let curTotal = 0.0;
 
     if(prodItems.length === 0) {
         $('.product-sub-total-value p').text('0 đ');
@@ -96,9 +96,9 @@ function handleSubTotalChange(){
 }
 
 function handleTaxChange(){
-    var tax = $('.product-sub-total-value p').text();
+    let tax = $('.product-sub-total-value p').text();
 
-    var numb = parseFloat(tax) / 10;
+    let numb = parseFloat(tax) / 10;
 
     if(numb === 0){
         $('.product-tax-value p').text("0 đ");
@@ -115,11 +115,11 @@ function handleDiscountChange(){
 }
 
 function handleTotalChange(){
-    var subTotal = handleSubTotalChange();
-    var tax = handleTaxChange();
-    var discount = handleDiscountChange();
+    let subTotal = handleSubTotalChange();
+    let tax = handleTaxChange();
+    let discount = handleDiscountChange();
 
-    var total = (subTotal + tax) - discount;
+    let total = (subTotal + tax) - discount;
 
     if(total === 0){
         $('#total-price-value').text('0 đ');
@@ -141,12 +141,12 @@ function formatCurrency(number) {
 }
 
 function handleCreateBoard(boardContent){
-    var duration = 1000;
+    let duration = 1000;
 
-    var board =$("<div>").addClass("board border border-2 rounded shadow")
+    let board =$("<div>").addClass("board border border-2 rounded shadow")
                     .html(boardContent);
 
-    var background = $("<div>").addClass("background");
+    let background = $("<div>").addClass("background");
 
     board.append($('<button>').addClass('close-btn').append(
         $('<i>').addClass('fa-regular fa-circle-xmark')
@@ -181,13 +181,13 @@ function createCustomerBoard(){
         method: 'GET', 
         dataType: 'json', 
         success: function(response) { 
-            var list = '';
+            let list = '';
 
             response.forEach(customer => {
                 list += '<button type="button" class="row board-customer" onclick="handlePickCustomer(this)"><div class="col-4 customer-avatar"><i class="fa-solid fa-circle-user"></i></div><div class="col customer-info"><div class="row customer-name">'+ customer.name +'</div><div class="row customer-address">' + customer.address + '</div></div></button>';
             });
         
-            var html = '<div class="customer-board"><div class="row"><div class="col-4"><div class="customer-board-list">' + list + '</div></div><div class="col-8"><div class="customer-board-info"><div class="row"><ul class="main-menu"><li class="menu-item m-3"><button type="button" class="add-user-btn" onclick="createMenuAddUser()"><i class="fa-solid fa-user-plus"></i></button></li><li class="menu-item m-3"><button type="button" class="search-user-btn" onclick="handleSearchBar()"><i class="fa-solid fa-magnifying-glass"></i></button></li></ul></div><div class="row menu-content"></div></div></div></div></div></div>';
+            let html = '<div class="customer-board"><div class="row"><div class="col-4"><div class="customer-board-list">' + list + '</div></div><div class="col-8"><div class="customer-board-info"><div class="row"><ul class="main-menu"><li class="menu-item m-3"><button type="button" class="add-user-btn" onclick="createMenuAddUser()"><i class="fa-solid fa-user-plus"></i></button></li><li class="menu-item m-3"><button type="button" class="search-user-btn" onclick="handleSearchBar()"><i class="fa-solid fa-magnifying-glass"></i></button></li></ul></div><div class="row menu-content"></div></div></div></div></div></div>';
         
             handleCreateBoard(html);
         },
@@ -198,13 +198,13 @@ function createCustomerBoard(){
 }
 
 function handleSearchBar(){
-    var searchInput = $("<div>").addClass("search-user-input").append(
+    let searchInput = $("<div>").addClass("search-user-input").append(
         $("<input>")
             .attr({"id": "search-user-input",
                     "placeholder" : "Customer Name"})
             .keyup(searchUser)
     )
-    var board = $(".customer-board");
+    let board = $(".customer-board");
 
     if(!board.find(".search-user-input").length > 0) {
         board.append(searchInput);
@@ -222,16 +222,16 @@ function handleMenuContent(menu){
 }
 
 function createMenuAddUser(){
-    var menu = $("<div>").addClass("menu-add-user").html('<form action="#":action="@{/addCustomer}" method="post"><div class="row"><h1 class="text-center">Form Add Customer</h1></div><div class="row"><label for="name">Name</label><input type="text" name="user" id="name"></div><div class="row"><label for="address">Address</label><input type="text" name="user" id="address"></div><button class="menu-add-user-btn" type="submit">Submit</button></form>');
+    let menu = $("<div>").addClass("menu-add-user").html('<form action="#":action="@{/addCustomer}" method="post"><div class="row"><h1 class="text-center">Form Add Customer</h1></div><div class="row"><label for="name">Name</label><input type="text" name="user" id="name"></div><div class="row"><label for="address">Address</label><input type="text" name="user" id="address"></div><button class="menu-add-user-btn" type="submit">Submit</button></form>');
 
     handleMenuContent(menu);
 }
 
 function searchUser(){
-    var searchText = $('.board input#search-user-input').val().toLowerCase();
+    let searchText = $('.board input#search-user-input').val().toLowerCase();
 
     $('.customer-board-list button.board-customer').each(function(){
-        var itemText = $(this).text().toLowerCase();
+        let itemText = $(this).text().toLowerCase();
 
         console.log(itemText)
         console.log(searchText)
@@ -244,12 +244,63 @@ function searchUser(){
 }
 
 function handlePickCustomer(button){
-    var customerName = $(button).find(".customer-info .customer-name").text();
-    var customerAddress = $(button).find(".customer-info .customer-address").text();
-    var customerInfo = $("<div>").addClass("customer-tag").append(
+    let customerName = $(button).find(".customer-info .customer-name").text();
+    let customerAddress = $(button).find(".customer-info .customer-address").text();
+    let customerInfo = $("<div>").addClass("customer-tag").append(
         $("<div>").addClass("customer-name").text(customerName),
         $("<div>").addClass("customer-address").text(customerAddress)
     );
     $(".customer-tag").remove();
     $("#customer-tag").append(customerInfo);
+}
+
+function handlePlaceOrder(){
+    let listItems = []
+    let subTotal;
+    let disCount;
+    let total;
+    let customer = [];
+
+    $("#ordertable > .product-item").each(function(){
+        listItems.push({
+            orderName: $(this).find(".order-name").text(),
+            orderQuantity: $(this).find(".order-quantity").val()
+        })
+    });
+
+    $(".order-detail").map(function(){
+        subTotal = parseFloat($(this).find(".product-sub-total-value p").text().replace(" ₫", "").replace(",", "."));
+        disCount = parseFloat($(this).find(".product-discount-value p").text().replace(" ₫", "").replace(",", "."));
+        total = parseFloat($(this).find("#total-price-value").text().replace(" ₫", "").replace(",", "."));
+
+        if($(this).find(".customer-tag")) {
+            customer.push({
+                name: $(this).find(".customer-tag .customer-name").text(),
+                address: $(this).find(".customer-tag .customer-address").text()
+            })
+        }
+    })
+
+    let order = {
+        "customer": customer,
+        "totalPrice": total,
+        "subTotal": subTotal,
+        "disCount": disCount,
+        "productDTOList": listItems
+    }
+
+    $.ajax({
+        url: "/submitOrder",
+        type: "POST",
+        contentType: "application/json",
+        data: order,
+        success: function(response) {
+            console.log("Đơn hàng đã được lưu thành công!" + response);
+        },
+        error: function(xhr, status, error) {
+            console.error("Đã xảy ra lỗi khi gửi yêu cầu: " + error);
+            console.error(xhr)
+            console.error(status)
+        }
+    });
 }

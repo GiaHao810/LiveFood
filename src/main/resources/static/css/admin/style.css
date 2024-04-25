@@ -87,11 +87,15 @@ button:hover {
     margin: 0 0 1rem 1rem;
 }
 
-button.place-order-btn {
+.place-order-btn {
     position: absolute;
-    bottom: 3%;
-    right: 4%;
-    width: 8rem;
+    bottom: 5%;
+    right: 0;
+    width: 40%;
+    height: 20%;
+}
+
+.place-order-btn button {
     background-color: rgb(134 239 0);
 }
 

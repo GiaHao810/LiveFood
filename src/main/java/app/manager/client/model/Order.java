@@ -21,7 +21,9 @@ public class Order{
     @Id
     private String id;
 
-    private String customerName;
+    private Customer customer;
     private double totalPrice;
+    private double subTotal;
+    private double disCount;
     private List<ProductDTO> productDTOList;
 }
