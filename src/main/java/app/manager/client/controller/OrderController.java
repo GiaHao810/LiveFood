@@ -5,6 +5,7 @@ import app.manager.client.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,5 +22,10 @@ public class OrderController {
     public ResponseEntity<String> submitProducts(@RequestBody Order order){
         orderService.saveOrder(order);
         return ResponseEntity.ok("Order Submit Successfully!!!");
+    }
+
+    @GetMapping("/getOrders")
+    public List<Order> getOrders(){
+        return orderService.getOrder();
     }
 }
