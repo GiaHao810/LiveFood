@@ -31,6 +31,11 @@ public class AdminController {
         return "admin/home";
     }
 
+    @GetMapping("/admin")
+    public String getAdmin(){
+        return "admin/admin";
+    }
+
 //    @GetMapping("/login")
 //    public String getLogin(Model model){
 //        model.addAttribute("user", new User());
