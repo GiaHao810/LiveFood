@@ -1,20 +1,23 @@
-const { Callbacks } = require("jquery");
+function handleContent(item){
+    console.log($(item).children("span").text());
+    if($(item).children("span").text() === "Invoice") getOrders();
+    else if($(item).children("span").text() === "Sale") getSales();
+}
 
-function handleContent(){
+function getOrders(){
     $.ajax({
         url: "/getOrders",
         type: "GET",
         contentType: "application/json",
-        success: function(response) {
-            createContent(response);
-        },
         error: function(xhr, status, error) {
             console.error("Phản hồi từ máy chủ: " + xhr.responseText);
         }
+    }).done(function(data){
+        createInvoice(data);
     })
 }
 
-function createContent(orders){
+function createInvoice(orders){
     let content = '';
 
     orders.forEach(order => {
@@ -25,5 +28,13 @@ function createContent(orders){
 
     let container = '<div class="content-container">' + content + '</div>';
 
-    $("#content").append(container);
+    if($("#content").html().length === 0) {
+        $("#content").append(container);
+    } else {
+        $("#content").empty().append(container);
+    }
+}
+
+function getSales(){
+    
 }
