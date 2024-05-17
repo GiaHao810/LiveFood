@@ -9,6 +9,7 @@
     <script src="../../static/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
     <script src="../../static/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/444205d38d.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <link rel="stylesheet" type="text/css" href="/static/css/admin/style-admin.css">
     <script src="../../static/js/admin/script-admin.js"></script>
@@ -29,8 +30,18 @@
         </ul>
 
         <div id="content">
-            
-           
+
+            <div class="container">
+                <label for="typeStat">Statics Chart</label>                
+                <select name="typeStat" id="typeStat" onchange="getSaleData()">
+                    <option value="" disabled selected>Choose An Option</option>
+                    <option value="day">Days</option>
+                    <option value="week">Weeks</option>
+                    <option value="month">Months</option>
+                    <option value="year">Years</option>
+                </select>
+                <canvas id="myChart" width="400" height="200"></canvas>
+            </div>
 
         </div>
     </div>

@@ -35,6 +35,60 @@ function createInvoice(orders){
     }
 }
 
-function getSales(){
-    
+//Thong ke theo ngay
+function getSaleData(){
+    $.ajax({
+        url: "/getOrders",
+        type: "GET",
+        contentType: "application/json",
+        error: function(xhr, status, error) {
+            console.error("Phản hồi từ máy chủ: " + xhr.responseText);
+        }
+    }).done(function(data){
+        getData("day", data)
+    })
+}
+
+function getData(time, orders){
+    let label = []
+    let data = []
+
+    orders.forEach(order => {
+        let orderTime = seperateTime(order.orderDate);
+        label.push(orderTime[0]);
+        data.push(order.totalPrice);
+    })
+
+    const ctx = $('#myChart').get(0).getContext('2d');
+
+    const myLineChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: label,
+            datasets: [
+                {
+                    label: 'Daily Revenue',
+                    data: data,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }                
+            ]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+
+function seperateTime(time){
+    let day = time.slice(0, 2);
+    let month = time.slice(2, 4);
+    let year = time.slice(4);
+
+    return [day, month, year];
 }

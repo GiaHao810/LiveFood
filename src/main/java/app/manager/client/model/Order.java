@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -25,5 +26,7 @@ public class Order{
     private double totalPrice;
     private double subTotal;
     private double disCount;
+//    Date Format (ddMMyyyy)
+    private String orderDate;
     private List<ProductDTO> productDTOList;
 }
