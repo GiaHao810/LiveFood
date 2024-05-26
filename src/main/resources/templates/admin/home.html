@@ -47,6 +47,7 @@
                     <ul class="row product-list align-items-center text-center">
                         <li th:each="product : ${productList}"
                             class="product-item col-md-2 border border-5 rounded m-2 p-2">
+                            <input class="product-id" type="hidden" th:value="${product.id}">
                             <input class="product-price" type="hidden" th:value="${product.price}">
                             <input class="product-image w-100" type="image" onclick="handleAddImage(this)"
                                 th:src="@{/image/{imageName}(imageName=${product.imagePath})}" alt="Product Image">

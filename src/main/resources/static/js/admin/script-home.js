@@ -8,8 +8,10 @@ function handleAddImage(imageInput) {
 
 function addNewProdToOrder(prod){
     let prodPrice = prod.find('input.product-price').val();
+    let prodID = prod.find('input.product-id').val();
     let prodURL = prod.find('.product-image').attr("src");
     let prodName = prod.find('.product-name').text();
+    
 
     let newProd = $('<li>')
     .addClass('product-item row p-2')
@@ -45,7 +47,8 @@ function addNewProdToOrder(prod){
             )
         ),
         $('<input>').addClass('order-url').attr('type', 'hidden').val(prodURL),
-        $('<input>').addClass('order-price').attr('type', 'hidden').val(prodPrice)
+        $('<input>').addClass('order-price').attr('type', 'hidden').val(prodPrice),
+        $('<input>').addClass('order-id').attr('type', 'hidden').val(prodID)
     );
 
     $('#ordertable').append(newProd);
@@ -253,53 +256,87 @@ function handlePickCustomer(button){
     $(".customer-tag").remove();
     $("#customer-tag").append(customerInfo);
 }
-
 function handlePlaceOrder(){
-    let listItems = []
-    let subTotal;
-    let disCount;
-    let total;
-    let customer = {
-        name : "Guest",
-        address : "none"
-    };
+    // Call API /submitOrder with 2 Parameter [Product ID, Amount]
+    
+    let listProd = []
 
-    $("#ordertable > .product-item").each(function(){
-        listItems.push({
-            orderName: $(this).find(".order-name").text(),
-            orderQuantity: $(this).find(".order-quantity").val()
-        })
-    });
-
-    $(".order-detail").map(function(){
-        subTotal = parseFloat($(this).find(".product-sub-total-value p").text().replace(" ₫", "").replace(",", "."));
-        disCount = parseFloat($(this).find(".product-discount-value p").text().replace(" ₫", "").replace(",", "."));
-        total = parseFloat($(this).find("#total-price-value").text().replace(" ₫", "").replace(",", "."));
-
-        if(!$(this).find(".customer-tag").length === 0) {
-            customer.name =  $(this).find(".customer-tag .customer-name").text();
-            customer.address = $(this).find(".customer-tag .customer-address").text();
+    $("#ordertable .product-item").each(function(){
+        newProd = {
+            id : $(this).find(".order-id").val(),
+            amount: $(this).find(".order-quantity").val()
         }
+
+        listProd.push(newProd);
     })
 
-    let order = {
-        "customer": customer,
-        "totalPrice": total,
-        "subTotal": subTotal,
-        "disCount": disCount,
-        "productDTOList": listItems
+    let orderRequest = {
+        customer: {
+            name: $(".customer-tag > .customer-name").text(),
+            address: $(".customer-tag > .customer-address").text()
+        },
+        orderDTO : listProd
     }
 
     $.ajax({
         url: "/submitOrder",
         type: "POST",
         contentType: "application/json",
-        data: JSON.stringify(order),
+        data: JSON.stringify(orderRequest),
         success: function(response) {
-            console.log("Đơn hàng đã được lưu thành công!" + response);
+            console.log("Submit order thành công" + response);
         },
         error: function(xhr, status, error) {
             console.error("Phản hồi từ máy chủ: " + xhr.responseText);
         }
     });
 }
+// function handlePlaceOrder(){
+//     let listItems = []
+//     let subTotal;
+//     let disCount;
+//     let total;
+//     let customer = {
+//         name : "Guest",
+//         address : "none"
+//     };
+
+//     $("#ordertable > .product-item").each(function(){
+//         listItems.push({
+//             orderName: $(this).find(".order-name").text(),
+//             orderQuantity: $(this).find(".order-quantity").val()
+//         })
+//     });
+
+//     $(".order-detail").map(function(){
+//         subTotal = parseFloat($(this).find(".product-sub-total-value p").text().replace(" ₫", "").replace(",", "."));
+//         disCount = parseFloat($(this).find(".product-discount-value p").text().replace(" ₫", "").replace(",", "."));
+//         total = parseFloat($(this).find("#total-price-value").text().replace(" ₫", "").replace(",", "."));
+
+//         if(!$(this).find(".customer-tag").length === 0) {
+//             customer.name =  $(this).find(".customer-tag .customer-name").text();
+//             customer.address = $(this).find(".customer-tag .customer-address").text();
+//         }
+//     })
+
+//     let order = {
+//         "customer": customer,
+//         "totalPrice": total,
+//         "subTotal": subTotal,
+//         "disCount": disCount,
+//         "productDTOList": listItems
+//     }
+
+//     $.ajax({
+//         url: "/submitOrder",
+//         type: "POST",
+//         contentType: "application/json",
+//         data: JSON.stringify(order),
+//         success: function(response) {
+//             console.log("Đơn hàng đã được lưu thành công!" + response);
+//         },
+//         error: function(xhr, status, error) {
+//             console.error("Phản hồi từ máy chủ: " + xhr.responseText);
+//         }
+//     });
+// }

@@ -1,6 +1,5 @@
 package app.manager.client.model;
 
-import app.manager.client.dto.ProductDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -9,7 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -26,7 +25,6 @@ public class Order{
     private double totalPrice;
     private double subTotal;
     private double disCount;
-//    Date Format (ddMMyyyy)
-    private String orderDate;
-    private List<ProductDTO> productDTOList;
+    private LocalDate orderDate;
+    private List<Product> productList;
 }

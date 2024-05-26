@@ -45,18 +45,16 @@ function getSaleData(){
             console.error("Phản hồi từ máy chủ: " + xhr.responseText);
         }
     }).done(function(data){
-        getData("day", data)
+        getData(data)
     })
 }
 
-function getData(time, orders){
+function getData(orders){
     let label = []
     let data = []
 
-    orders.forEach(order => {
-        let orderTime = seperateTime(order.orderDate);
-        label.push(orderTime[0]);
-        data.push(order.totalPrice);
+    orders.forEach(function(order){
+        console.log(order)
     })
 
     const ctx = $('#myChart').get(0).getContext('2d');
@@ -83,12 +81,4 @@ function getData(time, orders){
             }
         }
     });
-}
-
-function seperateTime(time){
-    let day = time.slice(0, 2);
-    let month = time.slice(2, 4);
-    let year = time.slice(4);
-
-    return [day, month, year];
 }
