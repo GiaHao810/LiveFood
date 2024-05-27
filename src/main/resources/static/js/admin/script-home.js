@@ -256,9 +256,7 @@ function handlePickCustomer(button){
     $(".customer-tag").remove();
     $("#customer-tag").append(customerInfo);
 }
-function handlePlaceOrder(){
-    // Call API /submitOrder with 2 Parameter [Product ID, Amount]
-    
+function handlePlaceOrder(){    
     let listProd = []
 
     $("#ordertable .product-item").each(function(){
@@ -291,6 +289,7 @@ function handlePlaceOrder(){
         }
     });
 }
+
 // function handlePlaceOrder(){
 //     let listItems = []
 //     let subTotal;

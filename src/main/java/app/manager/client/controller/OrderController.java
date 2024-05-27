@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
@@ -67,5 +69,29 @@ public class OrderController {
     @GetMapping("/getOrders")
     public List<Order> getOrders(){
         return orderService.getOrder();
+    }
+
+    @GetMapping("/getOrderChartData")
+    public ResponseEntity<String> getOrderChartData(){
+        List<Order> orderList = orderService.getOrder();
+        Set<LocalDate> uniqueDateList = new HashSet<>();
+
+        for(Order order : orderList){
+            for(int i = 1; i < orderList.size(); i++){
+
+                if(order.getOrderDate().isEqual(
+                        orderList.get(i).getOrderDate()
+                )) {
+                    uniqueDateList.add(order.getOrderDate());
+                    break;
+                } else if(uniqueDateList.contains(
+                        order.getOrderDate()
+                )){
+                    break;
+                }
+
+            }
+        }
+        return ResponseEntity.ok("A");
     }
 }

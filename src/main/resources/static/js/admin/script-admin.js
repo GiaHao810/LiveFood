@@ -50,11 +50,13 @@ function getSaleData(){
 }
 
 function getData(orders){
-    let label = []
-    let data = []
+    // Kiểm tra Date (Nếu cùng ngày thì totalPrice+=totalPrice) -> Thêm vào labels-data 
+    let labels = ["24/10/2024", "10/01/2023", "24/10/2024"]
+    let data = [10, 24]
+    let listOrder = []
 
     orders.forEach(function(order){
-        console.log(order)
+        
     })
 
     const ctx = $('#myChart').get(0).getContext('2d');
@@ -62,7 +64,7 @@ function getData(orders){
     const myLineChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: label,
+            labels: labels,
             datasets: [
                 {
                     label: 'Daily Revenue',
@@ -82,3 +84,11 @@ function getData(orders){
         }
     });
 }
+
+function isDateDuplicate(dates) {
+    const dateSet = new Set(dates);
+    return dateSet.size !== dates.length;
+}
+
+const dates = ["2023-05-27", "2023-05-28", "2023-05-27"];
+console.log(hasDuplicateDates(dates)); // Output: true
