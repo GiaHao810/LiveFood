@@ -51,7 +51,7 @@ public class OrderController {
                 Order.builder()
                 .customer((orderRequest.customer().getName().isEmpty())
                         ? customerService.findByName("Guest")
-                        : orderRequest.customer()
+                        : customerService.findByName(orderRequest.customer().getName())
                 )
                 .totalPrice(subTotal + (Math.round((subTotal * 0.1) * Math.pow(10, 1)) / Math.pow(10, 1)))
                 .subTotal(subTotal)
