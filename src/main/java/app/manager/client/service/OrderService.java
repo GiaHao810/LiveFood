@@ -16,8 +16,7 @@ public class OrderService {
 
     @Autowired
     private final OrderRepository orderRepository;
-    public void saveOrder(Order order){
-        orderRepository.save(order);
-    }
-    public List<Order> getOrder() { return orderRepository.findAll(); }
+    public void saveOrder(Order order){orderRepository.save(order);}
+    public void insertOrder(Order order){orderRepository.insert(order);}
+    public List<Order> getOrder() { return orderRepository.findAll();}
 }
