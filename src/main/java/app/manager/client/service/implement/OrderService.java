@@ -1,4 +1,4 @@
-package app.manager.client.service;
+package app.manager.client.service.implement;
 
 import app.manager.client.model.Order;
 
