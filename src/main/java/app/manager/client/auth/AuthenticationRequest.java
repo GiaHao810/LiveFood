@@ -3,5 +3,5 @@ package app.manager.client.auth;
 import lombok.Builder;
 
 @Builder
-public record AuthenticationRequest(String email, String password) {
+public record AuthenticationRequest(String username, String password) {
 }

@@ -3,5 +3,5 @@ package app.manager.client.auth;
 import lombok.Builder;
 
 @Builder
-public record RegisterRequest(String email, String password, String fullname) {
+public record RegisterRequest(String mail, String password, String fullname) {
 }
