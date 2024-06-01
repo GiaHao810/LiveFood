@@ -20,8 +20,6 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-//    @Autowired
-//    private LoginService loginService;
     @Autowired
     private ProductRepository productRepository;
     @GetMapping("/home")
@@ -35,32 +33,4 @@ public class AdminController {
     public String getAdmin(){
         return "admin/admin";
     }
-
-//    @GetMapping("/login")
-//    public String getLogin(Model model){
-//        model.addAttribute("user", new User());
-//        return "login";
-//    }
-//
-//    @PostMapping("/login")
-//    public void login(@ModelAttribute("user") User user){
-//        user.setRole(Role.USER);
-//
-//        ResponseEntity<ResponseObject> response = loginService.login(user);
-//
-//        if(response.getBody().data() == null) {
-////             Login Failed
-//        } else {
-////            Login Successed
-//
-//
-//        }
-//
-////        RestTemplate restTemplate = new RestTemplate();
-////
-////        HttpHeaders headers = new HttpHeaders();
-////
-////        headers.set("Authorization", "Bearer ");
-//
-//    }
 }

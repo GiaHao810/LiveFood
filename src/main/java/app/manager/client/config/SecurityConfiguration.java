@@ -17,22 +17,21 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfiguration {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final AuthenticationProvider authenticationProvider;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
         httpSecurity
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorizatizeHttpRequests -> authorizatizeHttpRequests
-//                        .requestMatchers("/"
-//                                , "/api/register"
-//                                , "/api/authenticate"
-//                                , "/login"
-//                                , "/static/**"
-//                        )
-//                        .permitAll()
-//                        .anyRequest()
-//                        .authenticated()
-                                .anyRequest()
-                                .permitAll()
+                        .requestMatchers("/"
+                                ,"/auth/register"
+                                ,"/auth/authenticate"
+                                , "/login"
+                                , "/static/**"
+                        )
+                        .permitAll()
+                        .anyRequest()
+                        .authenticated()
                 )
                 .sessionManagement(sessionManagement -> sessionManagement
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

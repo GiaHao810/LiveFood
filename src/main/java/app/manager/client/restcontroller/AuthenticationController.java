@@ -6,6 +6,7 @@ import app.manager.client.auth.RegisterRequest;
 import app.manager.client.model.User;
 import app.manager.client.service.AuthenticationService;
 import app.manager.client.service.JwtService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,33 +15,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(path = "/auth")
+@RequiredArgsConstructor
 public class AuthenticationController {
     private final JwtService jwtService;
 
     private final AuthenticationService authenticationService;
 
-    public AuthenticationController(JwtService jwtService, AuthenticationService authenticationService) {
-        this.jwtService = jwtService;
-        this.authenticationService = authenticationService;
+    @PostMapping("/register")
+    public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest registerRequest) {
+        AuthenticationResponse authenticationResponse = authenticationService.register(registerRequest);
+
+        return ResponseEntity.ok(authenticationResponse);
     }
 
-    @PostMapping("/signup")
-    public ResponseEntity<User> register(@RequestBody RegisterRequest registerRequest) {
-        User registeredUser = authenticationService.signup(registerRequest);
-
-        return ResponseEntity.ok(registeredUser);
-    }
-
-    @PostMapping("/login")
+    @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest authenticationRequest) {
-        User authenticatedUser = authenticationService.authenticate(authenticationRequest);
+        AuthenticationResponse authenticationResponse = authenticationService.authenticate(authenticationRequest);
 
-        String jwtToken = jwtService.generateToken(authenticatedUser);
-
-        AuthenticationResponse authenticationResponse = AuthenticationResponse.builder()
-                .token(jwtToken)
-                .expiresAt(jwtService.getExpirationTime())
-                .build();
 
         return ResponseEntity.ok(authenticationResponse);
     }
