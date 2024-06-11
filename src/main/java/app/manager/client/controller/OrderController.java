@@ -16,11 +16,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -34,6 +33,8 @@ public class OrderController {
 
     @PostMapping("/submitOrder")
     public ResponseEntity<String> submitOrder(@RequestBody @NotNull OrderRequest orderRequest){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddMMyyyy");
+
         List<Product> productList = productService.findAll();
         List<Product> newProductList = new ArrayList<>();
         double subTotal = 0.0;
@@ -57,7 +58,7 @@ public class OrderController {
                 .totalPrice(subTotal + (Math.round((subTotal * 0.1) * Math.pow(10, 1)) / Math.pow(10, 1)))
                 .subTotal(subTotal)
                 .disCount(0.0)
-                .orderDate(LocalDate.now())
+                .orderDate(Date.from(Instant.now()))
                 .productList(newProductList)
                 .build()
         );
@@ -72,24 +73,13 @@ public class OrderController {
 
     @GetMapping("/getOrderChartData")
     public ResponseEntity<String> getOrderChartData(){
-        List<Order> orderList = orderService.getOrder();
-        Set<LocalDate> uniqueDateList = new HashSet<>();
+        Date startDate = new Date(2024 - 1900, 5 - 1, 26);
+        Date endDate = new Date(2024 - 1900, 6 - 1, 6);
 
-        for(Order order : orderList){
-            for(int i = 1; i < orderList.size(); i++){
+        List<Order> list = orderService.findByDateBetween(startDate, endDate);
 
-                if(order.getOrderDate().isEqual(
-                        orderList.get(i).getOrderDate()
-                )) {
-                    uniqueDateList.add(order.getOrderDate());
-                    break;
-                } else if(uniqueDateList.contains(
-                        order.getOrderDate()
-                )){
-                    break;
-                }
-
-            }
+        for (Order or : list) {
+            System.out.print(or.toString());
         }
         return ResponseEntity.ok("A");
     }

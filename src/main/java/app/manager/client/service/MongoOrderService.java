@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -19,4 +21,9 @@ public class MongoOrderService implements OrderService {
     public void saveOrder(Order order){orderRepository.save(order);}
     public void insertOrder(Order order){orderRepository.insert(order);}
     public List<Order> getOrder() { return orderRepository.findAll();}
+
+    @Override
+    public List<Order> findByDateBetween(Date startDate, Date endDate) {
+        return orderRepository.findByDateBetween(startDate, endDate);
+    }
 }

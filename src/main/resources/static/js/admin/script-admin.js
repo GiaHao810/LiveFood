@@ -38,14 +38,14 @@ function createInvoice(orders){
 //Thong ke theo ngay
 function getSaleData(){
     $.ajax({
-        url: "/getOrders",
+        url: "/getOrderChartData",
         type: "GET",
         contentType: "application/json",
         error: function(xhr, status, error) {
             console.error("Phản hồi từ máy chủ: " + xhr.responseText);
         }
     }).done(function(data){
-        getData(data)
+        // getData(data)
     })
 }
 

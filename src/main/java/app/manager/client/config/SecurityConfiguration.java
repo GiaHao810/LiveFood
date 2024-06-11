@@ -29,9 +29,10 @@ public class SecurityConfiguration {
                                 , "/login"
                                 , "/static/**"
                         )
-                        .permitAll()
-                        .anyRequest()
-                        .authenticated()
+                            .permitAll()
+                                .anyRequest().permitAll()
+//                        .anyRequest()
+//                        .authenticated()
                 )
                 .sessionManagement(sessionManagement -> sessionManagement
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
