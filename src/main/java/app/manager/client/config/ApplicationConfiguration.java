@@ -1,6 +1,7 @@
 package app.manager.client.config;
 
-import app.manager.client.repository.UserRepository;
+import app.manager.client.service.implement.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,24 +11,18 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
+@RequiredArgsConstructor
 public class ApplicationConfiguration {
-    private final UserRepository userRepository;
-
-    public ApplicationConfiguration(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
     @Bean
     UserDetailsService userDetailsService() {
-        return username -> userRepository.findByUsername(username)
+        return username -> userService.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-    }
-
-    @Bean
-    BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 
     @Bean
@@ -40,7 +35,7 @@ public class ApplicationConfiguration {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
 
         authProvider.setUserDetailsService(userDetailsService());
-        authProvider.setPasswordEncoder(passwordEncoder());
+        authProvider.setPasswordEncoder(passwordEncoder);
 
         return authProvider;
     }

@@ -1,8 +1,6 @@
 package app.manager.client.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,13 +17,15 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "product")
+@Table(name = "user")
 public class User implements UserDetails {
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private String username;
     private String password;
     private String mail;
+    @Column(name = "role")
     private Role role;
 
     @Override

@@ -1,11 +1,12 @@
 package app.manager.client.service;
 
-import app.manager.client.auth.AuthenticationRequest;
-import app.manager.client.auth.AuthenticationResponse;
-import app.manager.client.auth.RegisterRequest;
+import app.manager.client.dto.Response;
+import app.manager.client.dto.request.AuthenticationRequest;
+import app.manager.client.dto.request.RegisterRequest;
+import app.manager.client.dto.response.FailAuthenticationResponse;
+import app.manager.client.dto.response.SuccessAuthenticationResponse;
 import app.manager.client.model.Role;
 import app.manager.client.model.User;
-import app.manager.client.repository.UserRepository;
 import app.manager.client.service.implement.UserService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -21,18 +22,14 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthenticationService {
     private final Logger logger = LoggerFactory.getLogger(AuthenticationService.class);
-    @Autowired
     private final UserService userService;
-    @Autowired
     private final PasswordEncoder passwordEncoder;
-    @Autowired
     private final AuthenticationManager authenticationManager;
-    @Autowired
     private final JwtService jwtService;
 
-    public AuthenticationResponse register(RegisterRequest registerRequest) {
+    public Response register(RegisterRequest registerRequest) {
         User user = User.builder()
-                .username(registerRequest.fullname())
+                .username(registerRequest.username())
                 .mail(registerRequest.mail())
                 .password(passwordEncoder.encode(registerRequest.password()))
                 .role(Role.USER)
@@ -41,34 +38,39 @@ public class AuthenticationService {
 
         var jwtToken = jwtService.generateToken(user);
 
-        return AuthenticationResponse.builder()
-                .token(jwtToken)
-                .expiresAt(jwtService.getExpirationTime())
-                .build();
+        return new SuccessAuthenticationResponse(
+                jwtToken,
+                jwtService.getExpirationTime()
+        );
     }
 
-    public AuthenticationResponse authenticate(AuthenticationRequest authenticationRequest) {
+    public Response authenticate(AuthenticationRequest authenticationRequest) {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            authenticationRequest.username(),
+                            authenticationRequest.mail(),
                             authenticationRequest.password()
                     )
             );
-        } catch (AuthenticationException e){
-            logger.error(e.toString());
-            return AuthenticationResponse.builder()
-                    .token(null)
-                    .build();
-    }
+        } catch (AuthenticationException e) {
+
+            logger.error(e.getMessage());
+
+            return new FailAuthenticationResponse(
+                    e.getMessage(),
+                    "FAILED",
+                    authenticationRequest
+            );
+        }
+
         var jwtToken = jwtService.generateToken(
-                userService.findByUsername(authenticationRequest.username())
+                userService.findByMail(authenticationRequest.mail())
                         .orElseThrow()
         );
 
-        return AuthenticationResponse.builder()
-                .token(jwtToken)
-                .expiresAt(jwtService.getExpirationTime())
-                .build();
+        return new SuccessAuthenticationResponse(
+                jwtToken,
+                jwtService.getExpirationTime()
+        );
     }
 }
