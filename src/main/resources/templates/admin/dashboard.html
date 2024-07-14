@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../static/bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/admin/dashboard.css">
+
+    <script src="../../static/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../static/jquery.min.js"></script>
+    <script src="../../static/js/admin/dashboard.js"></script>
+    <script src="https://kit.fontawesome.com/444205d38d.js" crossorigin="anonymous"></script>
+
+    <title>Dashboard</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="../../static/image/logo/logo.png" alt="Avatar Logo" style="width:50%;" class="rounded-pill">
+            </a>
+
+            <ul class="nav nav-tabs">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">Manager</a>
+                    <ul class="dropdown-menu">
+                        <li id="user-link" class="dropdown-item">User</li>
+                        <li id="product-link" class="dropdown-item">Product</li>
+                        <li id="invoice-link" class="dropdown-item">Invoice</li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Link</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link disabled" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Disabled</a>
+                </li>
+            </ul>
+    </nav>
+
+    <div id="body">
+        <div class="container">
+            <div class="top row">
+                <div class="col toolbar">
+                    <button type="button" id="add-user" onclick="handleToolBarBtn(this)">
+                        <i class="fa-sharp fa-solid fa-user-plus"></i>
+                    </button>
+                    <button type="button" id="del-user" onclick="handleToolBarBtn(this)">
+                        <i class="fa-sharp fa-solid fa-user-minus"></i>
+                    </button>
+                    <button type="button" id="edit-user" onclick="handleToolBarBtn(this)">
+                        <i class="fa-solid fa-user-gear"></i>
+                    </button>
+                    <button type="button" id="search-user" onclick="handleToolBarBtn(this)">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="row bot">
+                <div class="col-3">Side Bar</div>
+                <div class="col-9">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>ID</th>
+                                <th>Username</th>
+                                <th>Mail</th>
+                                <th>Role</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="checkbox" class="user-checkbox" data-id="1"></td>
+                                <td>4551bf8d-0479-4910-ae7d-9f3155089a38</td>
+                                <td>hao</td>
+                                <td>hao@gmail.com</td>
+                                <td>USER</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="user-checkbox" data-id="1"></td>
+                                <td>9e9010a8-aec9-4cf3-818b-2eb1e8be26d0</td>
+                                <td>vy</td>
+                                <td>vy@gmail.com</td>
+                                <td>USER</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<div class="form border border-2 rounded shadow col">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2>Add User</h2>
+        <form id="add-user-form">
+            <div class="row m-1">
+                <div class="col">
+                    <label for="username">Username:</label>
+                </div>
+                <div class="col">
+                    <input type="text" id="username" name="username" required>
+                </div>
+            </div>
+            <div class="row m-1">
+                <div class="col">
+                    <label for="email">Email:</label>
+                </div>
+                <div class="col">
+                    <input type="email" id="email" name="email" required>
+                </div>
+            </div>
+            <div class="row m-1">
+                <div class="col">
+                    <label for="password">Password:</label>
+                </div>
+                <div class="col">
+                    <input type="password" id="password" name="password" required>
+                </div>
+            </div>
+
+            <div class="row m-1">
+                <div class="col">
+                    <button type="submit">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+</html>

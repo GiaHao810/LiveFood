@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/user")
-public class APIController {
+public class UserAPIController {
     private final UserService userService;
     private final AuthenticationService authenticationService;
-    private final Logger log = LoggerFactory.getLogger(APIController.class);
+    private final Logger log = LoggerFactory.getLogger(UserAPIController.class);
 
     @GetMapping("/")
     public ResponseEntity<Response> getAllUser() {
