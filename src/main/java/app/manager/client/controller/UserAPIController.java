@@ -33,7 +33,7 @@ public class UserAPIController {
     @PostMapping("/register")
     public ResponseEntity<Response> addUser(@RequestBody RegisterRequest registerRequest) {
         return ResponseEntity.ok(
-                new ResponseObject("Created",
+                new ResponseObject("OK",
                         "OK",
                         authenticationService.register(registerRequest))
         );
@@ -52,7 +52,7 @@ public class UserAPIController {
     public ResponseEntity<ResponseObject> getUser(@PathVariable String id) {
         return ResponseEntity.ok(
                 new ResponseObject("OK",
-                        "User fetched successfully",
+                        "OK",
                         userService.findById(id))
         );
     }
@@ -62,7 +62,7 @@ public class UserAPIController {
         userService.deleteUser(id);
         return ResponseEntity.ok(
                 new ResponseObject("OK",
-                        "User deleted successfully",
+                        "OK",
                         null)
         );
     }
@@ -73,7 +73,7 @@ public class UserAPIController {
             @RequestParam(required = false) String mail) {
         return ResponseEntity.ok(
                 new ResponseObject("OK",
-                        "Users searched successfully",
+                        "OK",
                         userService.searchUsers(username, mail))
         );
     }
@@ -82,7 +82,7 @@ public class UserAPIController {
     public ResponseEntity<ResponseObject> updateUser(@PathVariable String id, @RequestBody User updatedUser) {
         return ResponseEntity.ok(
                 new ResponseObject("OK",
-                        "User updated successfully",
+                        "OK",
                         userService.updateUser(id, updatedUser))
         );
     }

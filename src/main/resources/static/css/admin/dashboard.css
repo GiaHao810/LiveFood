@@ -37,11 +37,6 @@ input.user-checkbox {
     transform: scale(1.5);
 }
 
-.toolbar {
-    display: flex;
-    justify-content: flex-end;
-}
-
 .top button {
     background-color: #04AA6D;
     border: none;
@@ -62,34 +57,24 @@ input.user-checkbox {
 }
 
 .background {
-    position: fixed;
+    /* position: fixed;
     top: 0;
-    background-color: rgba(0, 0, 0, 0.4);
     width: 100%;
-    height: 100%;
+    height: 100%; */
+    background-color: rgba(0, 0, 0, 0.4);
     z-index: 1020;
 }
 
 .form {
-    position: fixed;
+    /* position: fixed; */
     top: 25%;
     left: 25%;
-    /* width: 50%;
-    height: 50%; */
     z-index: 1021;
 }
 
-.modal-content {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    width: 100%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-#add-user-form{
-    display: flex;
-    flex-direction: column;
+.close-button:hover {
+    cursor: pointer;
+    transform: scale(1.5);
 }
 
 #add-user-form button {

@@ -25,7 +25,6 @@ public class User implements UserDetails {
     private String username;
     private String password;
     private String mail;
-    @Column(name = "role")
     private Role role;
 
     @Override
