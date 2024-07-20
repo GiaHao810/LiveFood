@@ -20,5 +20,7 @@ public class Product {
     private String name;
     private Double price;
     private String unit;
+
+    @Enumerated(EnumType.STRING)
     private Category category;
 }
