@@ -7,10 +7,10 @@ export function loadUserManagement(){
             let content = '';
             let counter = 1;
             response.data.forEach(data => {
-                content += `<tr><td><input type="checkbox"class="manage-checkbox"data-id="${counter}"></td><td>${data.id}</td><td>${data.username}</td><td>${data.mail}</td><td>${data.role}</td></tr>`
+                content += `<tr><td><input type="checkbox"class="manage-checkbox"data-id="${counter}"></td><td><span>${data.id}</span></td><td><span>${data.username}</span></td><td><span>${data.mail}</span></td><td><span>${data.role}</span></td></tr>`
                 counter++;
             });
-            $('#main').html('<div class="container"><div class="top row"><div class="col toolbar d-flex justify-content-end"><button type="button"id="add-user"onclick="handleToolBarBtn(this)"><i class="fa-solid fa-user-plus"></i></button> <button type="button"id="del-user"onclick="handleToolBarBtn(this)"><i class="fa-solid fa-user-minus"></i></button> <button type="button"id="edit-user"onclick="handleToolBarBtn(this)"><i class="fa-solid fa-user-gear"></i></button> <button type="button"id="search-user"onclick="handleToolBarBtn(this)"><i class="fa-solid fa-magnifying-glass"></i></button></div></div><div class="row bot"><div class="col-3">Side Bar</div><div class="col-9"><table><thead><tr><th></th><th>ID</th><th>Username</th><th>Mail</th><th>Role</th></tr></thead><tbody>' + content + '</tbody></table></div></div></div>');
+            $('#main').html(`<div class="container"><div class="row top"><div class="col toolbar d-flex justify-content-end"><button type="button"id="add-user"onclick="handleToolBarBtn(this)"><i class="fa-solid fa-user-plus"></i></button> <button type="button"id="del-user"onclick="handleToolBarBtn(this)"><i class="fa-solid fa-user-minus"></i></button> <button type="button"id="edit-user"onclick="handleToolBarBtn(this)"><i class="fa-solid fa-user-gear"></i></button> <button type="button"id="search-user"onclick="handleToolBarBtn(this)"><i class="fa-solid fa-magnifying-glass"></i></button></div></div><div class="row bot"><div class="col-3">Side Bar</div><div class="col-9"><table><thead><tr><th></th><th>ID</th><th>Username</th><th>Mail</th><th>Role</th></tr></thead><tbody> ${content}</tbody></table></div></div></div>`);
         },
         error: function(xhr) {
             console.error('Error loading Product management UI: ' + xhr.statusText);
@@ -56,4 +56,8 @@ export function addUser(){
             console.error(xhr.statusText)
         }
     })
+}
+
+export function editUser(){
+    
 }

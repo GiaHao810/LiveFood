@@ -61,106 +61,58 @@
     <div id="main">
         <!-- <div class="container">
             <div class="top row">
-                <div class="col toolbar d-flex justify-content-end">
-                    <button type="button" id="add-user" onclick="handleToolBarBtn(this)">
-                        <i class="fa-solid fa-plus" aria-hidden="true"></i>
-                    </button>
-                    <button type="button" id="del-user" onclick="handleToolBarBtn(this)">
-                        <i class="fa-solid fa-minus" aria-hidden="true"></i>
-                    </button>
-                    <button type="button" id="edit-user" onclick="handleToolBarBtn(this)">
-                        <i class="fa-solid fa-gear" aria-hidden="true"></i>
-                    </button>
-                    <button type="button" id="search-user" onclick="handleToolBarBtn(this)">
-                        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-                    </button>
-                </div>
+              <div class="col toolbar d-flex justify-content-end"><button type="button" id="add-user" onclick="handleToolBarBtn(this)"><i class="fa-solid fa-user-plus" aria-hidden="true"></i></button> <button type="button" id="del-user" onclick="handleToolBarBtn(this)"><i class="fa-solid fa-user-minus" aria-hidden="true"></i></button> <button type="button" id="edit-user" onclick="handleToolBarBtn(this)"><i class="fa-solid fa-user-gear" aria-hidden="true"></i></button> <button type="button" id="search-user" onclick="handleToolBarBtn(this)"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></button></div>
             </div>
             <div class="row bot">
-                <div class="col-3">Side Bar</div>
-                <div class="col-9">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>ID</th>
-                                <th>Code</th>
-                                <th>Name</th>
-                                <th>Price</th>
-                                <th>Unit</th>
-                                <th>Category</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                        </tbody>
-                    </table>
-                </div>
+              <div class="col-3">Side Bar</div>
+              <div class="col-9">
+                <table>
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>ID</th>
+                      <th>Username</th>
+                      <th>Mail</th>
+                      <th>Role</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><input type="checkbox" class="manage-checkbox" data-id="1"></td>
+                      <td><span>7e917b30-c50b-46df-9743-51c2f41ba124</span></td>
+                      <td><span>hao</span></td>
+                      <td><span>hao@gmail.com</span></td>
+                      <td><span>USER</span></td>
+                    </tr>
+                    <tr class="edit-mode">
+                        <td>
+                            <span>
+                                <button type="button" id="submit-btn">
+                                    <i class="fa-solid fa-check"></i>
+                                </button>
+                            </span>
+                            <span>
+                                <button type="button" id="cancel-btn">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                            </span>
+                        </td>
+                        <td><input type="text" value="7e917b30-c50b-46df-9743-51c2f41ba124" disabled></td>
+                        <td><input type="text" value="hao" required></td>
+                        <td><input type="text" value="hao@gmail.com" required></td>
+                        <td><input type="text" value="USER" disabled></td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox" class="manage-checkbox" data-id="2"></td>
+                      <td><span>8e7808d0-d14b-46a9-ab4f-0774b8fd32a9</span></td>
+                      <td><span>vy</span></td>
+                      <td><span>vy@mail.com</span></td>
+                      <td><span>USER</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
-        </div> -->
-
-    </div>
+          </div> -->
 </body>
-
-<div id="notification-box"
-    class="position-fixed top-2 end-2 p-3 bg-white rounded shadow d-flex align-items-center justify-content-between gap-3 end-0">
-    <div class="icon-container d-flex justify-content-center align-items-center rounded-circle ms-1 bg-info">
-        <i class="fa-solid fa-info"></i>
-    </div>
-    <div class="message-text-container d-flex flex-column justify-content-center align-items-start flex-grow-1">
-        <p class="message-text text-info">Warning</p>
-        <p class="sub-text">message</p>
-    </div>
-    <div>
-        <i class="fa-solid fa-xmark cross-icon"></i>
-    </div>
-</div>
-
-
 </html>
-
-<!-- 
-<div class="background position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center">
-</div> -->
-
-<!-- <div class="form border border-2 rounded shadow col position-fixed">
-    <div class="modal-content p-4 rounded shadow"><span class="close-button align-self-end">×</span>
-<h2>Add Product</h2>
-<form id="add-product-form">
-    <div class="row m-1">
-        <div class="col"><label for="name">Name:</label></div>
-        <div class="col"><input id="name" name="name" required></div>
-    </div>
-    <div class="row m-1">
-        <div class="col"><label for="price">Price:</label></div>
-        <div class="col"><input type="number" id="price" name="price" required></div>
-    </div>
-    <div class="row m-1">
-        <div class="col"><label for="unit">Unit:</label></div>
-        <div class="col">
-            <select name="unit" id="unit">
-                        <option value="gram">Gram</option>
-                        <option value="kilogram">Kilogram</option>
-                        <option value="miligram">Miligram</option>
-                        <option value="liter">Liter</option>
-                        <option value="milliliter">Milliliter</option>
-                        <option value="package">Package</option>
-                    </select>
-        </div>
-    </div>
-    <div class="row m-1">
-        <div class="col"><label for="category">Category:</label></div>
-        <div class="col">
-            <select name="category" id="category">
-                        <option value="FRUIT">FRUIT</option>
-                        <option value="VEGETABLE">VEGETABLE</option>
-                        <option value="OTHER">OTHER</option>
-                    </select>
-        </div>
-    </div>
-    <div class="row m-1">
-        <div class="col"><button type="submit">Submit</button></div>
-    </div>
-</form>
-    </div>
-</div> -->

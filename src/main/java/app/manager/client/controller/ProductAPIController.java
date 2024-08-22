@@ -28,6 +28,7 @@ public class ProductAPIController {
 
     @PostMapping("/add")
     public ResponseEntity<Response> addProduct(@RequestBody Product product) {
+        product.setCode("TEST");
         productService.save(product);
         return ResponseEntity.ok(
                 new ResponseObject("OK",
