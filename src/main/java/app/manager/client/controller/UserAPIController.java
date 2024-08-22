@@ -13,6 +13,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/user")
@@ -84,6 +87,29 @@ public class UserAPIController {
                 new ResponseObject("OK",
                         "OK",
                         userService.updateUser(id, updatedUser))
+        );
+    }
+
+    @PutMapping("/updateWithNameAndMail/{id}")
+    public ResponseEntity<ResponseObject> updateUserWithNameAndMail(
+            @PathVariable(required = true) String id,
+            @RequestParam(required = true) String username,
+            @RequestParam(required = true) String mail
+            ) {
+            User user = userService.findById(id)
+                .map(existingUser -> User.builder()
+                        .id(id)
+                        .mail(mail)
+                        .username(username)
+                        .role(existingUser.getRole())
+                        .password(existingUser.getPassword())
+                        .build())
+                .orElseThrow(() -> new NoSuchElementException("User not found with id: " + id));
+
+        return ResponseEntity.ok(
+                new ResponseObject("OK",
+                        "OK",
+                        userService.updateUser(id, user))
         );
     }
 }

@@ -41,7 +41,7 @@ $(document).ready(function(){
             let name = tr.find('td:eq(2)').text();
             let mail = tr.find('td:eq(3)').text();
             let role = tr.find('td:eq(4)').text();
-
+            
             UIController.renderEditUserSection(
                 UIController.createUIEditUser(id, name, mail, role),
                 tr

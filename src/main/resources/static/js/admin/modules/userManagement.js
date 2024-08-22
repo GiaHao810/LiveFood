@@ -58,6 +58,16 @@ export function addUser(){
     })
 }
 
-export function editUser(){
-    
+export function updateUserWithNameAndMail(id, username, mail){
+    $.ajax({
+        url: `/api/user/updateWithNameAndMail/${id}?username=${username}&mail=${mail}`,
+        contentType: 'application/json; charset=UTF-8; ',
+        type: 'PUT',
+        success: function(response){
+            console.log(response);
+        },
+        error: function(xhr) {
+            console.error(xhr.statusText)
+        }
+    })
 }
