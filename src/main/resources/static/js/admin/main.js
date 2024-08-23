@@ -18,23 +18,42 @@ $(document).ready(function(){
     });
 
     function handleToolBarBtn(button){
-        if($(button).attr("id") == "add-user") {
-            UIController.renderFormBackground(UIController.createFormAddUser());
-            $("#add-user-form button[type='submit']").click(function() {
-                userManagement.addUser();
-            })
-        }
-        if($(button).attr("id") == "del-user") userManagement.deleteUser();
+        let actions = {
+            'add-user': handleAddUser,
+            'del-user': handleDelUser,
+            'edit-user': handleEditUser,
+            'add-product': handleAddProduct,
+            'del-product': handleDelProduct
+        };
+    
+        let action = actions[$(button).attr('id')];
+        if (action) action();
+    }
+    
+    globalThis.handleToolBarBtn = handleToolBarBtn;
 
-        if($(button).attr("id") == "add-product") {
-            UIController.renderFormBackground(UIController.createFormAddProduct());
-            $("#add-product-form button[type='submit']").click(function() {
-                productManagement.addProduct();
-            })
-        }
-        if($(button).attr("id") == "del-product") productManagement.deleteProduct();
+    function handleAddUser(){
+        UIController.renderFormBackground(UIController.createFormAddUser());
+        $("#add-user-form button[type='submit']").click(userManagement.addUser());
+    }
 
-        if($(button).attr("id") == "edit-user") {
+    function handleDelUser(){
+        userManagement.deleteUser();
+    }
+
+    function handleAddProduct(){
+        UIController.renderFormBackground(UIController.createFormAddProduct());
+        $("#add-product-form button[type='submit']").click(function() {
+            productManagement.addProduct();
+        })
+    }
+
+    function handleDelProduct(){
+        productManagement.deleteProduct();
+    }
+
+    function handleEditUser(){
+        if(!$(".edit-mode").length) {
             let tr = $('input.manage-checkbox:checked').closest('tr');
 
             let id = tr.find('td:eq(1)').text();
@@ -48,7 +67,5 @@ $(document).ready(function(){
             );
         }
     }
-    
-    globalThis.handleToolBarBtn = handleToolBarBtn;
 })
 
