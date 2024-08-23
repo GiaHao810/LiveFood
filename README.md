@@ -3,3 +3,5 @@ Dự án sử dụng công nghệ Spring Boot, Spring Security và các công ng
 Đây là dự án cá nhân để học và áp dụng là chủ yếu nên chất lượng mã sẽ không được tốt.
 
 Thông tin chi tiết về các phiên bản sẽ ở pom.xml
+
+Jira: https://giahaobui810-1724241620238.atlassian.net/jira/software/projects/KAN/boards/1
