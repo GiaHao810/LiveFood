@@ -52,8 +52,8 @@ export function addUser(){
             location.reload();
             console.log(response);
         },
-        error: function(xhr) {
-            console.error(xhr.statusText)
+        error: function(xhr, status, error) {
+            console.error(`XHR: ${xhr} \t Status: ${status} \t Error: ${error}`)
         }
     })
 }

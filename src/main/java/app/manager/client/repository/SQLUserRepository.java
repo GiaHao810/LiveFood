@@ -12,5 +12,5 @@ public interface SQLUserRepository extends JpaRepository<User, String>{
     Optional<User> findByMail(String mail);
     Optional<User> findByUsername(String username);
     Optional<User> findById(String id);
-    List<User> findByUsernameOrMail(String username, String mail);
+    Optional<User> findByUsernameOrMail(String username, String mail);
 }

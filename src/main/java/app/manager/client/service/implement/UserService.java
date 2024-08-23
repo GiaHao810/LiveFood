@@ -13,7 +13,8 @@ public interface UserService{
     Optional<User> findByUsername(String username);
     Optional<User> findByMail(String mail);
     Optional<User> findById(String id);
+    Optional<User> findByUsernameOrMail(String username, String mail);
     void deleteUser(String id);
-    List<User> searchUsers(String username, String email);
+    Optional<User> searchUsers(String username, String email);
     Optional<User> updateUser(String id, User updatedUser);
 }
