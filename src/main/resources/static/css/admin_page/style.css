@@ -81,9 +81,11 @@ button:hover {
     box-shadow: 1px 1px 10px black;
 }
 
-#notification-box {
-    top: 2rem;
+#notification-container {
+    position: fixed;
+    top: 6rem;
     right: 2rem;
+    z-index: 3000;
 }
 
 
@@ -101,6 +103,8 @@ button:hover {
 .sub-text {
     margin: 0;
     cursor: default;
+    max-width: 300px;
+    word-break: break-word;
 }
 
 .message-text {

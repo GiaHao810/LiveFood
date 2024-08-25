@@ -1,16 +1,19 @@
-import * as productManagement from './modules/productManagement.js';
-import * as customerManagement from './modules/customerManagement.js';
-import * as userManagement from './modules/userManagement.js';
-import * as invoiceManagement from './modules/invoiceManagement.js';
-import * as UIController from './modules/UIController.js';
+import * as productManagement from './modules/API_Management/ProductAPI.js';
+import * as customerManagement from './modules/API_Management/CustomerAPI.js';
+import * as userManagement from './modules/API_Management/UserAPI.js';
+import * as invoiceManagement from './modules/API_Management/InvoiceAPI.js';
+
+import * as UIController from './modules/UI_Management/UIController.js';
 
 $(document).ready(function(){
     $('.nav-item li#user-link').click(function(){
         userManagement.loadUserManagement();
+        UIController.renderNotificationBox("success", "Loading User Infomation");
     });
 
     $('.nav-item li#product-link').click(function(){
         productManagement.loadProductManagement();
+        UIController.renderNotificationBox("success", "Loading Product Infomation");
     });
 
     $('.nav-item li#invoice-link').click(function(){
