@@ -42,7 +42,8 @@ public class UserAPIController {
 
         if(registerRequest.username().isBlank() ||
                 registerRequest.mail().isBlank() ||
-                registerRequest.password().isBlank()) {
+                registerRequest.password().isBlank()
+        ) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body(new ResponseObject("The register informatioin is unvalid!!!",
                             "FAIL",
@@ -51,9 +52,9 @@ public class UserAPIController {
         }
         if(userService.findByUsernameOrMail(
                 registerRequest.username(),
-                registerRequest.mail())
-                .isPresent())
-        {
+                registerRequest.mail()
+        ).isPresent()
+        ) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body(new ResponseObject("Username or Mail already existed!!!",
                             "FAIL",
@@ -87,11 +88,21 @@ public class UserAPIController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ResponseObject> deleteUser(@PathVariable String id) {
+        if(userService.findById(id).isEmpty()){
+            return ResponseEntity.status(200)
+                    .body(
+                            new ResponseObject("Cant find any user with this ID " + id,
+                                    "FAIL"
+                                    , id
+                            )
+                    );
+        }
         userService.deleteUser(id);
-        return ResponseEntity.ok(
-                new ResponseObject("OK",
-                        "OK",
-                        null)
+        return ResponseEntity.status(200)
+                .body(
+                new ResponseObject("User Deleted",
+                        "SUCCESS",
+                        id)
         );
     }
 

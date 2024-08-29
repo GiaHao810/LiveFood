@@ -3,7 +3,6 @@ export function loadUserManagement(){
         url: '/api/user/',
         type: 'GET',
         success: function(response) {
-            console.log(response);
             let content = '';
             let counter = 1;
             response.data.forEach(data => {
@@ -18,24 +17,27 @@ export function loadUserManagement(){
     });
 }
 
-export function deleteUser(){
-    $('input.manage-checkbox:checked').each(function() {
-        var parentTr = $(this).closest('tr');
-
-        var id = parentTr.find('td:eq(1)').text();
-
+export function deleteUser(id){
+    return new Promise ((resolve, reject) => {
         $.ajax({
             url: `/api/user/${id}`,
             type: 'DELETE',
             success: function(response){
-                console.log(response)
-                loadUserManagement();
+                resolve(response);
             },
-            error: function(xhr){
-                console.log(xhr.statusText)
+            error: function(xhr) {
+                const response = xhr.responseJSON || {
+                    status: `Something went wrong. Please contact the Developers`,
+                    message: null
+                };
+                reject({
+                    status: xhr.status || `Unknown`,
+                    message: response.message,
+                    data: response.data
+                });
             }
         })
-    });
+    })
 }
 
 export function addUser(mail, username, password){
@@ -52,11 +54,15 @@ export function addUser(mail, username, password){
             success: function(response){
                 resolve(response);
             },
-            error: function(xhr, message, error) {
+            error: function(xhr) {
+                const response = xhr.responseJSON || {
+                    status: `Something went wrong. Please contact the Developers`,
+                    message: null
+                };
                 reject({
-                    status: xhr.statusText,
-                    message: message,
-                    error: error
+                    status: xhr.status || `Unknown`,
+                    message: response.message,
+                    data: response.data
                 });
             }
         })
