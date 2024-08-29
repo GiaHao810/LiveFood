@@ -19,24 +19,28 @@ export function loadProductManagement(){
 }
 
 export function addProduct(){
-    $.ajax({
-        url: `/api/product/add`,
-        data: JSON.stringify({
-            name: $("input#name").val(),
-            price: $("input#price").val(),
-            unit: $("select#unit").val(),
-            category: $("select#category").val()
-        }),
-        contentType: 'application/json; charset=UTF-8; ',
-        type: 'POST',
-        success: function(response){
-            location.reload();
-            console.log(response);
-        },
-        error: function(xhr, message) {
-            console.error("Status: " + xhr.statusText)
-            console.error("Message: " + message)
-        }
+    return new Promise ((resolve, reject) => {
+        $.ajax({
+            url: `/api/product/add`,
+            data: JSON.stringify({
+                name: $("input#name").val(),
+                price: $("input#price").val(),
+                unit: $("select#unit").val(),
+                category: $("select#category").val()
+            }),
+            contentType: 'application/json; charset=UTF-8; ',
+            type: 'POST',
+            success: function(response){
+                resolve(response);
+            },
+            error: function(xhr, message, error) {
+                reject({
+                    status: xhr.statusText,
+                    message: message,
+                    error: error
+                });
+            }
+        })
     })
 }
 

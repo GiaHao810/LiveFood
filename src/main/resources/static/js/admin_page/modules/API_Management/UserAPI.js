@@ -38,23 +38,28 @@ export function deleteUser(){
     });
 }
 
-export function addUser(){
-    $.ajax({
-        url: `/api/user/register`,
-        data: JSON.stringify({
-            mail: $("input#email").val(),
-            username: $("input#username").val(),
-            password: $("input#password").val()
-        }),
-        contentType: 'application/json; charset=UTF-8; ',
-        type: 'POST',
-        success: function(response){
-            location.reload();
-            console.log(response);
-        },
-        error: function(xhr, status, error) {
-            console.error(`XHR: ${xhr} \t Status: ${status} \t Error: ${error}`)
-        }
+export function addUser(mail, username, password){
+    return new Promise ((resolve, reject) => {
+        $.ajax({
+            url: `/api/user/register`,
+            data: JSON.stringify({
+                mail: mail,
+                username: username,
+                password: password
+            }),
+            contentType: 'application/json; charset=UTF-8; ',
+            type: 'POST',
+            success: function(response){
+                resolve(response);
+            },
+            error: function(xhr, message, error) {
+                reject({
+                    status: xhr.statusText,
+                    message: message,
+                    error: error
+                });
+            }
+        })
     })
 }
 
