@@ -29,7 +29,26 @@ export function removeForm(duration){
 }
 
 export function createFormAddUser(){
-    let content = `<span class="close-button align-self-end">&times;</span><h2>Add User</h2><div id="add-user-form"><div class="row m-1"><div class="col"><label for="username">Username:</label></div><div class="col"><input id="username"name="username"required autofocus></div></div><div class="row m-1"><div class="col"><label for="email">Email:</label></div><div class="col"><input type="email"id="email"name="email"required></div></div><div class="row m-1"><div class="col"><label for="password">Password:</label></div><div class="col"><input type="password"id="password"name="password"required></div></div><div class="row m-1"><div class="col"><button type="submit">Submit</button></div></div></div>`;
+    let content = `
+    <span class="close-button align-self-end">&times;</span>
+    <h2>Add User</h2>
+    <div id="add-user-form">
+        <div class="row m-1">
+            <div class="col"><label for="username">Username:</label></div>
+            <div class="col"><input id="username" name="username" required autofocus></div>
+        </div>
+        <div class="row m-1">
+            <div class="col"><label for="email">Email:</label></div>
+            <div class="col"><input type="email" id="email" name="email" required></div>
+        </div>
+        <div class="row m-1">
+            <div class="col"><label for="password">Password:</label></div>
+            <div class="col"><input type="password" id="password" name="password" required></div>
+        </div>
+        <div class="row m-1">
+            <div class="col"><button type="submit">Submit</button></div>
+        </div>
+    </div>`;
 
     return $("<form>").addClass("modal-content p-4 rounded shadow").html(content);
 }
@@ -41,7 +60,14 @@ export function createFormAddProduct(){
 }
 
 export function renderEditUserSection(id, username, mail, role, row){
-    let editSection = `<tr class="edit-mode"><td><span><button type="button"id="submit-btn"><i class="fa-solid fa-check"></i></button> </span><span><button type="button"id="cancel-btn"><i class="fa-solid fa-xmark"></i></button></span></td><td><input value="${id}"disabled="disabled"></td><td><input value="${username}"required></td><td><input value="${mail}"required></td><td><input value="${role}"disabled="disabled"></td></tr>`;
+    let editSection = `
+    <tr class="edit-mode">
+        <td><span><button type="button" id="submit-btn"><i class="fa-solid fa-check"></i></button> </span><span><button type="button" id="cancel-btn"><i class="fa-solid fa-xmark"></i></button></span></td>
+        <td><input value="${id}" disabled="disabled"></td>
+        <td><input value="${username}" required></td>
+        <td><input value="${mail}" required></td>
+        <td><input value="${role}" disabled="disabled"></td>
+    </tr>`;
 
     $(row).after(editSection);
 }
