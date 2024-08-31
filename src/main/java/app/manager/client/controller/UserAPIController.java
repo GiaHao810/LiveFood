@@ -3,6 +3,7 @@ package app.manager.client.controller;
 import app.manager.client.dto.Response;
 import app.manager.client.dto.request.AuthenticationRequest;
 import app.manager.client.dto.request.RegisterRequest;
+import app.manager.client.dto.request.UpdateRequest;
 import app.manager.client.dto.response.ResponseObject;
 import app.manager.client.model.User;
 import app.manager.client.service.AuthenticationService;
@@ -129,23 +130,39 @@ public class UserAPIController {
     @PutMapping("/updateWithNameAndMail/{id}")
     public ResponseEntity<ResponseObject> updateUserWithNameAndMail(
             @PathVariable(required = true) String id,
-            @RequestParam(required = true) String username,
-            @RequestParam(required = true) String mail
+            @RequestBody(required = true) UpdateRequest updateRequest
             ) {
-            User user = userService.findById(id)
-                .map(existingUser -> User.builder()
-                        .id(id)
-                        .mail(mail)
-                        .username(username)
-                        .role(existingUser.getRole())
-                        .password(existingUser.getPassword())
-                        .build())
-                .orElseThrow(() -> new NoSuchElementException("User not found with id: " + id));
 
-        return ResponseEntity.ok(
-                new ResponseObject("OK",
+        if(updateRequest.username().isBlank() || updateRequest.mail().isBlank()){
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(
+                            new ResponseObject("Invalid update data",
+                                    "FAIL",
+                                    updateRequest
+                            )
+                    );
+        }
+           Optional<User> userOptional = userService.findById(id);
+
+            if(userOptional.isEmpty()){
+                return ResponseEntity
+                        .status(HttpStatus.NOT_FOUND)
+                        .body(
+                                new ResponseObject("Cant find any user with this ID " + id,
+                                        "FAIL",
+                                        id
+                                )
+                        );
+            }
+
+            userService.updateUser(id, userOptional.get());
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(
+                new ResponseObject("User updated",
                         "OK",
-                        userService.updateUser(id, user))
+                        updateRequest)
         );
     }
 }

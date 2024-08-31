@@ -40,28 +40,10 @@ export function createFormAddProduct(){
     return $("<div>").addClass("modal-content p-4 rounded shadow").html(content);
 }
 
-export function renderEditUserSection(content, row){
-    $(row).after(content);
+export function renderEditUserSection(id, username, mail, role, row){
+    let editSection = `<tr class="edit-mode"><td><span><button type="button"id="submit-btn"><i class="fa-solid fa-check"></i></button> </span><span><button type="button"id="cancel-btn"><i class="fa-solid fa-xmark"></i></button></span></td><td><input value="${id}"disabled="disabled"></td><td><input value="${username}"required></td><td><input value="${mail}"required></td><td><input value="${role}"disabled="disabled"></td></tr>`;
 
-    $(".edit-mode #submit-btn").click(function(){
-        let tr = $(this).closest('tr');
-
-        let id = tr.find('td:eq(1) > input').val();
-        let name = tr.find('td:eq(2) > input').val();
-        let mail = tr.find('td:eq(3) > input').val();
-
-        userManagement.updateUserWithNameAndMail(id, name, mail);
-
-        $(".edit-mode").remove();
-    });
-
-    $(".edit-mode #cancel-btn").click(function(){
-        $(".edit-mode").remove();
-    });
-}
-
-export function createUIEditUser(id, username, mail, role){
-    return `<tr class="edit-mode"><td><span><button type="button"id="submit-btn"><i class="fa-solid fa-check"></i></button> </span><span><button type="button"id="cancel-btn"><i class="fa-solid fa-xmark"></i></button></span></td><td><input value="${id}"disabled="disabled"></td><td><input value="${username}"required></td><td><input value="${mail}"required></td><td><input value="${role}"disabled="disabled"></td></tr>`;
+    $(row).after(editSection);
 }
 
 export function renderNotificationBox(type, message){
@@ -79,4 +61,19 @@ export function renderNotificationBox(type, message){
     }
 }
 
-globalThis.renderNotificationBox = renderNotificationBox;
+export function renderUserManagement(){
+    userManagement.loadUserManagement()
+    .then(response => {
+        let content = '';
+            let counter = 1;
+            response.data.forEach(data => {
+                content += `<tr><td><input type="checkbox"class="manage-checkbox"data-id="${counter}"></td><td><span>${data.id}</span></td><td><span>${data.username}</span></td><td><span>${data.mail}</span></td><td><span>${data.role}</span></td></tr>`
+                counter++;
+            });
+            $('#main').html(`<div class="container"><div class="row top"><div class="col toolbar d-flex justify-content-end"><button type="button"id="add-user"onclick="handleToolBarBtn(this)"><i class="fa-solid fa-user-plus"></i></button> <button type="button"id="del-user"onclick="handleToolBarBtn(this)"><i class="fa-solid fa-user-minus"></i></button> <button type="button"id="edit-user"onclick="handleToolBarBtn(this)"><i class="fa-solid fa-user-gear"></i></button> <button type="button"id="search-user"onclick="handleToolBarBtn(this)"><i class="fa-solid fa-magnifying-glass"></i></button></div></div><div class="row bot"><div class="col-3">Side Bar</div><div class="col-9"><table><thead><tr><th></th><th>ID</th><th>Username</th><th>Mail</th><th>Role</th></tr></thead><tbody> ${content}</tbody></table></div></div></div>`);
+    })
+    .catch(error => {
+
+    });
+
+}

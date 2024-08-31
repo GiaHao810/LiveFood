@@ -12,7 +12,7 @@ import * as logger from './modules/utilities/Logger.js'
 
 $(document).ready(function(){
 $('.nav-item li#user-link').click(function(){
-    userManagement.loadUserManagement();
+    UIController.renderUserManagement();
     UIController.renderNotificationBox("success", "Loading User Infomation");
 });
 
@@ -42,6 +42,7 @@ globalThis.handleToolBarBtn = handleToolBarBtn;
 
 function handleAddUser(){
     UIController.renderFormBackground(UIController.createFormAddUser());
+
     $("#add-user-form button[type='submit']").click(function(event){
         event.preventDefault(); 
 
@@ -66,7 +67,7 @@ function handleAddUser(){
 
             setTimeout(() => {
                 UIController.removeForm(0);
-                userManagement.loadUserManagement();
+                UIController.renderUserManagement();
             }, 1000);
         })
         .catch(error => {
@@ -95,10 +96,10 @@ function handleDelUser(){
 
         userManagement.deleteUser(id)
         .then(response => {
-            userManagement.loadUserManagement();
+            UIController.renderUserManagement();
 
             logger.logInfo("Delete User API called", { 
-                message: response.message, 
+                message: response.message,
                 status: response.status, 
                 data: response.data 
             });
@@ -115,6 +116,64 @@ function handleDelUser(){
             UIController.renderNotificationBox("warn", `${error.message}`);
         })
     })
+}
+
+function handleEditUser(){
+    let checkedInput = $('input.manage-checkbox:checked');
+
+    if($(".edit-mode").length == 1 || checkedInput.length > 1){
+        UIController.renderNotificationBox("warn", "Edit one user per time.")
+        return;
+    }
+
+    if(checkedInput.length == 1) {
+        let tr = checkedInput.closest('tr');
+        
+        let id = tr.find('td:eq(1)').text();
+        let name = tr.find('td:eq(2)').text();
+        let mail = tr.find('td:eq(3)').text();
+        let role = tr.find('td:eq(4)').text();
+    
+        UIController.renderEditUserSection(id, name, mail, role, tr);
+    
+        $(".edit-mode #submit-btn").click(function(){
+            let updateRequest = {
+                username : name,
+                mail : mail
+            };
+            
+            userManagement.updateUserWithNameAndMail(id, updateRequest)
+            .then(response => {
+                UIController.renderUserManagement();
+    
+                logger.logInfo("Edit User API called", { 
+                    message: response.message,
+                    status: response.status, 
+                    data: response.data 
+                });
+    
+                UIController.renderNotificationBox("succeess", `${response.message}`)
+            })
+            .catch(error => {
+                logger.logError("Error Edit User API", { 
+                    status: error.status,
+                    message: error.message,
+                    data: error.data
+                });
+    
+                UIController.renderNotificationBox("error", `${error.message}`)
+            })
+    
+            $(".edit-mode").remove();
+        });
+    
+        $(".edit-mode #cancel-btn").click(function(){
+            $(".edit-mode").remove();
+        });
+        return;
+    }
+
+    UIController.renderNotificationBox("warn", "No boxes are  checked.")
 }
 
 function handleAddProduct(){
@@ -141,21 +200,21 @@ function handleAddProduct(){
 function handleDelProduct(){
     productManagement.deleteProduct();
 }
-
-function handleEditUser(){
-    if(!$(".edit-mode").length) {
-        let tr = $('input.manage-checkbox:checked').closest('tr');
-
-        let id = tr.find('td:eq(1)').text();
-        let name = tr.find('td:eq(2)').text();
-        let mail = tr.find('td:eq(3)').text();
-        let role = tr.find('td:eq(4)').text();
-        
-        UIController.renderEditUserSection(
-            UIController.createUIEditUser(id, name, mail, role),
-            tr
-        );
-    }
-}
 })
 
+/* 
+        .then(response => {
+            logger.logInfo("Edit User API called", { 
+                message: response.message,
+                status: response.status, 
+                data: response.data 
+            });
+        })
+        .catch(error => {
+            logger.logError("Error Edit User API", { 
+                status: error.status,
+                message: error.message,
+                data: error.data
+            });
+        })
+*/
