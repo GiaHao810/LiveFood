@@ -12,8 +12,7 @@ import * as logger from './modules/utilities/Logger.js'
 
 $(document).ready(function(){
 $('.nav-item li#user-link').click(function(){
-    UIController.renderUserManagement();
-    UIController.renderNotificationBox("success", "Loading User Infomation");
+    renderUserManagementHandler();
 });
 
 $('.nav-item li#product-link').click(function(){
@@ -40,6 +39,45 @@ function handleToolBarBtn(button){
 
 globalThis.handleToolBarBtn = handleToolBarBtn;
 
+function renderUserManagementHandler(){
+    userManagement.loadUserManagement()
+    .then(response => {
+
+        logger.logInfo("Edit User API called", { 
+            message: response.message,
+            status: response.status, 
+            data: response.data 
+        });
+        
+        let content = '';
+        let counter = 1;
+        response.data.forEach(data => {
+            content += `
+            <tr>
+                <td><input type="checkbox" class="manage-checkbox" data-id="${counter}"></td>
+                <td><span>${data.id}</span></td>
+                <td><span>${data.username}</span></td>
+                <td><span>${data.mail}</span></td>
+                <td><span>${data.role}</span></td>
+            </tr>`
+            counter++;
+        });
+
+        UIController.renderUserManagement();
+
+        UIController.renderNotificationBox("success", "Loading User Infomation");
+    })
+    .catch(error => {
+
+        logger.logError("Error Edit User API", { 
+            status: error.status,
+            message: error.message,
+            data: error.data
+        });
+
+        UIController.renderNotificationBox("warn", "")
+    });
+}
 function handleAddUser(){
     UIController.renderFormBackground(UIController.createFormAddUser());
 

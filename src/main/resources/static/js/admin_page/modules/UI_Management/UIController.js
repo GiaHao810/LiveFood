@@ -1,6 +1,7 @@
 import * as userManagement from "../API_Management/UserAPI.js";
 import * as notiManagement from "../UI_Management/NotificationUI.js"
 import * as notiEffect from "../effect/NotificationEffect.js"
+
 export function renderFormBackground(formType){
     let duration = 1000;
     let background = $("<div>").addClass("background position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center").fadeIn(duration);
@@ -88,18 +89,32 @@ export function renderNotificationBox(type, message){
 }
 
 export function renderUserManagement(){
-    userManagement.loadUserManagement()
-    .then(response => {
-        let content = '';
-            let counter = 1;
-            response.data.forEach(data => {
-                content += `<tr><td><input type="checkbox"class="manage-checkbox"data-id="${counter}"></td><td><span>${data.id}</span></td><td><span>${data.username}</span></td><td><span>${data.mail}</span></td><td><span>${data.role}</span></td></tr>`
-                counter++;
-            });
-            $('#main').html(`<div class="container"><div class="row top"><div class="col toolbar d-flex justify-content-end"><button type="button"id="add-user"onclick="handleToolBarBtn(this)"><i class="fa-solid fa-user-plus"></i></button> <button type="button"id="del-user"onclick="handleToolBarBtn(this)"><i class="fa-solid fa-user-minus"></i></button> <button type="button"id="edit-user"onclick="handleToolBarBtn(this)"><i class="fa-solid fa-user-gear"></i></button> <button type="button"id="search-user"onclick="handleToolBarBtn(this)"><i class="fa-solid fa-magnifying-glass"></i></button></div></div><div class="row bot"><div class="col-3">Side Bar</div><div class="col-9"><table><thead><tr><th></th><th>ID</th><th>Username</th><th>Mail</th><th>Role</th></tr></thead><tbody> ${content}</tbody></table></div></div></div>`);
-    })
-    .catch(error => {
-
-    });
-
+    $('#main').html(`
+        <div class="container">
+        <div class="row top">
+            <div class="col toolbar d-flex justify-content-end">
+                <button type="button" id="add-user" onclick="handleToolBarBtn(this)"><i class="fa-solid fa-user-plus"></i></button> 
+                <button type="button" id="del-user" onclick="handleToolBarBtn(this)"><i class="fa-solid fa-user-minus"></i></button> 
+                <button type="button" id="edit-user" onclick="handleToolBarBtn(this)"><i class="fa-solid fa-user-gear"></i></button> 
+                <button type="button" id="search-user" onclick="handleToolBarBtn(this)"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+        </div>
+        <div class="row bot">
+            <div class="col-3">Side Bar</div>
+            <div class="col-9">
+            <table>
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Mail</th>
+                    <th>Role</th>
+                </tr>
+                </thead>
+                <tbody> ${content}</tbody>
+            </table>
+            </div>
+        </div>
+        </div>`);
 }
