@@ -31,15 +31,15 @@ export function removeForm(duration){
 
 export function renderNotificationBox(type, message){
     let types = {
-        'success': () => notiManagement.renderSuccessBox(message),
-        'warn': () => notiManagement.renderWarningBox(message),
-        'error': () => notiManagement.renderErrorBox(message),
-        'info': () => notiManagement.renderInfoBox(message) 
+        'success': () => notiManagement.createSuccessBox(message),
+        'warn': () => notiManagement.createWarningBox(message),
+        'error': () => notiManagement.createErrorBox(message),
+        'info': () => notiManagement.createInfoBox(message) 
     };
 
     let action = types[type];
     if (action) {
-        action();
+        $("#notification-container").append(action());
         notiEffect.fadeInAndOut("#notification-container #notification-box");
     }
 }
