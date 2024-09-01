@@ -88,7 +88,23 @@ export function renderNotificationBox(type, message){
     }
 }
 
-export function renderUserManagement(){
+export function renderUserManagement(dataList){
+    let content = '';
+    let counter = 0;
+
+    dataList.forEach(data => {
+        content += `
+        <tr>
+            <td><input type="checkbox" class="manage-checkbox" data-id="${counter}"></td>
+            <td><span>${data.id}</span></td>
+            <td><span>${data.username}</span></td>
+            <td><span>${data.mail}</span></td>
+            <td><span>${data.role}</span></td>
+        </tr>`
+
+        counter++;
+    });
+
     $('#main').html(`
         <div class="container">
         <div class="row top">

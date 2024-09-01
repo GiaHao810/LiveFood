@@ -48,34 +48,19 @@ function renderUserManagementHandler(){
             status: response.status, 
             data: response.data 
         });
-        
-        let content = '';
-        let counter = 1;
-        response.data.forEach(data => {
-            content += `
-            <tr>
-                <td><input type="checkbox" class="manage-checkbox" data-id="${counter}"></td>
-                <td><span>${data.id}</span></td>
-                <td><span>${data.username}</span></td>
-                <td><span>${data.mail}</span></td>
-                <td><span>${data.role}</span></td>
-            </tr>`
-            counter++;
-        });
 
-        UIController.renderUserManagement();
+        UIController.renderUserManagement(response.data);
 
         UIController.renderNotificationBox("success", "Loading User Infomation");
     })
     .catch(error => {
-
         logger.logError("Error Edit User API", { 
             status: error.status,
             message: error.message,
             data: error.data
         });
 
-        UIController.renderNotificationBox("warn", "")
+        UIController.renderNotificationBox("warn", `${error.message}`)
     });
 }
 function handleAddUser(){
