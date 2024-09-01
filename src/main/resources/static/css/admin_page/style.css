@@ -1,9 +1,9 @@
 html,
 body {
     font-family: monospace, Arial, Helvetica, sans-serif;
-    font-size: large;
+    font-size: medium;
     width: 100%;
-    height: 100%;
+    height: 200%;
 }
 
 table {
@@ -34,10 +34,12 @@ tr:nth-child(even) {
 tr:hover {
     background-color: #f1f1f1;
 }
+
 tbody tr {
     transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
     cursor: pointer;
 }
+
 tbody tr:hover {
     transform: translateY(-10px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
@@ -138,7 +140,82 @@ button:hover {
     background-color: #fb0202;
 }
 
-.edit-mode button > i {
+.edit-mode button>i {
     width: 1rem;
     height: 1rem;
+}
+
+.filter-search {
+    display: flex;
+    line-height: 28px;
+    align-items: center;
+    position: relative;
+    width: 20rem;
+}
+
+.input-filter-search {
+    width: 100%;
+    height: 40px;
+    line-height: 28px;
+    padding: 0 1rem;
+    padding-left: 2.5rem;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    outline: none;
+    background-color: #f3f3f4;
+    color: #0d0c22;
+    transition: .3s ease;
+}
+
+.input-filter-search::placeholder {
+    color: #9e9ea7;
+}
+
+.input-filter-search:focus,
+.input-filter-search:hover {
+    outline: none;
+    border-color: rgba(234, 76, 137, 0.4);
+    background-color: #fff;
+    box-shadow: 0 0 0 4px rgb(234 76 137 / 10%);
+}
+
+.search-icon-filter-search {
+    position: absolute;
+    left: 1rem;
+    fill: #9e9ea7;
+}
+
+.caret-icon-filter-search {
+    position: absolute;
+    right: 1rem;
+    cursor: pointer;
+    text-align: center;
+    width: 28px;
+}
+
+.caret-icon-filter-search:hover {
+    background: rgb(128 128 128 / 50%);
+    border-radius: 50%;
+}
+
+#dropdownSearch {
+    display: none;
+    position: absolute;
+    width: 20rem;
+    top: 3.3rem;
+    z-index: 1000;
+}
+
+#dropdownSearch .form-search > input {
+    border: none;
+    border-bottom: 1px solid;
+    width: 18rem;
+    height: 2rem;
+    margin-bottom: 2rem;
+}
+
+#dropdownSearch .form-search > input:hover,
+#dropdownSearch .form-search > input:focus {
+    outline: none;
+    background-color: #f3f3f4;
 }

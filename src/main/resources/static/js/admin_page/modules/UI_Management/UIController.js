@@ -107,31 +107,63 @@ export function renderUserManagement(dataList){
 
     $('#main').html(`
         <div class="container">
-        <div class="row top">
-            <div class="col toolbar d-flex justify-content-end">
-                <button type="button" id="add-user" onclick="handleToolBarBtn(this)"><i class="fa-solid fa-user-plus"></i></button> 
-                <button type="button" id="del-user" onclick="handleToolBarBtn(this)"><i class="fa-solid fa-user-minus"></i></button> 
-                <button type="button" id="edit-user" onclick="handleToolBarBtn(this)"><i class="fa-solid fa-user-gear"></i></button> 
-                <button type="button" id="search-user" onclick="handleToolBarBtn(this)"><i class="fa-solid fa-magnifying-glass"></i></button>
+            <div class="row">
+                <div class="col-4">
+                    <div class="col-3">Side Bar</div>
+                </div>
+                <div class="col-8">
+                    <div class="row toolbar d-flex">
+                        <div class="col d-flex">
+                            <div class="header-filter-search d-flex justify-content-center">
+                                <div class="filter-search">
+                                    <div class="search-icon-filter-search">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                    </div>
+
+                                    <div class="caret-icon-filter-search">
+                                        <i class="fa-solid fa-caret-down"></i>
+                                    </div>
+
+                                    <input placeholder="Search by Username" type="search" name="search_by_username" class="input-filter-search">
+
+                                    <div id="dropdownSearch" class="shadow bg-body rounded p-3">
+                                        <div class="form-search">
+                                            <input placeholder="Search by ID" type="search" name="search_by_id">
+                                            <input placeholder="Search by Mail" type="search" name="search_by_mail">  
+                                        </div>
+                                        <div class="form-footer d-flex justify-content-end">
+                                            <button type="button" name="form-search-button">Search</button>
+                                        </div>                              
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="header-filter-button d-flex justify-content-end">
+                                <button type="button" id="add-user" onclick="handleToolBarBtn(this)"><i class="fa-solid fa-user-plus"></i></button> 
+                                <button type="button" id="del-user" onclick="handleToolBarBtn(this)"><i class="fa-solid fa-user-minus"></i></button> 
+                                <button type="button" id="edit-user" onclick="handleToolBarBtn(this)"><i class="fa-solid fa-user-gear"></i></button> 
+                                <button type="button" id="none" onclick="handleToolBarBtn(this)"></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>ID</th>
+                                <th>Username</th>
+                                <th>Mail</th>
+                                <th>Role</th>
+                            </tr>
+                            </thead>
+                            <tbody> ${content}</tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="row bot">
-            <div class="col-3">Side Bar</div>
-            <div class="col-9">
-            <table>
-                <thead>
-                <tr>
-                    <th></th>
-                    <th>ID</th>
-                    <th>Username</th>
-                    <th>Mail</th>
-                    <th>Role</th>
-                </tr>
-                </thead>
-                <tbody> ${content}</tbody>
-            </table>
-            </div>
-        </div>
         </div>`);
 
         $('tr').click(function(){
@@ -140,4 +172,16 @@ export function renderUserManagement(dataList){
                 checkbox.prop('checked', !checkbox.prop('checked'));
             }        
         })
+
+        $('.caret-icon-filter-search').click(function(){
+            let dropSearch = $('#dropdownSearch');
+
+            if(dropSearch.css('display') != 'none') {
+                dropSearch.fadeOut('slow');
+                return;
+            } 
+            dropSearch.fadeIn('slow');
+        })
+
+
 }
