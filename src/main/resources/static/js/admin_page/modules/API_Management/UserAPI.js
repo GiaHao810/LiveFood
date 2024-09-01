@@ -76,11 +76,11 @@ export function addUser(mail, username, password){
     })
 }
 
-export function updateUserWithNameOrMail(id, updateRequest){
+export function updateUserWithID(id, updateRequest){
     return new Promise ((resolve, reject) => {
         $.ajax({
             url: `/api/user/updateWithNameAndMail/${id}`,
-            data: updateRequest,
+            data: JSON.stringify(updateRequest),
             contentType: 'application/json; charset=UTF-8; ',
             type: 'PUT',
             success: function(response){

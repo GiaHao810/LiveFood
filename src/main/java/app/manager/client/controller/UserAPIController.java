@@ -118,14 +118,14 @@ public class UserAPIController {
         );
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ResponseObject> updateUser(@PathVariable String id, @RequestBody User updatedUser) {
-        return ResponseEntity.ok(
-                new ResponseObject("OK",
-                        "OK",
-                        userService.updateUser(id, updatedUser))
-        );
-    }
+//    @PutMapping("/{id}")
+//    public ResponseEntity<ResponseObject> updateUser(@PathVariable String id, @RequestBody User updatedUser) {
+//        return ResponseEntity.ok(
+//                new ResponseObject("OK",
+//                        "OK",
+//                        userService.updateUser(id, updatedUser))
+//        );
+//    }
 
     @PutMapping("/updateWithNameAndMail/{id}")
     public ResponseEntity<ResponseObject> updateUserWithNameAndMail(
@@ -156,7 +156,7 @@ public class UserAPIController {
                         );
             }
 
-            userService.updateUser(id, userOptional.get());
+            userService.updateUser(id, updateRequest);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(

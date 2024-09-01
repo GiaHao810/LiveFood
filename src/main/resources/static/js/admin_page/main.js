@@ -17,9 +17,7 @@ function handleToolBarBtn(button){
     let actions = {
         'add-user': handleAddUser,
         'del-user': handleDelUser,
-        'edit-user': handleEditUser,
-        'add-product': handleAddProduct,
-        'del-product': handleDelProduct
+        'edit-user': handleEditUser
     };
 
     let action = actions[$(button).attr('id')];
@@ -86,13 +84,15 @@ function handleEditUser(){
         UIController.renderEditUserSection(id, name, mail, role, tr);
     
         $(".edit-mode #submit-btn").click(function(){
+            let row = $('tr.edit-mode');
+
             let updateRequest = {
-                username : name,
-                mail : mail
+                username : row.find('td:eq(2) input').val(),
+                mail : row.find('td:eq(3) input').val()
             };
             
-            userService.updateUserWithUsernameOrMail(username, mail);
-    
+            userService.updateUserWithID(id, updateRequest);
+            
             $(".edit-mode").remove();
         });
     
@@ -116,15 +116,6 @@ function handleFindUser(){
 }
 
 globalThis.handleFindUser = handleFindUser;
-
-function handleAddProduct(){
-
-}
-
-function handleDelProduct(){
-    
-}
-
 })
 
 /* 

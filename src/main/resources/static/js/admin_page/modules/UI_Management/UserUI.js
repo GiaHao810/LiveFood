@@ -26,7 +26,7 @@ export function createFormAddUser(){
 export function createEditUserSection(id, username, mail, role){
     return `
     <tr class="edit-mode">
-        <td><span><button type="button" id="submit-btn"><i class="fa-solid fa-check"></i></button> </span><span><button type="button" id="cancel-btn"><i class="fa-solid fa-xmark"></i></button></span></td>
+        <td><span><button type="button" id="submit-btn"><i class="fa-solid fa-check"></i></button></span><span><button type="button" id="cancel-btn"><i class="fa-solid fa-xmark"></i></button></span></td>
         <td><input value="${id}" disabled="disabled"></td>
         <td><input value="${username}" required></td>
         <td><input value="${mail}" required></td>

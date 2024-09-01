@@ -1,5 +1,6 @@
 package app.manager.client.service;
 
+import app.manager.client.dto.request.UpdateRequest;
 import app.manager.client.model.User;
 import app.manager.client.repository.SQLUserRepository;
 import app.manager.client.service.implement.UserService;
@@ -42,12 +43,11 @@ public class SQLUserService implements UserService {
     }
 
     @Override
-    public Optional<User> updateUser(String id, User updatedUser) {
+    public Optional<User> updateUser(String id, UpdateRequest updateRequest) {
         return userRepository.findById(id).map(
                 user -> {
-                    user.setMail(updatedUser.getMail());
-                    user.setUsername(updatedUser.getUsername());
-                    user.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
+                    user.setMail(updateRequest.mail());
+                    user.setUsername(updateRequest.username());
                     return userRepository.save(user);
                 }
         );
