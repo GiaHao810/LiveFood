@@ -1,13 +1,5 @@
-import * as productManagement from './modules/API_Management/ProductAPI.js'
-import * as customerManagement from './modules/API_Management/CustomerAPI.js'
-import * as userManagement from './modules/API_Management/UserAPI.js'
-import * as invoiceManagement from './modules/API_Management/InvoiceAPI.js'
-
 import * as UIController from './modules/UI_Management/UIController.js'
-
-import * as systaxChecker from './modules/utilities/SyntaxChecker.js'
-
-import * as logger from './modules/utilities/Logger.js'
+import * as userService from './modules/service/UserService.js'
 
 
 $(document).ready(function(){
@@ -16,12 +8,9 @@ $('.nav-item li#user-link').click(function(){
 });
 
 $('.nav-item li#product-link').click(function(){
-    productManagement.loadProductManagement();
-    UIController.renderNotificationBox("success", "Loading Product Infomation");
 });
 
 $('.nav-item li#invoice-link').click(function(){
-    invoiceManagement.loadInvoiceManagement();
 });
 
 function handleToolBarBtn(button){
@@ -40,31 +29,10 @@ function handleToolBarBtn(button){
 globalThis.handleToolBarBtn = handleToolBarBtn;
 
 function renderUserManagementHandler(){
-    userManagement.loadUserManagement()
-    .then(response => {
-
-        logger.logInfo("Edit User API called", { 
-            message: response.message,
-            status: response.status, 
-            data: response.data 
-        });
-
-        UIController.renderUserManagement(response.data);
-
-        UIController.renderNotificationBox("success", "Loading User Infomation");
-    })
-    .catch(error => {
-        logger.logError("Error Edit User API", { 
-            status: error.status,
-            message: error.message,
-            data: error.data
-        });
-
-        UIController.renderNotificationBox("warn", `${error.message}`)
-    });
+    userService.loadUser();
 }
 function handleAddUser(){
-    UIController.renderFormBackground(UIController.createFormAddUser());
+    UIController.renderFormBackground(UIController.renderAddUserForm());
 
     $("#add-user-form button[type='submit']").click(function(event){
         event.preventDefault(); 
@@ -78,31 +46,9 @@ function handleAddUser(){
             return; 
         }
 
-        userManagement.addUser(email, username, password)
-        .then(response => {
-            logger.logInfo("Add User API called", { 
-                message: response.message, 
-                status: response.status, 
-                data: response.data 
-            });
-
-            UIController.renderNotificationBox("info", `${response.message}`);
-
-            setTimeout(() => {
-                UIController.removeForm(0);
-                UIController.renderUserManagement();
-            }, 1000);
-        })
-        .catch(error => {
-            logger.logError("Error Add User API", { 
-                status: error.status,  
-                message: error.message,
-                data: error.data 
-            });
-
-            UIController.renderNotificationBox("warn", `${error.message}`);
-        });
+        userService.addUser(email, username, password);
     });
+
 }
 
 function handleDelUser(){
@@ -117,27 +63,7 @@ function handleDelUser(){
 
         var id = parentTr.find('td:eq(1)').text();
 
-        userManagement.deleteUser(id)
-        .then(response => {
-            UIController.renderUserManagement();
-
-            logger.logInfo("Delete User API called", { 
-                message: response.message,
-                status: response.status, 
-                data: response.data 
-            });
-
-            UIController.renderNotificationBox("success", `${response.message}`);
-        })
-        .catch(error => {
-            logger.logError("Error Delete User API", { 
-                status: error.status,
-                message: error.message,
-                data: error.data
-            });
-
-            UIController.renderNotificationBox("warn", `${error.message}`);
-        })
+        userService.deleteUser(id);
     })
 }
 
@@ -165,27 +91,7 @@ function handleEditUser(){
                 mail : mail
             };
             
-            userManagement.updateUserWithNameAndMail(id, updateRequest)
-            .then(response => {
-                UIController.renderUserManagement();
-    
-                logger.logInfo("Edit User API called", { 
-                    message: response.message,
-                    status: response.status, 
-                    data: response.data 
-                });
-    
-                UIController.renderNotificationBox("succeess", `${response.message}`)
-            })
-            .catch(error => {
-                logger.logError("Error Edit User API", { 
-                    status: error.status,
-                    message: error.message,
-                    data: error.data
-                });
-    
-                UIController.renderNotificationBox("error", `${error.message}`)
-            })
+            userService.updateUserWithUsernameOrMail(username, mail);
     
             $(".edit-mode").remove();
         });
@@ -199,30 +105,26 @@ function handleEditUser(){
     UIController.renderNotificationBox("warn", "No boxes are  checked.")
 }
 
+function handleFindUser(){
+    let form = $('#dropdownSearch > .form-search');
+
+    let username = form.find('input[name="search_by_username"').val();
+    let id = form.find('input[name="search_by_id"').val();
+    let mail = form.find('input[name="search_by_mail"').val();
+
+    
+}
+
+globalThis.handleFindUser = handleFindUser;
+
 function handleAddProduct(){
-    UIController.renderFormBackground(UIController.createFormAddProduct());
-    $("#add-product-form button[type='submit']").click(function() {
-        productManagement.addProduct()
-            .then(response => {
-                location.reload();
-                console.log(`Add User API called!!!`);
-                console.log(`Message: ${response.message}`);
-                console.log(`Status: ${response.status}`);
-                console.log(`Data: ${response.data}`);
-            })
-            .catch(error => {
-                console.error("Error Add User API");
-                console.error(`Status: ${error.status}`);
-                console.error(`Code: ${error.code}`);
-                console.error(`Message: ${error.message}`);
-                console.error(`Details: ${error.details}`);
-            })
-    })
+
 }
 
 function handleDelProduct(){
-    productManagement.deleteProduct();
+    
 }
+
 })
 
 /* 

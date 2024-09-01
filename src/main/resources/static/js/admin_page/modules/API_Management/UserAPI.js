@@ -76,7 +76,7 @@ export function addUser(mail, username, password){
     })
 }
 
-export function updateUserWithNameAndMail(id, updateRequest){
+export function updateUserWithNameOrMail(id, updateRequest){
     return new Promise ((resolve, reject) => {
         $.ajax({
             url: `/api/user/updateWithNameAndMail/${id}`,
