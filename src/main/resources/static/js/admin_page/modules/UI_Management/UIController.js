@@ -133,4 +133,11 @@ export function renderUserManagement(dataList){
             </div>
         </div>
         </div>`);
+
+        $('tr').click(function(){
+            let checkbox = $(this).find('input.manage-checkbox');
+            if (checkbox.length) {
+                checkbox.prop('checked', !checkbox.prop('checked'));
+            }        
+        })
 }
