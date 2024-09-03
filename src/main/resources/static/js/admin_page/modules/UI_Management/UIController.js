@@ -76,9 +76,57 @@ export function renderUserManagement(dataList){
         dropSearch.fadeIn('slow');
     })
 
-    $('input.input-filter-search').on('keydown', function(event){
-        if(event.key == 'Enter') {
-            alert("Finding....")
+    $('.input-filter-search').on('keydown', function(event) {
+        if(event.key == "Enter"){
+            let filter = $(this).val().toLowerCase();
+            let $table = $('#user-table');
+            let $tr = $table.find('tr');
+        
+            $tr.each(function(index) {
+                if (index === 0) return; // Bỏ qua hàng đầu tiên là tiêu đề cột
+        
+                let $td = $(this).find('td');
+                let match = false;
+                
+                $td.each(function() {
+                    let textValue = $(this).text().toLowerCase();
+                    if (textValue.indexOf(filter) > -1) {
+                        match = true;
+                        return false; // Thoát khỏi vòng lặp each khi tìm thấy
+                    }
+                });
+        
+                $(this).toggle(match);
+            });
         }
-    })
+    });
+
+    $('button[name="form-search-button"]').on('click', function() {
+        let nameFilter = $('#dropdownSearch input[name="search_by_username"]').val().trim().toLowerCase();
+        let mailFilter = $('#dropdownSearch input[name="search_by_mail"]').val().trim().toLowerCase();
+        let idFilter = $('#dropdownSearch input[name="search_by_id"]').val().trim().toLowerCase();
+        
+        console.log(nameFilter)
+
+        let $table = $('#user-table');
+        let $rows = $table.find('tr');
+    
+        // Lặp qua từng hàng trong table
+        $rows.each(function(index) {
+            if (index === 0) return; 
+    
+            let $cells = $(this).find('td');
+    
+            let idMatch = idFilter ? $cells.eq(1).text().toLowerCase().includes(idFilter) : true;
+            let nameMatch = nameFilter ? $cells.eq(2).text().toLowerCase().includes(nameFilter) : true;
+            let mailMatch = mailFilter ? $cells.eq(3).text().toLowerCase().includes(mailFilter) : true;
+            
+            if (idMatch && nameMatch && mailMatch) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+    
 }

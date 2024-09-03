@@ -40,7 +40,7 @@ export function createUserManagement(dataList){
 
     dataList.forEach(data => {
         content += `
-        <tr>
+        <tr class="user-info">
             <td><input type="checkbox" class="manage-checkbox" data-id="${counter}"></td>
             <td><span>${data.id}</span></td>
             <td><span>${data.username}</span></td>
@@ -79,7 +79,7 @@ export function createUserManagement(dataList){
                                             <input placeholder="Search by Mail" type="search" name="search_by_mail">  
                                         </div>
                                         <div class="form-footer d-flex justify-content-end">
-                                            <button type="button" name="form-search-button" onclick='handleFindUser()'>Search</button>
+                                            <button type="button" name="form-search-button"'>Search</button>
                                         </div>                              
                                     </div>  
                                 </div>
@@ -96,7 +96,7 @@ export function createUserManagement(dataList){
                     </div>
 
                     <div class="row">
-                        <table>
+                        <table id="user-table">
                             <thead>
                             <tr>
                                 <th></th>
