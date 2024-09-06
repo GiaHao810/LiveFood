@@ -14,7 +14,7 @@ $(document).ready(function(){
     $('.nav-item li#invoice-link').click(function(){
     });
 
-    function handleToolBarBtn(button){
+    function handleUserToolBar(button){
         let actions = {
             'add-user': handleAddUser,
             'del-user': handleDelUser,
@@ -25,11 +25,10 @@ $(document).ready(function(){
         if (action) action();
     }
 
-    globalThis.handleToolBarBtn = handleToolBarBtn;
-
     function renderUserManagementHandler(){
         userService.loadUser();        
     }
+
     function handleAddUser(){
         UIController.renderFormBackground(UIController.renderAddUserForm());
 
@@ -106,20 +105,3 @@ $(document).ready(function(){
         UIController.renderNotificationBox("warn", "No boxes are  checked.")
     }
 })
-
-/* 
-        .then(response => {
-            logger.logInfo("Edit User API called", { 
-                message: response.message,
-                status: response.status, 
-                data: response.data 
-            });
-        })
-        .catch(error => {
-            logger.logError("Error Edit User API", { 
-                status: error.status,
-                message: error.message,
-                data: error.data
-            });
-        })
-*/

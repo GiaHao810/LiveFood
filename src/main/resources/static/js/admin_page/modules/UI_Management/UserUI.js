@@ -87,10 +87,10 @@ export function createUserManagement(dataList){
                         </div>
                         <div class="col">
                             <div class="header-filter-button d-flex justify-content-end">
-                                <button type="button" id="add-user" onclick="handleToolBarBtn(this)"><i class="fa-solid fa-user-plus"></i></button> 
-                                <button type="button" id="del-user" onclick="handleToolBarBtn(this)"><i class="fa-solid fa-user-minus"></i></button> 
-                                <button type="button" id="edit-user" onclick="handleToolBarBtn(this)"><i class="fa-solid fa-user-gear"></i></button> 
-                                <button type="button" id="none" onclick="handleToolBarBtn(this)"></button>
+                                <button type="button" id="add-user" onclick="handleUserToolBar(this)"><i class="fa-solid fa-user-plus"></i></button> 
+                                <button type="button" id="del-user" onclick="handleUserToolBar(this)"><i class="fa-solid fa-user-minus"></i></button> 
+                                <button type="button" id="edit-user" onclick="handleUserToolBar(this)"><i class="fa-solid fa-user-gear"></i></button> 
+                                <button type="button" id="none" onclick="handleUserToolBar(this)"></button>
                             </div>
                         </div>
                     </div>
