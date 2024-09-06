@@ -26,29 +26,25 @@ export function createFormAddUser(){
 export function createEditUserSection(id, username, mail, role){
     return `
     <tr class="edit-mode">
-        <td><span><button type="button" id="submit-btn"><i class="fa-solid fa-check"></i></button></span><span><button type="button" id="cancel-btn"><i class="fa-solid fa-xmark"></i></button></span></td>
         <td><input value="${id}" disabled="disabled"></td>
         <td><input value="${username}" required></td>
         <td><input value="${mail}" required></td>
         <td><input value="${role}" disabled="disabled"></td>
+        <td><span><button type="button" id="submit-btn"><i class="fa-solid fa-check"></i></button></span><span><button type="button" id="cancel-btn"><i class="fa-solid fa-xmark"></i></button></span></td>
     </tr>`;
 }
 
 export function createUserManagement(dataList){
     let content = '';
-    let counter = 0;
 
     dataList.forEach(data => {
         content += `
         <tr class="user-info">
-            <td><input type="checkbox" class="manage-checkbox" data-id="${counter}"></td>
             <td><span>${data.id}</span></td>
             <td><span>${data.username}</span></td>
             <td><span>${data.mail}</span></td>
             <td><span>${data.role}</span></td>
         </tr>`
-
-        counter++;
     });
 
     return `
@@ -99,7 +95,6 @@ export function createUserManagement(dataList){
                         <table id="user-table">
                             <thead>
                             <tr>
-                                <th></th>
                                 <th>ID</th>
                                 <th>Username</th>
                                 <th>Mail</th>

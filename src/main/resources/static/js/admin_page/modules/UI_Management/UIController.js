@@ -2,6 +2,7 @@ import * as userManagement from "../API_Management/UserAPI.js";
 import * as notiManagement from "../UI_Management/NotificationUI.js"
 import * as notiEffect from "../effect/NotificationEffect.js"
 import * as userUI from "./UserUI.js"
+import * as productUI from "./ProductUI.js"
 
 export function renderFormBackground(formType){
     let duration = 1000;
@@ -59,11 +60,8 @@ export function renderEditUserSection(id, username, mail, role, row){
 export function renderUserManagement(dataList){
     $("#main").html(userUI.createUserManagement(dataList));
 
-    $('tr').click(function(){
-        let checkbox = $(this).find('input.manage-checkbox');
-        if (checkbox.length) {
-            checkbox.prop('checked', !checkbox.prop('checked'));
-        }        
+    $('#user-table tr.user-info').on('click',function(){
+        $(this).toggleClass('selected-value')
     })
 
     $('.caret-icon-filter-search').click(function(){
@@ -129,4 +127,8 @@ export function renderUserManagement(dataList){
         });
     });
     
+}
+
+export function renderProductManagement(dataList){
+    $("#main").html(productUI.createProductManagement(dataList));
 }

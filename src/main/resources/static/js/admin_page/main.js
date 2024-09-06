@@ -1,4 +1,5 @@
 import * as UIController from './modules/UI_Management/UIController.js'
+import * as productService from './modules/service/ProductService.js';
 import * as userService from './modules/service/UserService.js'
 
 
@@ -9,6 +10,7 @@ $(document).ready(function(){
     });
 
     $('.nav-item li#product-link').click(function(){
+        renderProductManagementHandler();
     });
 
     $('.nav-item li#invoice-link').click(function(){
@@ -24,6 +26,8 @@ $(document).ready(function(){
         let action = actions[$(button).attr('id')];
         if (action) action();
     }
+
+    globalThis.handleUserToolBar = handleUserToolBar;
 
     function renderUserManagementHandler(){
         userService.loadUser();        
@@ -50,36 +54,36 @@ $(document).ready(function(){
     }
 
     function handleDelUser(){
-        if ($('input.manage-checkbox:checked').length <= 0) {
+        if ($('#user-table tr.selected-value').length <= 0) {
             UIController.renderNotificationBox("warn", "No boxes are checked.")
             return;
         }
 
         // Attension!!!!!! Khi xóa nhiều User thì bị lặp mã nhiều lần 
-        $('input.manage-checkbox:checked').each(function(){
+        $('#user-table tr.selected-value').each(function(){
             var parentTr = $(this).closest('tr');
 
-            var id = parentTr.find('td:eq(1)').text();
+            var id = parentTr.find('td:eq(0)').text();
 
             userService.deleteUser(id);
         })
     }
 
     function handleEditUser(){
-        let checkedInput = $('input.manage-checkbox:checked');
+        let selectedValue = $('#user-table tr.selected-value');
 
-        if($(".edit-mode").length == 1 || checkedInput.length > 1){
-            UIController.renderNotificationBox("warn", "Edit one user per time.")
+        if($(".edit-mode").length == 1 || selectedValue.length > 1){
+            UIController.renderNotificationBox("warn", "Edit one row per time.")
             return;
         }
 
-        if(checkedInput.length == 1) {
-            let tr = checkedInput.closest('tr');
+        if(selectedValue.length == 1) {
+            let tr = selectedValue.closest('tr');
             
-            let id = tr.find('td:eq(1)').text();
-            let name = tr.find('td:eq(2)').text();
-            let mail = tr.find('td:eq(3)').text();
-            let role = tr.find('td:eq(4)').text();
+            let id = tr.find('td:eq(0)').text();
+            let name = tr.find('td:eq(1)').text();
+            let mail = tr.find('td:eq(2)').text();
+            let role = tr.find('td:eq(3)').text();
         
             UIController.renderEditUserSection(id, name, mail, role, tr);
         
@@ -87,8 +91,8 @@ $(document).ready(function(){
                 let row = $('tr.edit-mode');
 
                 let updateRequest = {
-                    username : row.find('td:eq(2) input').val(),
-                    mail : row.find('td:eq(3) input').val()
+                    username : row.find('td:eq(1) input').val(),
+                    mail : row.find('td:eq(2) input').val()
                 };
                 
                 userService.updateUserWithID(id, updateRequest);
@@ -102,6 +106,10 @@ $(document).ready(function(){
             return;
         }
 
-        UIController.renderNotificationBox("warn", "No boxes are  checked.")
+        UIController.renderNotificationBox("warn", "No selected row.")
+    }
+
+    function renderProductManagementHandler(){
+        productService.loadProduct();
     }
 })
