@@ -1,6 +1,10 @@
 package app.manager.client.service;
 
+import app.manager.client.dto.request.UpdateProductRequest;
+import app.manager.client.dto.request.UpdateUserRequest;
+import app.manager.client.model.Category;
 import app.manager.client.model.Product;
+import app.manager.client.model.User;
 import app.manager.client.repository.SQLProductRepository;
 import app.manager.client.service.implement.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -39,5 +43,19 @@ public class SQLProductService implements ProductService {
     @Override
     public Optional<Product> findByName(String name) {
         return productRepository.findByName(name);
+    }
+
+    @Override
+    public Optional<Product> updateProduct(String id, UpdateProductRequest updateProductRequest) {
+        return productRepository.findById(id).map(
+                product -> {
+                    product.setCode(updateProductRequest.code());
+                    product.setUnit(updateProductRequest.unit());
+                    product.setName(updateProductRequest.name());
+                    product.setPrice(updateProductRequest.price());
+                    product.setCategory(Category.valueOf(updateProductRequest.category().toUpperCase()));
+                    return productRepository.save(product);
+                }
+        );
     }
 }

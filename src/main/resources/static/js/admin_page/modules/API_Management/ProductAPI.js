@@ -22,29 +22,29 @@ export function loadProductManagement(){
     }) 
 }
 
-// export function deleteUser(id){
-//     return new Promise ((resolve, reject) => {
-//         $.ajax({
-//             url: `/api/user/${id}`,
-//             type: 'DELETE',
-//             success: function(response){
-//                 resolve(response);
-//             },
-//             error: function(xhr) {
-//                 const response = xhr.responseJSON || {
-//                     message: `Something went wrong. Please contact the Developers`,
-//                     status: null,
-//                     data: null
-//                 };
-//                 reject({
-//                     status: xhr.status || `Unknown`,
-//                     message: response.message,
-//                     data: response.data
-//                 });
-//             }
-//         })
-//     })
-// }
+export function deleteProduct(id){
+    return new Promise ((resolve, reject) => {
+        $.ajax({
+            url: `/api/product/${id}`,
+            type: 'DELETE',
+            success: function(response){
+                resolve(response);
+            },
+            error: function(xhr) {
+                const response = xhr.responseJSON || {
+                    message: `Something went wrong. Please contact the Developers`,
+                    status: null,
+                    data: null
+                };
+                reject({
+                    status: xhr.status || `Unknown`,
+                    message: response.message,
+                    data: response.data
+                });
+            }
+        })
+    })
+}
 
 export function addProduct(name, price, unit, category){
     return new Promise ((resolve, reject) => {
@@ -77,28 +77,28 @@ export function addProduct(name, price, unit, category){
     })
 }
 
-// export function updateUserWithID(id, updateRequest){
-//     return new Promise ((resolve, reject) => {
-//         $.ajax({
-//             url: `/api/user/updateWithNameAndMail/${id}`,
-//             data: JSON.stringify(updateRequest),
-//             contentType: 'application/json; charset=UTF-8; ',
-//             type: 'PUT',
-//             success: function(response){
-//                 resolve(response);
-//             },
-//             error: function(xhr) {
-//                 const response = xhr.responseJSON || {
-//                     message: `Something went wrong. Please contact the Developers`,
-//                     status: null,
-//                     data: null
-//                 };
-//                 reject({
-//                     status: xhr.status || `Unknown`,
-//                     message: response.message,
-//                     data: response.data
-//                 });
-//             }
-//         })
-//     })
-// }
+export function updateProductWithID(id, updateRequest){
+    return new Promise ((resolve, reject) => {
+        $.ajax({
+            url: `/api/product/update/${id}`,
+            data: JSON.stringify(updateRequest),
+            contentType: 'application/json; charset=UTF-8; ',
+            type: 'PUT',
+            success: function(response){
+                resolve(response);
+            },
+            error: function(xhr) {
+                const response = xhr.responseJSON || {
+                    message: `Something went wrong. Please contact the Developers`,
+                    status: null,
+                    data: null
+                };
+                reject({
+                    status: xhr.status || `Unknown`,
+                    message: response.message,
+                    data: response.data
+                });
+            }
+        })
+    })
+}

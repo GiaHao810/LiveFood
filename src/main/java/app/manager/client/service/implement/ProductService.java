@@ -1,6 +1,9 @@
 package app.manager.client.service.implement;
 
+import app.manager.client.dto.request.UpdateProductRequest;
 import app.manager.client.model.Product;
+import app.manager.client.model.User;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,4 +16,5 @@ public interface ProductService {
     List<Product> getAllProduct();
     Optional<Product> findById(String id);
     Optional<Product> findByName(String name);
+    Optional<Product> updateProduct(String id, UpdateProductRequest updateProductRequest);
 }

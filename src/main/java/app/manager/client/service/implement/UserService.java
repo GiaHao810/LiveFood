@@ -1,6 +1,6 @@
 package app.manager.client.service.implement;
 
-import app.manager.client.dto.request.UpdateRequest;
+import app.manager.client.dto.request.UpdateUserRequest;
 import app.manager.client.model.User;
 import org.springframework.stereotype.Service;
 
@@ -17,5 +17,5 @@ public interface UserService{
     Optional<User> findByUsernameOrMail(String username, String mail);
     void deleteUser(String id);
     Optional<User> searchUsers(String username, String email);
-    Optional<User> updateUser(String id, UpdateRequest updateRequest);
+    Optional<User> updateUser(String id, UpdateUserRequest updateUserRequest);
 }

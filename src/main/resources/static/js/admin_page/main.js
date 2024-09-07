@@ -23,7 +23,7 @@ $(document).ready(function(){
             'edit-user': handleEditUser,
             'add-product': handleAddProduct,
             'del-product': handleDelProduct,
-            'edit-user': handleEditProduct
+            'edit-product': handleEditProduct
         };
 
         let action = actions[$(button).attr('id')];
@@ -137,7 +137,7 @@ $(document).ready(function(){
 
     function handleDelUser(){
         if ($('table tr.selected-value').length <= 0) {
-            UIController.renderNotificationBox("warn", "No boxes are checked.")
+            UIController.renderNotificationBox("warn", "No selected row.")
             return;
         }
 
@@ -212,10 +212,62 @@ $(document).ready(function(){
     }
 
     function handleDelProduct(){
+        if ($('table tr.selected-value').length <= 0) {
+            UIController.renderNotificationBox("warn", "No selected row.")
+            return;
+        }
 
+        $('table tr.selected-value').each(function(){
+            var parentTr = $(this).closest('tr');
+
+            var id = parentTr.find('td:eq(0)').text();
+
+            productService.deleteProduct(id);
+        })
     }
     
     function handleEditProduct(){
+        let selectedValue = $('table tr.selected-value');
 
+        if($(".edit-mode").length == 1 || selectedValue.length > 1){
+            UIController.renderNotificationBox("warn", "Edit one row per time.")
+            return;
+        }
+
+        if(selectedValue.length == 1) {
+            let tr = selectedValue.closest('tr');
+            
+            let id = tr.find('td:eq(0)').text();
+            let code = tr.find('td:eq(1)').text();
+            let name = tr.find('td:eq(2)').text();
+            let price = tr.find('td:eq(3)').text();
+            let unit = tr.find('td:eq(4)').text();
+            let category = tr.find('td:eq(5)').text();
+        
+            UIController.renderEditProductSection(id, code, name, price, unit, category, tr);
+        
+            $(".edit-mode #submit-btn").click(function(){
+                let row = $('tr.edit-mode');
+
+                let updateRequest = {
+                    code: row.find('td:eq(1) input').val(),
+                    name: row.find('td:eq(2) input').val(),
+                    price: row.find('td:eq(3) input').val(),
+                    unit : row.find('td:eq(4) select').val(),
+                    category : row.find('td:eq(5) select').val()
+                };
+                
+                productService.updateProductWithID(id, updateRequest)
+                
+                $(".edit-mode").remove();
+            });
+        
+            $(".edit-mode #cancel-btn").click(function(){
+                $(".edit-mode").remove();
+            });
+            return;
+        }
+
+        UIController.renderNotificationBox("warn", "No selected row.")
     }
 })

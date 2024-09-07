@@ -204,3 +204,9 @@ export function renderAddProductForm(){
         productUI.createFormAddProduct()
     );
 }
+
+export function renderEditProductSection(id, code, name, price, unit, category, row){
+    $(row).after(
+        productUI.createEditProductSection(id, code, name, price, unit, category)
+    );
+}

@@ -3,12 +3,11 @@ package app.manager.client.controller;
 import app.manager.client.dto.Response;
 import app.manager.client.dto.request.AuthenticationRequest;
 import app.manager.client.dto.request.RegisterRequest;
-import app.manager.client.dto.request.UpdateRequest;
+import app.manager.client.dto.request.UpdateUserRequest;
 import app.manager.client.dto.response.ResponseObject;
 import app.manager.client.model.User;
 import app.manager.client.service.AuthenticationService;
 import app.manager.client.service.implement.UserService;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +15,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -130,16 +128,16 @@ public class UserAPIController {
     @PutMapping("/updateWithNameAndMail/{id}")
     public ResponseEntity<ResponseObject> updateUserWithNameAndMail(
             @PathVariable(required = true) String id,
-            @RequestBody(required = true) UpdateRequest updateRequest
+            @RequestBody(required = true) UpdateUserRequest updateUserRequest
             ) {
 
-        if(updateRequest.username().isBlank() || updateRequest.mail().isBlank()){
+        if(updateUserRequest.username().isBlank() || updateUserRequest.mail().isBlank()){
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body(
                             new ResponseObject("Invalid update data",
                                     "FAIL",
-                                    updateRequest
+                                    updateUserRequest
                             )
                     );
         }
@@ -156,13 +154,13 @@ public class UserAPIController {
                         );
             }
 
-            userService.updateUser(id, updateRequest);
+            userService.updateUser(id, updateUserRequest);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(
                 new ResponseObject("User updated",
                         "OK",
-                        updateRequest)
+                        updateUserRequest)
         );
     }
 }

@@ -228,3 +228,7 @@ button:hover {
     outline: none;
     background-color: #f3f3f4;
 }
+
+.edit-mode td input {
+    width: 100%;
+}

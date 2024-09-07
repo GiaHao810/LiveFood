@@ -2,6 +2,7 @@ package app.manager.client.controller;
 
 import app.manager.client.dto.Response;
 import app.manager.client.dto.request.AddProductRequest;
+import app.manager.client.dto.request.UpdateProductRequest;
 import app.manager.client.dto.response.ResponseObject;
 import app.manager.client.model.Category;
 import app.manager.client.model.Product;
@@ -12,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
@@ -83,31 +86,63 @@ public class ProductAPIController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ResponseObject> deleteProduct(@PathVariable String id) {
+        if(productService.findById(id).isEmpty()){
+            return ResponseEntity.status(200)
+                    .body(
+                            new ResponseObject("Cant find any product with this ID " + id,
+                                    "FAIL"
+                                    , id
+                            )
+                    );
+        }
         productService.deleteProduct(id);
-        return ResponseEntity.ok(
-                new ResponseObject("OK",
-                        "OK",
-                        null)
-        );
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(
+                        new ResponseObject("Product Deleted",
+                                "SUCCESS",
+                                id)
+                );
     }
+    @PutMapping("/update/{id}")
+    public ResponseEntity<ResponseObject> updateProduct(
+            @PathVariable(required = true) String id,
+            @RequestBody(required = true) UpdateProductRequest updateProductRequest
+    ) {
 
-//    @GetMapping("/search")
-//    public ResponseEntity<ResponseObject> searchProduct(
-//            @RequestParam(required = false) String username,
-//            @RequestParam(required = false) String mail) {
-//        return ResponseEntity.ok(
-//                new ResponseObject("OK",
-//                        "Users searched successfully",
-//                        productService.searchUsers(username, mail))
-//        );
-//    }
-//
-//    @PutMapping("/{id}")
-//    public ResponseEntity<ResponseObject> updateProduct(@PathVariable String id, @RequestBody User updatedUser) {
-//        return ResponseEntity.ok(
-//                new ResponseObject("OK",
-//                        "User updated successfully",
-//                        productService.updateUser(id, updatedUser))
-//        );
-//    }
+        if(updateProductRequest.code().isBlank() ||
+                updateProductRequest.name().isBlank() ||
+                updateProductRequest.unit().isBlank() ||
+                updateProductRequest.price().isNaN() ||
+                updateProductRequest.category().isBlank()){
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(
+                            new ResponseObject("Invalid update data",
+                                    "FAIL",
+                                    updateProductRequest
+                            )
+                    );
+        }
+        Optional<Product> productOptional = productService.findById(id);
+
+        if(productOptional.isEmpty()){
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(
+                            new ResponseObject("Cant find any product with this ID " + id,
+                                    "FAIL",
+                                    id
+                            )
+                    );
+        }
+
+        productService.updateProduct(id, updateProductRequest);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(
+                        new ResponseObject("Product updated",
+                                "OK",
+                                updateProductRequest)
+                );
+    }
 }

@@ -40,14 +40,27 @@ export function createFormAddProduct(){
     return $("<form>").addClass("modal-content p-4 rounded shadow").html(content);
 }
 
-export function createEditUserSection(id, username, mail, role){
+export function createEditProductSection(id, code, name, price, unit, category){
     return `
     <tr class="edit-mode">
-        <td><span><button type="button" id="submit-btn"><i class="fa-solid fa-check"></i></button></span><span><button type="button" id="cancel-btn"><i class="fa-solid fa-xmark"></i></button></span></td>
         <td><input value="${id}" disabled="disabled"></td>
-        <td><input value="${username}" required></td>
-        <td><input value="${mail}" required></td>
-        <td><input value="${role}" disabled="disabled"></td>
+        <td><input value="${code}" required></td>
+        <td><input value="${name}" required></td>
+        <td><input value="${price}" required></td>
+        <td>
+            <select name="unit" id="unit">
+                <option value="gram" ${unit === 'gram' ? 'selected' : ''}>gram</option>
+                <option value="kilogram" ${unit === 'kilogram' ? 'selected' : ''}>kilogram</option>
+                <option value="box" ${unit === 'box' ? 'selected' : ''}>box</option>
+            </select>
+        </td>
+        <td>
+            <select name="category" id="category">
+                <option value="fruit" ${category === 'FRUIT' ? 'selected' : ''}>fruit</option>
+                <option value="vegetable" ${category === 'VEGETABLE' ? 'selected' : ''}>vegetable</option>
+            </select>
+        </td>
+        <td><span><button type="button" id="submit-btn"><i class="fa-solid fa-check"></i></button></span><span><button type="button" id="cancel-btn"><i class="fa-solid fa-xmark"></i></button></span></td>
     </tr>`;
 }
 
