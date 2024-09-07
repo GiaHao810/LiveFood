@@ -46,7 +46,7 @@ public class UserAPIController {
                 registerRequest.password().isBlank()
         ) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(new ResponseObject("The register informatioin is unvalid!!!",
+                    .body(new ResponseObject("The register information is invalid!!!",
                             "FAIL",
                             registerRequest
                     ));
