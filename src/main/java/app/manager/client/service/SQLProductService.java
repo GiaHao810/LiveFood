@@ -35,4 +35,9 @@ public class SQLProductService implements ProductService {
     public Optional<Product> findById(String id) {
         return productRepository.findById(id);
     }
+
+    @Override
+    public Optional<Product> findByName(String name) {
+        return productRepository.findByName(name);
+    }
 }

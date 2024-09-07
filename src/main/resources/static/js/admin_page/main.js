@@ -16,18 +16,21 @@ $(document).ready(function(){
     $('.nav-item li#invoice-link').click(function(){
     });
 
-    function handleUserToolBar(button){
+    function handleToolBar(button){
         let actions = {
             'add-user': handleAddUser,
             'del-user': handleDelUser,
-            'edit-user': handleEditUser
+            'edit-user': handleEditUser,
+            'add-product': handleAddProduct,
+            'del-product': handleDelProduct,
+            'edit-user': handleEditProduct
         };
 
         let action = actions[$(button).attr('id')];
         if (action) action();
     }
 
-    globalThis.handleUserToolBar = handleUserToolBar;
+    globalThis.handleToolBar = handleToolBar;
 
     function renderUserManagementHandler(){
         userService.loadUser();        
@@ -54,13 +57,13 @@ $(document).ready(function(){
     }
 
     function handleDelUser(){
-        if ($('#user-table tr.selected-value').length <= 0) {
+        if ($('table tr.selected-value').length <= 0) {
             UIController.renderNotificationBox("warn", "No boxes are checked.")
             return;
         }
 
         // Attension!!!!!! Khi xóa nhiều User thì bị lặp mã nhiều lần 
-        $('#user-table tr.selected-value').each(function(){
+        $('table tr.selected-value').each(function(){
             var parentTr = $(this).closest('tr');
 
             var id = parentTr.find('td:eq(0)').text();
@@ -70,7 +73,7 @@ $(document).ready(function(){
     }
 
     function handleEditUser(){
-        let selectedValue = $('#user-table tr.selected-value');
+        let selectedValue = $('table tr.selected-value');
 
         if($(".edit-mode").length == 1 || selectedValue.length > 1){
             UIController.renderNotificationBox("warn", "Edit one row per time.")
@@ -111,5 +114,108 @@ $(document).ready(function(){
 
     function renderProductManagementHandler(){
         productService.loadProduct();
+    }
+
+    function handleAddUser(){
+        UIController.renderFormBackground(UIController.renderAddUserForm());
+
+        $("#add-user-form button[type='submit']").click(function(event){
+            event.preventDefault(); 
+
+            const email = $("input#email").val();
+            const username = $("input#username").val();
+            const password = $("input#password").val();
+        
+            if (!email || !username || !password || email.trim() === "" || username.trim() === "" || password.trim() === "") {
+                UIController.renderNotificationBox("warn", "Please fill in all fields!!!")
+                return; 
+            }
+
+            userService.addUser(email, username, password);
+        });
+    }
+
+    function handleDelUser(){
+        if ($('table tr.selected-value').length <= 0) {
+            UIController.renderNotificationBox("warn", "No boxes are checked.")
+            return;
+        }
+
+        // Attension!!!!!! Khi xóa nhiều User thì bị lặp mã nhiều lần 
+        $('table tr.selected-value').each(function(){
+            var parentTr = $(this).closest('tr');
+
+            var id = parentTr.find('td:eq(0)').text();
+
+            userService.deleteUser(id);
+        })
+    }
+
+    function handleEditUser(){
+        let selectedValue = $('table tr.selected-value');
+
+        if($(".edit-mode").length == 1 || selectedValue.length > 1){
+            UIController.renderNotificationBox("warn", "Edit one row per time.")
+            return;
+        }
+
+        if(selectedValue.length == 1) {
+            let tr = selectedValue.closest('tr');
+            
+            let id = tr.find('td:eq(0)').text();
+            let name = tr.find('td:eq(1)').text();
+            let mail = tr.find('td:eq(2)').text();
+            let role = tr.find('td:eq(3)').text();
+        
+            UIController.renderEditUserSection(id, name, mail, role, tr);
+        
+            $(".edit-mode #submit-btn").click(function(){
+                let row = $('tr.edit-mode');
+
+                let updateRequest = {
+                    username : row.find('td:eq(1) input').val(),
+                    mail : row.find('td:eq(2) input').val()
+                };
+                
+                userService.updateUserWithID(id, updateRequest);
+                
+                $(".edit-mode").remove();
+            });
+        
+            $(".edit-mode #cancel-btn").click(function(){
+                $(".edit-mode").remove();
+            });
+            return;
+        }
+
+        UIController.renderNotificationBox("warn", "No selected row.")
+    }
+
+    function handleAddProduct(){
+        UIController.renderFormBackground(UIController.renderAddProductForm());
+
+        $("#add-product-form button[type='submit']").click(function(event){
+            event.preventDefault(); 
+
+            const name = $("input#product_name").val();
+            const price = $("input#price").val();
+            const unit = $("#unit").val();
+            const category = $("#category").val();
+        
+            if (!name || !price || !unit || !category || name.trim() === "" || price.trim() === "" || unit.trim() === "" || category.trim() === "") {
+                UIController.renderNotificationBox("warn", "Please fill in all fields!!!")
+                return; 
+            }
+
+            productService.addProduct(name, price, unit, category);
+        });
+    }
+
+    function handleDelProduct(){
+
+    }
+    
+    function handleEditProduct(){
+
     }
 })
