@@ -1,0 +1,115 @@
+html,
+body {
+    font-family: monospace, Arial, Helvetica, sans-serif;
+    font-size: medium;
+    width: 100%;
+    height: 200%;
+}
+
+button {
+    background-color: #04AA6D;
+    border: none;
+    border-radius: 1px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+button:hover {
+    transform: scale(1.2);
+    box-shadow: 1px 1px 10px black;
+}
+
+.selected-value {
+    background-color: #04AA6D;
+}
+
+.background {
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 1020;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table,
+th,
+td {
+    border: 1px solid #ddd;
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+tbody tr {
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+}
+
+tbody tr:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    background-color: #0056b3;
+    color: #fff;
+}
+
+.search-container {
+    display: flex;
+    line-height: 28px;
+    align-items: center;
+    position: relative;
+    width: 35rem;
+}
+
+input#search_bar {
+    width: 100%;
+    height: 40px;
+    line-height: 28px;
+    padding: 0 1rem;
+    padding-left: 2.5rem;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    outline: none;
+    background-color: #f3f3f4;
+    color: #0d0c22;
+    transition: 0.3s ease;
+}
+
+input#search_bar::placeholder {
+    color: #9e9ea7;
+}
+
+input#search_bar:focus,
+input#search_bar:hover {
+    outline: none;
+    border-color: rgba(234, 226, 183, 0.4);
+    background-color: #fff;
+    box-shadow: 0 0 0 4px rgb(234 226 183 / 10%);
+}
+
+.icon {
+    position: absolute;
+    left: 1rem;
+    fill: #9e9ea7;
+    width: 1rem;
+    height: 1rem;
+}
