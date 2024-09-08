@@ -89,7 +89,7 @@ export function updateUserWithID(id, updateRequest){
                     data: response.data 
                 });
     
-                UIController.renderNotificationBox("succeess", `${response.message}`)
+                UIController.renderNotificationBox("success", `${response.message}`)
             })
             .catch(error => {
                 logger.logError("Error Update User API", { 

@@ -102,9 +102,11 @@ export function createProductManagement(dataList){
 
                                     <div id="dropdownSearch" class="shadow bg-body rounded p-3">
                                         <div class="form-search">
-                                            <input placeholder="Search by Username" type="search" name="search_by_product_name">
-                                            <input placeholder="Search by ID" type="search" name="search_by_id">
-                                            <input placeholder="Search by Mail" type="search" name="search_by_mail">  
+                                            <input placeholder="Search by Code" type="search" name="search_by_code">
+                                            <input placeholder="Search by Name" type="search" name="search_by_name">
+                                            <input placeholder="Search by Price" type="search" name="search_by_price">  
+                                            <input placeholder="Search by Unit" type="search" name="search_by_unit">  
+                                            <input placeholder="Search by Category" type="search" name="search_by_category">  
                                         </div>
                                         <div class="form-footer d-flex justify-content-end">
                                             <button type="button" name="form-search-button"'>Search</button>

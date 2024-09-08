@@ -81,7 +81,7 @@ export function deleteProduct(id){
 export function updateProductWithID(id, updateRequest){
     productManagement.updateProductWithID(id, updateRequest)
             .then(response => {
-                loadUser();
+                loadProduct();
     
                 logger.logInfo("Update User API called", { 
                     message: response.message,
@@ -89,7 +89,7 @@ export function updateProductWithID(id, updateRequest){
                     data: response.data 
                 });
     
-                UIController.renderNotificationBox("succeess", `${response.message}`)
+                UIController.renderNotificationBox("success", `${response.message}`)
             })
             .catch(error => {
                 logger.logError("Error Update User API", { 

@@ -171,12 +171,12 @@ export function renderProductManagement(dataList){
     });
 
     $('button[name="form-search-button"]').on('click', function() {
-        let nameFilter = $('#dropdownSearch input[name="search_by_username"]').val().trim().toLowerCase();
-        let mailFilter = $('#dropdownSearch input[name="search_by_mail"]').val().trim().toLowerCase();
-        let idFilter = $('#dropdownSearch input[name="search_by_id"]').val().trim().toLowerCase();
+        let codeFilter = $('#dropdownSearch input[name="search_by_code"]').val().trim().toLowerCase();
+        let nameFilter = $('#dropdownSearch input[name="search_by_name"]').val().trim().toLowerCase();
+        let priceFilter = $('#dropdownSearch input[name="search_by_price"]').val().trim().toLowerCase();
+        let unitFilter = $('#dropdownSearch input[name="search_by_unit"]').val().trim().toLowerCase();
+        let categoryFilter = $('#dropdownSearch input[name="search_by_category"]').val().trim().toLowerCase();
         
-        console.log(nameFilter)
-
         let $table = $('#product-table');
         let $rows = $table.find('tr');
     
@@ -186,11 +186,13 @@ export function renderProductManagement(dataList){
     
             let $cells = $(this).find('td');
     
-            let idMatch = idFilter ? $cells.eq(1).text().toLowerCase().includes(idFilter) : true;
+            let codeMatch = codeFilter ? $cells.eq(1).text().toLowerCase().includes(codeFilter) : true;
             let nameMatch = nameFilter ? $cells.eq(2).text().toLowerCase().includes(nameFilter) : true;
-            let mailMatch = mailFilter ? $cells.eq(3).text().toLowerCase().includes(mailFilter) : true;
+            let priceMatch = priceFilter ? $cells.eq(3).text().toLowerCase().includes(priceFilter) : true;
+            let unitMatch = unitFilter ? $cells.eq(4).text().toLowerCase().includes(unitFilter) : true;
+            let categoryMatch = categoryFilter ? $cells.eq(5).text().toLowerCase().includes(categoryFilter) : true;
             
-            if (idMatch && nameMatch && mailMatch) {
+            if (codeMatch && nameMatch && priceMatch && unitMatch && categoryMatch) {
                 $(this).show();
             } else {
                 $(this).hide();
