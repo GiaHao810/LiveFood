@@ -9,21 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminController {
     @GetMapping("/")
     public String getDashboard(){
-        return "admin/dashboard";
-    }
-
-    @GetMapping("/user")
-    public String getUserManage(){
-        return "admin/user_management";
-    }
-
-    @GetMapping("/product")
-    public String getProductManage(){
-        return "admin/product_management";
-    }
-
-    @GetMapping("/invoice")
-    public String getInvoiceManage(){
-        return "admin/invoice_management";
+        return "admin_page/dashboard";
     }
 }
