@@ -15,7 +15,7 @@
     <script src="../../static/js/admin_page/main.js" type="module"></script>
     <!-- <script src="../../static/js/admin/script-home.js"></script> -->
     
-    <link rel="stylesheet" type="text/css" href="/static/css/admin_page/style.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/admin_page/styles.css">
 
     <title>Dashboard</title>
 </head>
@@ -23,45 +23,48 @@
 
 
 <body>
-    <nav class="navbar navbar-expand-sm bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="../../static/image/logo/logo.png" alt="Avatar Logo" style="width:50%;" class="rounded-pill">
-            </a>
+    <div class="bg-dark">
+        <nav class="navbar navbar-expand-sm bg-dark container">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img src="../../static/image/logo/logo.png" alt="Avatar Logo" style="width:50%;" class="rounded-pill">
+                </a>
+    
+                <ul class="nav nav-tabs">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">Manager</a>
+                        <ul class="dropdown-menu">
+                            <li id="user-link" class="dropdown-item">User</li>
+                            <li id="customer-link" class="dropdown-item">Customer</li>
+                            <li id="product-link" class="dropdown-item">Product</li>
+                            <li id="invoice-link" class="dropdown-item">Invoice</li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Link</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link disabled" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Disabled</a>
+                    </li>
+                </ul>
+        </nav>
+    </div>
 
-            <ul class="nav nav-tabs">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">Manager</a>
-                    <ul class="dropdown-menu">
-                        <li id="user-link" class="dropdown-item">User</li>
-                        <li id="customer-link" class="dropdown-item">Customer</li>
-                        <li id="product-link" class="dropdown-item">Product</li>
-                        <li id="invoice-link" class="dropdown-item">Invoice</li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Link</a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link disabled" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
-                </li>
-            </ul>
-    </nav>
     <div id="main">
         
     </div>
