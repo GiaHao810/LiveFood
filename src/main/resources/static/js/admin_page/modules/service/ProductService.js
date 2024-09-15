@@ -27,8 +27,8 @@ export function loadProduct(){
     });
 }
 
-export function addProduct(name, price, unit, category){
-    productManagement.addProduct(name, price, unit, category)
+export function addProduct(name, price, category){
+    productManagement.addProduct(name, price, category)
     .then(response => {
         logger.logInfo("Add Product API called", { 
             message: response.message, 

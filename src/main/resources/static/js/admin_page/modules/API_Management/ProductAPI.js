@@ -46,14 +46,13 @@ export function deleteProduct(id){
     })
 }
 
-export function addProduct(name, price, unit, category){
+export function addProduct(name, price, category){
     return new Promise ((resolve, reject) => {
         $.ajax({
             url: `/api/product/add`,
             data: JSON.stringify({
                 name: name,
                 price: price,
-                unit: unit,
                 category: category
             }),
             contentType: 'application/json; charset=UTF-8; ',

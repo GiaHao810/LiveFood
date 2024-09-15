@@ -199,15 +199,14 @@ $(document).ready(function(){
 
             const name = $("input#product_name").val();
             const price = $("input#price").val();
-            const unit = $("#unit").val();
             const category = $("#category").val();
         
-            if (!name || !price || !unit || !category || name.trim() === "" || price.trim() === "" || unit.trim() === "" || category.trim() === "") {
+            if (!name || !price || !category || name.trim() === "" || price.trim() === "" || category.trim() === "") {
                 UIController.renderNotificationBox("warn", "Please fill in all fields!!!")
                 return; 
             }
 
-            productService.addProduct(name, price, unit, category);
+            productService.addProduct(name, price, category);
         });
     }
 
@@ -241,10 +240,9 @@ $(document).ready(function(){
             let code = tr.find('td:eq(1)').text();
             let name = tr.find('td:eq(2)').text();
             let price = tr.find('td:eq(3)').text();
-            let unit = tr.find('td:eq(4)').text();
-            let category = tr.find('td:eq(5)').text();
+            let category = tr.find('td:eq(4)').text();
         
-            UIController.renderEditProductSection(id, code, name, price, unit, category, tr);
+            UIController.renderEditProductSection(id, code, name, price, category, tr);
         
             $(".edit-mode #submit-btn").click(function(){
                 let row = $('tr.edit-mode');
@@ -253,8 +251,7 @@ $(document).ready(function(){
                     code: row.find('td:eq(1) input').val(),
                     name: row.find('td:eq(2) input').val(),
                     price: row.find('td:eq(3) input').val(),
-                    unit : row.find('td:eq(4) select').val(),
-                    category : row.find('td:eq(5) select').val()
+                    category : row.find('td:eq(4) select').val()
                 };
                 
                 productService.updateProductWithID(id, updateRequest)

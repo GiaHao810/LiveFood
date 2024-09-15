@@ -14,16 +14,6 @@ export function createFormAddProduct(){
                     </div>
                 </div>
                 <div class="row m-1">
-                    <div class="col"><label for="unit">Unit:</label></div>
-                    <div class="col">
-                        <select name="unit" id="unit">
-                            <option value="gram">gram</option>
-                            <option value="kilogram">kilogram</option>
-                            <option value="box">box</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row m-1">
                     <div class="col"><label for="category">Category:</label></div>
                     <div class="col">
                         <select name="category" id="category">
@@ -40,20 +30,13 @@ export function createFormAddProduct(){
     return $("<form>").addClass("modal-content p-4 rounded shadow").html(content);
 }
 
-export function createEditProductSection(id, code, name, price, unit, category){
+export function createEditProductSection(id, code, name, price, category){
     return `
     <tr class="edit-mode">
         <td><input value="${id}" disabled="disabled"></td>
         <td><input value="${code}" required></td>
         <td><input value="${name}" required></td>
         <td><input value="${price}" required></td>
-        <td>
-            <select name="unit" id="unit">
-                <option value="gram" ${unit === 'gram' ? 'selected' : ''}>gram</option>
-                <option value="kilogram" ${unit === 'kilogram' ? 'selected' : ''}>kilogram</option>
-                <option value="box" ${unit === 'box' ? 'selected' : ''}>box</option>
-            </select>
-        </td>
         <td>
             <select name="category" id="category">
                 <option value="fruit" ${category === 'FRUIT' ? 'selected' : ''}>fruit</option>
@@ -74,7 +57,6 @@ export function createProductManagement(dataList){
             <td><span>${data.code}</span></td>
             <td><span>${data.name}</span></td>
             <td><span>${data.price}</span></td>
-            <td><span>${data.unit}</span></td>
             <td><span>${data.category}</span></td>
         </tr>`
     });
@@ -105,7 +87,6 @@ export function createProductManagement(dataList){
                                             <input placeholder="Search by Code" type="search" name="search_by_code">
                                             <input placeholder="Search by Name" type="search" name="search_by_name">
                                             <input placeholder="Search by Price" type="search" name="search_by_price">  
-                                            <input placeholder="Search by Unit" type="search" name="search_by_unit">  
                                             <input placeholder="Search by Category" type="search" name="search_by_category">  
                                         </div>
                                         <div class="form-footer d-flex justify-content-end">
@@ -132,7 +113,6 @@ export function createProductManagement(dataList){
                                 <th>Code</th>
                                 <th>Name</th>
                                 <th>Price</th>
-                                <th>Unit</th>
                                 <th>Category</th>
                             </tr>
                             </thead>

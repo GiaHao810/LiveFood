@@ -11,9 +11,6 @@ import java.util.Optional;
 
 @Repository
 public interface SQLProductRepository extends JpaRepository<Product, String> {
-
-    @NotNull
-    @Override
     @Query("SELECT e FROM Product e ORDER BY e.name ASC")
     List<Product> findAll();
     Optional<Product> findByName(String name);

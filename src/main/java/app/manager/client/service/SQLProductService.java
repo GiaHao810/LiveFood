@@ -50,7 +50,6 @@ public class SQLProductService implements ProductService {
         return productRepository.findById(id).map(
                 product -> {
                     product.setCode(updateProductRequest.code());
-                    product.setUnit(updateProductRequest.unit());
                     product.setName(updateProductRequest.name());
                     product.setPrice(updateProductRequest.price());
                     product.setCategory(Category.valueOf(updateProductRequest.category().toUpperCase()));

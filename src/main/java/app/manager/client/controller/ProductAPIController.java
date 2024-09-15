@@ -36,8 +36,7 @@ public class ProductAPIController {
     public ResponseEntity<Response> addProduct(@RequestBody AddProductRequest request) {
         if(request.category().isBlank() ||
                 request.price().isNaN() ||
-                request.name().isBlank() ||
-                request.unit().isBlank()
+                request.name().isBlank()
         ) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body(new ResponseObject("The register information is invalid!!!",
@@ -60,7 +59,6 @@ public class ProductAPIController {
                 Product.builder()
                         .code("TEMP-CODE")
                         .name(request.name())
-                        .unit(request.unit())
                         .price(request.price())
                         .category(Category.valueOf(request.category().toUpperCase()))
                         .build()
@@ -111,7 +109,6 @@ public class ProductAPIController {
 
         if(updateProductRequest.code().isBlank() ||
                 updateProductRequest.name().isBlank() ||
-                updateProductRequest.unit().isBlank() ||
                 updateProductRequest.price().isNaN() ||
                 updateProductRequest.category().isBlank()){
             return ResponseEntity
@@ -136,7 +133,6 @@ public class ProductAPIController {
                     );
         }
 
-        productService.updateProduct(id, updateProductRequest);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(

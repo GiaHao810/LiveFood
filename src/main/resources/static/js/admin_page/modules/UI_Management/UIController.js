@@ -174,7 +174,6 @@ export function renderProductManagement(dataList){
         let codeFilter = $('#dropdownSearch input[name="search_by_code"]').val().trim().toLowerCase();
         let nameFilter = $('#dropdownSearch input[name="search_by_name"]').val().trim().toLowerCase();
         let priceFilter = $('#dropdownSearch input[name="search_by_price"]').val().trim().toLowerCase();
-        let unitFilter = $('#dropdownSearch input[name="search_by_unit"]').val().trim().toLowerCase();
         let categoryFilter = $('#dropdownSearch input[name="search_by_category"]').val().trim().toLowerCase();
         
         let $table = $('#product-table');
@@ -189,10 +188,9 @@ export function renderProductManagement(dataList){
             let codeMatch = codeFilter ? $cells.eq(1).text().toLowerCase().includes(codeFilter) : true;
             let nameMatch = nameFilter ? $cells.eq(2).text().toLowerCase().includes(nameFilter) : true;
             let priceMatch = priceFilter ? $cells.eq(3).text().toLowerCase().includes(priceFilter) : true;
-            let unitMatch = unitFilter ? $cells.eq(4).text().toLowerCase().includes(unitFilter) : true;
             let categoryMatch = categoryFilter ? $cells.eq(5).text().toLowerCase().includes(categoryFilter) : true;
             
-            if (codeMatch && nameMatch && priceMatch && unitMatch && categoryMatch) {
+            if (codeMatch && nameMatch && priceMatch && categoryMatch) {
                 $(this).show();
             } else {
                 $(this).hide();
@@ -207,8 +205,8 @@ export function renderAddProductForm(){
     );
 }
 
-export function renderEditProductSection(id, code, name, price, unit, category, row){
+export function renderEditProductSection(id, code, name, price, category, row){
     $(row).after(
-        productUI.createEditProductSection(id, code, name, price, unit, category)
+        productUI.createEditProductSection(id, code, name, price, category)
     );
 }
