@@ -11,4 +11,8 @@ public class ClientController {
     public String getDashboard(){
         return "client_page/home";
     }
+    @GetMapping("/test")
+    public String get(){
+        return "s";
+    }
 }

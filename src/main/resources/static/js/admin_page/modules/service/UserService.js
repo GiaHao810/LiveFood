@@ -1,5 +1,5 @@
 import * as userManagement from '../API_Management/UserAPI.js'
-import * as logger from '../utilities/Logger.js'
+import * as logger from '../../../utilities/Logger.js'
 import * as UIController from '../UI_Management/UIController.js'
 
 export function loadUser(){

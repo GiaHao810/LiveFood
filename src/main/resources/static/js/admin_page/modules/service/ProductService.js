@@ -1,5 +1,5 @@
 import * as productManagement from '../API_Management/ProductAPI.js'
-import * as logger from '../utilities/Logger.js'
+import * as logger from '../../../utilities/Logger.js'
 import * as UIController from '../UI_Management/UIController.js'
 
 export function loadProduct(){
