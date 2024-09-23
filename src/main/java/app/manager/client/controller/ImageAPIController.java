@@ -48,19 +48,19 @@ public class ImageAPIController {
             // Lưu từng hình ảnh
             for (MultipartFile file : files) {
                 // Định nghĩa thư mục lưu trữ hình ảnh
-                String directory = "src/main/resources/static/image/";
-                String fileName = file.getOriginalFilename();
-                Path filePath = Paths.get(directory + fileName);
+                String DIRECTORY = "src/main/resources/static/image/";
+                String FILENAME = file.getOriginalFilename();
+                Path FILEPATH = Paths.get(DIRECTORY + FILENAME);
 
                 // Lưu hình ảnh vào thư mục
-                Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+                Files.copy(file.getInputStream(), FILEPATH, StandardCopyOption.REPLACE_EXISTING);
 
-                // Lưu đường dẫn hình ảnh vào database
-                ProductMedia productMedia = new ProductMedia();
-                productMedia.setProduct(product.get());
-                productMedia.setUrl("/image/" + fileName);
-
-                ProductMedia product1 = productMediaService.save(productMedia);
+               productMediaService.save(
+                       ProductMedia.builder()
+                               .product(product.get())
+                               .url("/image/" + FILENAME)
+                               .build()
+               );
             }
             return ResponseEntity.ok("Images uploaded successfully");
         } catch (IOException e) {
