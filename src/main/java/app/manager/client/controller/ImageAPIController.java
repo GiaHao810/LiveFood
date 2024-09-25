@@ -30,11 +30,22 @@ public class ImageAPIController {
     @Autowired
     ProductMediaService productMediaService;
 
+    /**
+     * Function to get Media from database with Media's ID
+     * @param id
+     */
     @GetMapping("/getMedia/{id}")
     public ResponseEntity<ProductMedia> getMedia(@PathVariable String id){
         return ResponseEntity.ok(productMediaService.findById(id));
     }
 
+    /**
+     * Function to upload multiple File to Product Media with Product's ID and save it to DIRECTORY
+     * @param productId
+     * @param files
+     * @return
+     * @throws IOException
+     */
     @PostMapping("/uploadproductMedia/{productId}")
     public ResponseEntity<String> uploadproductMedias(@PathVariable String productId,
                                                       @RequestParam("files") MultipartFile[] files) throws IOException {
