@@ -13,19 +13,19 @@ export function createProductUI(section){
         </div>`
 }
 
-export function createProductSection1(hText, bProduct){
+export function createProductSection1(hText, datas){
     let pContent = ``;
 
-    bProduct.forEach(product => {
+    datas.forEach(data => {
         pContent += `
             <div class="col-lg-8 col-sm-2 product-item flex-column m-1 border border-2 rounded shadow-sm">
-                <a href="#" title="${product.name}">
+                <a href="#" title="${data.product.name}">
                     <div class="item-image">
-                        <img src="/image/product/${product.name}" alt="Temp" style="color: transparent;width: 100%;height: auto;">
+                        <img src="${data.url}" alt="Temp" style="color: transparent;width: 100%;height: auto;">
                     </div>
                 </a>
-                <div class="item-name mb-3">${product.name}</div>
-                <div class="item-price text-start">${product.price}</div>
+                <div class="item-name mb-3">${data.product.name}</div>
+                <div class="item-price text-start">${data.product.price}</div>
                 <button type="button" class="add-cart fw-bold fs-5">Add To Cart</button>
             </div>`
     });

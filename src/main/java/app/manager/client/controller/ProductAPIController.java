@@ -34,6 +34,7 @@ public class ProductAPIController {
 
     @PostMapping("/add")
     public ResponseEntity<Response> addProduct(@RequestBody AddProductRequest request) {
+
         if(request.category().isBlank() ||
                 request.price().isNaN() ||
                 request.name().isBlank()

@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class SQLProductMediaService implements ProductMediaService {
@@ -21,5 +23,10 @@ public class SQLProductMediaService implements ProductMediaService {
     @Override
     public ProductMedia findById(String id) {
         return sqlProductMediaRepository.findById(id).get();
+    }
+
+    @Override
+    public List<ProductMedia> findAll() {
+        return sqlProductMediaRepository.findAll();
     }
 }

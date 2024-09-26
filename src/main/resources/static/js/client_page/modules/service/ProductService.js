@@ -9,7 +9,7 @@ export function loadProductSection(){
         logger.logInfo("Load Product API called", { 
             message: response.message,
             status: response.status, 
-            data: response.data 
+            data: response.data
         });
 
         UIController.renderMainSection("Temp Header", response.data);

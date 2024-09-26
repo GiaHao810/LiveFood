@@ -1,7 +1,7 @@
 export function loadProduct(){
     return new Promise ((resolve, reject) => {
         $.ajax({
-            url: '/api/product/',
+            url: '/api/media/getMedia',
             type: 'GET',
             success: function(response){
                 resolve(response);

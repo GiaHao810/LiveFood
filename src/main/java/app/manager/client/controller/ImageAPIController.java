@@ -1,6 +1,7 @@
 package app.manager.client.controller;
 
 import app.manager.client.dto.ProductMedia;
+import app.manager.client.dto.response.ResponseObject;
 import app.manager.client.model.Product;
 import app.manager.client.service.implement.ProductMediaService;
 import app.manager.client.service.implement.ProductService;
@@ -8,7 +9,6 @@ import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,6 +17,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -31,11 +32,24 @@ public class ImageAPIController {
     ProductMediaService productMediaService;
 
     /**
+     * Function to get Media from database
+     */
+    @GetMapping("/getMedia")
+    public ResponseEntity<ResponseObject> getMedia(){
+        return ResponseEntity.ok(
+                new ResponseObject("OK",
+                        "OK",
+                        productMediaService.findAll()
+                )
+        );
+    }
+
+    /**
      * Function to get Media from database with Media's ID
      * @param id
      */
     @GetMapping("/getMedia/{id}")
-    public ResponseEntity<ProductMedia> getMedia(@PathVariable String id){
+    public ResponseEntity<ProductMedia> getMediaByID(@PathVariable String id){
         return ResponseEntity.ok(productMediaService.findById(id));
     }
 
@@ -59,7 +73,7 @@ public class ImageAPIController {
             // Lưu từng hình ảnh
             for (MultipartFile file : files) {
                 // Định nghĩa thư mục lưu trữ hình ảnh
-                String DIRECTORY = "src/main/resources/static/image/";
+                String DIRECTORY = "src/main/resources/static/image/product/";
                 String FILENAME = file.getOriginalFilename();
                 Path FILEPATH = Paths.get(DIRECTORY + FILENAME);
 
@@ -69,7 +83,7 @@ public class ImageAPIController {
                productMediaService.save(
                        ProductMedia.builder()
                                .product(product.get())
-                               .url("/image/" + FILENAME)
+                               .url("/image/product/" + FILENAME)
                                .build()
                );
             }
@@ -78,5 +92,4 @@ public class ImageAPIController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Image upload failed");
         }
     }
-
 }
