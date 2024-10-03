@@ -1,6 +1,6 @@
 updating tonight...
 
-![My Image](client\src\main\resources\static\image\logo\brand.png)
+![My Image](src\main\resources\static\image\logo\brand.png)
 
 Thông tin chi tiết về các phiên bản sẽ ở pom.xml
 
