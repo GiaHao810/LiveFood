@@ -5,19 +5,35 @@
 > This is my setup
 
 # HOW TO CLONE REPO
-- Clone repository from github: "git clone https://github.com/GiaHao810/LiveFood.git"
-- Move to DIRECTORY: "cd LiveFood"
+- Clone repository from github:
+```
+git clone https://github.com/GiaHao810/LiveFood.git
+```
+- Move to DIRECTORY
+```
+cd LiveFood
+```
 - Create a new MySQL Database
 - Change to your Data URL and fill in username, password.
 
-```java
+```
 spring.datasource.url=jdbc:HERE
 spring.datasource.username=HERE 
 spring.datasource.password=HERE
 ```
 > This is my URL JDBC URL: spring.datasource.url=jdbc:mysql://localhost:3306/livefood
+- Install dependency throught Maven
+```
+mvn clean install
+```
+- Run app or Run *ClientApplication.java* from your IDE
+```
+mvn spring-boot:run
+```
+# API ENDPOINTS
 
 
+# SCREENSHOTS
 ![Add Product](https://github.com/user-attachments/assets/93fe3131-cc08-40ba-80f9-065c81a2a972)
 
 ![Management User Page](https://github.com/user-attachments/assets/591061ca-1b74-4d0d-87f9-53f1e7adc61c)
