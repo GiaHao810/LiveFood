@@ -5,8 +5,13 @@ SYSTEM REQUIREMENT
 
 
 HOW TO CLONE REPO
-1. Clone repository from github: "git clone https://github.com/GiaHao810/LiveFood.git"
-2. Move to DIRECTORY: "cd LiveFood"
+1.	Clone repository from github: "git clone https://github.com/GiaHao810/LiveFood.git"
+2.	Move to DIRECTORY: "cd LiveFood"
+3.	Create a new MySQL Database
+a.	Change to your Data URL and fill in username, password.
+spring.datasource.url=jdbc:mysql://localhost:3306/livefood HERE
+spring.datasource.username=HERE 
+spring.datasource.password=HERE
 
 
 ![Add Product](https://github.com/user-attachments/assets/93fe3131-cc08-40ba-80f9-065c81a2a972)
