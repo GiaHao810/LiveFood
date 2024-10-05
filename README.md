@@ -92,6 +92,91 @@ mvn spring-boot:run
   - *400 - BAD REQUEST: Invalid update data*
   - *404 - NOT FOUND: User information unexist*
  
+### GET /api/product/
+- Description: Get all Product Information.
+- Response: *200 - OK*
+
+### POST /api/product/add/
+- Description: Send an add product request
+- Body Parameters:
+```
+{
+  name: "Coconut",
+  price: 120.2,
+  category: "FRUIT"
+}
+```
+- Response: *201 - CREATED*
+- Error Codes:
+  - *409 - CONFLICT: Register information invalid*
+  - *409 - CONFLICT: Product name existed*
+
+### GET /api/product/{id}
+- Description: Get product information with ID.
+- Path Parameters:
+```
+/api/product/PRODUCT_ID
+```
+- Response: *200 - OK*
+
+### DELETE /api/user/{id}
+- Description: Send a delete id user
+- Path Parameters:
+```
+/api/product/PRODUCT_ID
+```
+- Response: *200 - OK*
+- Error Codes:
+  - *409 - CONFLICT: ID User unexist*
+
+### GET /api/product/update
+- Description: Send request to update product information.
+- Path Parameters:
+```
+/api/product/PRODUCT_ID
+```
+-Body Parameters:
+```
+{
+  code: "TEMP",
+  name: "example",
+  price: 120.2,
+  category : "FRUITS"
+}
+```
+- Response: *200 - OK*
+- - Error Codes:
+  - *400 - BAD REQUEST: Invalid update data*
+  - *404 - NOT FOUND: ID Product unexist*
+
+### GET /api/media/getMedia
+- Description: Get Media Information.
+- Response: *200 - OK*
+
+### GET /api/media/getMedia/{id}
+- Description: Get Media Information with ID
+- Path Parameters:
+```
+/api/media/getMedia/MEDIA_ID
+```
+- Response: *200 - OK*
+
+### POST /api/media/uploadproductMedia/{productId}
+- Description: Upload multiple File to Product Media with Product's ID and save it to DIRECTORY.
+- Param Parameters:
+
+| **Name Param**| **Type**  | **Description**   | **Required**   |
+|---------------|-----------|-------------------|----------------|
+| `files`       | `File`    | Image File        | TRUE           |
+
+- Path Parameters:
+```
+/api/media/uploadproductMedia/PRODUCT_ID
+```
+- Response: *200 - OK*
+- Error Codes:
+  - *404 - NOT FOUND: Product unexist*
+  - *500 - INTERNAL SERVER ERROR: Image upload failed
 
 # SCREENSHOTS
 ![Add Product](https://github.com/user-attachments/assets/93fe3131-cc08-40ba-80f9-065c81a2a972)
