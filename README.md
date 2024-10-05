@@ -1,4 +1,14 @@
-updating tonight...
+SYSTEM REQUIREMENT
+- Java 17 or lastest
+- Apache Maven 3.8.8
+- MySQL ver 8.4.0
+
+
+HOW TO CLONE REPO
+1. Clone repository from github: "git clone https://github.com/GiaHao810/LiveFood.git"
+2. Move to DIRECTORY: "cd LiveFood"
+
+
 ![Add Product](https://github.com/user-attachments/assets/93fe3131-cc08-40ba-80f9-065c81a2a972)
 
 ![Management User Page](https://github.com/user-attachments/assets/591061ca-1b74-4d0d-87f9-53f1e7adc61c)
