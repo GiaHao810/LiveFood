@@ -9,6 +9,9 @@ import app.manager.client.repository.SQLProductRepository;
 import app.manager.client.service.implement.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -56,5 +59,10 @@ public class SQLProductService implements ProductService {
                     return productRepository.save(product);
                 }
         );
+    }
+
+    @Override
+    public Page<Product> getPage(int page, int size, String category) {
+        return productRepository.findAll(PageRequest.of(page, size), Category.valueOf(category));
     }
 }

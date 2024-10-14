@@ -61,12 +61,16 @@ public class ImageAPIController {
      * @throws IOException
      */
     @PostMapping("/uploadproductMedia/{productId}")
-    public ResponseEntity<String> uploadproductMedias(@PathVariable String productId,
+    public ResponseEntity<ResponseObject> uploadproductMedias(@PathVariable String productId,
                                                       @RequestParam("files") MultipartFile[] files) throws IOException {
         // Kiểm tra sản phẩm có tồn tại
         Optional<Product> product = productService.findById(productId);
         if (product.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ResponseObject("Product not found",
+                            "NOT FOUND",
+                            productId)
+            );
         }
 
         try {
@@ -87,9 +91,17 @@ public class ImageAPIController {
                                .build()
                );
             }
-            return ResponseEntity.ok("Images uploaded successfully");
+            return ResponseEntity.ok(
+                    new ResponseObject("Images uploaded successfully",
+                            "OK",
+                            product)
+            );
         } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Image upload failed");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                    new ResponseObject(e.toString(),
+                            "INTERNAL SERVER ERROR",
+                            productId)
+            );
         }
     }
 }

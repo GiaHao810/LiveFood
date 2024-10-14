@@ -25,6 +25,10 @@ public class UserAPIController {
     private final AuthenticationService authenticationService;
     private final Logger log = LoggerFactory.getLogger(UserAPIController.class);
 
+    /**
+     * Get all user informantion
+     * @return List of user
+     */
     @GetMapping("/")
     public ResponseEntity<Response> getAllUser() {
         return ResponseEntity.ok(
@@ -76,6 +80,11 @@ public class UserAPIController {
         );
     }
 
+    /**
+     * Get user information with ID
+     * @param id
+     * @return User Information
+     */
     @GetMapping("/{id}")
     public ResponseEntity<ResponseObject> getUser(@PathVariable String id) {
         return ResponseEntity.ok(
@@ -85,10 +94,15 @@ public class UserAPIController {
         );
     }
 
+    /**
+     * Send a delete id user
+     * @param id
+     * @return id
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<ResponseObject> deleteUser(@PathVariable String id) {
         if(userService.findById(id).isEmpty()){
-            return ResponseEntity.status(200)
+            return ResponseEntity.status(409)
                     .body(
                             new ResponseObject("Cant find any user with this ID " + id,
                                     "FAIL"
@@ -105,6 +119,12 @@ public class UserAPIController {
         );
     }
 
+    /**
+     * Search with username or mail
+     * @param username
+     * @param mail
+     * @return
+     */
     @GetMapping("/search")
     public ResponseEntity<ResponseObject> searchUsers(
             @RequestParam(required = false) String username,
@@ -115,15 +135,6 @@ public class UserAPIController {
                         userService.searchUsers(username, mail))
         );
     }
-
-//    @PutMapping("/{id}")
-//    public ResponseEntity<ResponseObject> updateUser(@PathVariable String id, @RequestBody User updatedUser) {
-//        return ResponseEntity.ok(
-//                new ResponseObject("OK",
-//                        "OK",
-//                        userService.updateUser(id, updatedUser))
-//        );
-//    }
 
     @PutMapping("/updateWithNameAndMail/{id}")
     public ResponseEntity<ResponseObject> updateUserWithNameAndMail(
