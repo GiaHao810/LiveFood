@@ -7,6 +7,7 @@ import app.manager.client.service.implement.ProductMediaService;
 import app.manager.client.service.implement.ProductService;
 import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -42,6 +43,13 @@ public class ImageAPIController {
                         productMediaService.findAll()
                 )
         );
+    }
+
+    @GetMapping("/getMediaWithPSC")
+    public Page<ProductMedia> getMedia(@RequestParam(defaultValue = "0") int page,
+                                     @RequestParam(defaultValue = "5") int size,
+                                     @RequestParam(defaultValue = "VEGETABLE") String category) {
+        return productMediaService.findWithPSC(page, size, category);
     }
 
     /**

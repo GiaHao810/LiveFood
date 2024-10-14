@@ -1,7 +1,7 @@
-export function loadProduct(){
+export function getProducts(category){
     return new Promise ((resolve, reject) => {
         $.ajax({
-            url: '/api/media/getMedia',
+            url:`/api/media/getMediaWithPSC?category=${category}`,
             type: 'GET',
             success: function(response){
                 resolve(response);

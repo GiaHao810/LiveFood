@@ -1,10 +1,13 @@
 package app.manager.client.service;
 
 import app.manager.client.dto.ProductMedia;
+import app.manager.client.model.Category;
 import app.manager.client.repository.SQLProductMediaRepository;
 import app.manager.client.service.implement.ProductMediaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,5 +31,10 @@ public class SQLProductMediaService implements ProductMediaService {
     @Override
     public List<ProductMedia> findAll() {
         return sqlProductMediaRepository.findAll();
+    }
+
+    @Override
+    public Page<ProductMedia> findWithPSC(int page, int size, String category) {
+        return sqlProductMediaRepository.findWithPCS(PageRequest.of(page, size), Category.valueOf(category));
     }
 }
