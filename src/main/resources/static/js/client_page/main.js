@@ -8,11 +8,12 @@ $(document).ready(function(){
         let text = ``;
 
         logger.logInfo("Load Product API called", { 
-            message: "Success",
-            data: response.content
+            status: response.status,
+            message: response.message,
+            data: response.data
         })
 
-        response.content.forEach(data => {
+        response.data.forEach(data => {
             text += `
                 <div class="col-lg-8 col-sm-2 product-item flex-column m-1 border border-2 rounded shadow-sm d-flex justify-content-between">
                     <a href="#" title="${data.product.name}">
@@ -25,8 +26,7 @@ $(document).ready(function(){
                     <button type="button" class="add-cart fw-bold fs-5">Add To Cart</button>
                 </div>`
         });
-
-        $(".product-section .product-body").append(text)
+        $("div#VEGETABLE").next("div").append(text);
     })
     .catch(error => {
         logger.logError("Error Load User API", { 

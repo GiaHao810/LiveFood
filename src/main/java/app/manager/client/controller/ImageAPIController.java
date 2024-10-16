@@ -46,10 +46,17 @@ public class ImageAPIController {
     }
 
     @GetMapping("/getMediaWithPSC")
-    public Page<ProductMedia> getMedia(@RequestParam(defaultValue = "0") int page,
-                                     @RequestParam(defaultValue = "5") int size,
+    public ResponseEntity<ResponseObject> getMedia(@RequestParam(defaultValue = "0") int page,
+                                     @RequestParam(defaultValue = "4") int size,
                                      @RequestParam(defaultValue = "VEGETABLE") String category) {
-        return productMediaService.findWithPSC(page, size, category);
+        Page<ProductMedia> result = productMediaService.findWithPSC(page, size, category);
+
+        return ResponseEntity.ok(
+                new ResponseObject("SUCCESS",
+                        "OK",
+                        result.getContent()
+                )
+        );
     }
 
     /**

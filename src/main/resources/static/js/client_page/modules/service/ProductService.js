@@ -7,10 +7,11 @@ export function loadProductSection(category){
     .then(response => {
 
         logger.logInfo("Load Product API called", { 
-            message: "Success",
-            data: response.content
+            status: response.status,
+            message: response.message,
+            data: response.data
         });
-        UIController.renderMainSection("VEGETABLE", response.content);
+        UIController.renderMainSection("VEGETABLE", response.data);
     })
     .catch(error => {
         logger.logError("Error Load User API", { 
