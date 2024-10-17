@@ -48,7 +48,7 @@ public class AuthenticationService {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            authenticationRequest.mail(),
+                            authenticationRequest.username(),
                             authenticationRequest.password()
                     )
             );
@@ -64,8 +64,8 @@ public class AuthenticationService {
         }
 
         var jwtToken = jwtService.generateToken(
-                userService.findByMail(authenticationRequest.mail())
-                        .orElseThrow()
+                userService.findByUsername(authenticationRequest.username())
+                        .orElseThrow(() -> new RuntimeException("Error in findByMail"))
         );
 
         return new SuccessAuthenticationResponse(

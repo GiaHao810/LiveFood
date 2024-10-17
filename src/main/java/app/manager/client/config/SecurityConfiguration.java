@@ -23,16 +23,17 @@ public class SecurityConfiguration {
         httpSecurity
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorizatizeHttpRequests -> authorizatizeHttpRequests
-                        .requestMatchers("/"
-                                ,"/auth/register"
-                                ,"/auth/authenticate"
+                        .requestMatchers("/api/user/register"
+                                ,"/api/user/authenticate"
                                 , "/login"
-                                , "/static/**"
                         )
                             .permitAll()
-                                .anyRequest().permitAll()
-//                        .anyRequest()
-//                        .authenticated()
+                        .requestMatchers("/api/user/**",
+                                "/api/product/**",
+                                "/api/image/**"
+                        ).hasRole("ADMIN")
+                        .anyRequest()
+                        .authenticated()
                 )
                 .sessionManagement(sessionManagement -> sessionManagement
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

@@ -73,11 +73,7 @@ public class UserAPIController {
 
     @PostMapping("/authenticate")
     public ResponseEntity<Response> authenticate(@RequestBody AuthenticationRequest authenticationRequest) {
-        return ResponseEntity.ok(
-                new ResponseObject("OK",
-                        "OK",
-                        authenticationService.authenticate(authenticationRequest))
-        );
+        return ResponseEntity.ok(authenticationService.authenticate(authenticationRequest));
     }
 
     /**
