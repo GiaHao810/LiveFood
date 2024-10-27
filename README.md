@@ -182,6 +182,7 @@ mvn spring-boot:run
   - *500 - INTERNAL SERVER ERROR: Image upload failed
 
 # SCREENSHOTS
+![screencapture-localhost-8080-swagger-ui-index-html-2024-10-27-16_23_36](https://github.com/user-attachments/assets/7da47766-cb6c-4e60-b1d4-f46d2cd36913)
 ![Add Product](https://github.com/user-attachments/assets/93fe3131-cc08-40ba-80f9-065c81a2a972)
 ![Management User Page](https://github.com/user-attachments/assets/591061ca-1b74-4d0d-87f9-53f1e7adc61c)
 ![Management Product Page](https://github.com/user-attachments/assets/75f5952c-9936-4478-af55-40b915075fa3)
