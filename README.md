@@ -4,6 +4,9 @@
 - MySQL ver 8.4.0
 > This is my setup
 
+# TECHNOLOGY
+- Spring Boot, Spring Security with JWT, Spring JPA
+- Springdoc Swagger, Lombok, MySQL
 # HOW TO CLONE REPO
 - Clone repository from github:
 ```
