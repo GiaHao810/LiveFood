@@ -5,6 +5,8 @@ import app.manager.client.dto.request.AuthenticationRequest;
 import app.manager.client.dto.request.RegisterRequest;
 import app.manager.client.dto.request.UpdateUserRequest;
 import app.manager.client.dto.response.ResponseObject;
+import app.manager.client.exeption.ResourceExistedException;
+import app.manager.client.exeption.ResourceNotFoundException;
 import app.manager.client.model.User;
 import app.manager.client.service.AuthenticationService;
 import app.manager.client.service.implement.UserService;
@@ -43,6 +45,10 @@ public class UserAPIController {
 
     @PostMapping("/register")
     public ResponseEntity<Response> addUser(@Valid @RequestBody RegisterRequest registerRequest) {
+        userService.findByUsernameOrMail(registerRequest.getUsername(), registerRequest.getMail())
+                .map(user -> {
+                    throw new ResourceExistedException("Register information is existed");
+                });
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new ResponseObject("User created successfully",
                         "SUCCESS",
@@ -77,13 +83,7 @@ public class UserAPIController {
     @DeleteMapping("/{id}")
     public ResponseEntity<ResponseObject> deleteUser(@PathVariable String id) {
         if(userService.findById(id).isEmpty()){
-            return ResponseEntity.status(409)
-                    .body(
-                            new ResponseObject("Cant find any user with this ID " + id,
-                                    "FAIL"
-                                    , id
-                            )
-                    );
+            throw new ResourceNotFoundException("Can't find User's with ID " + id);
         }
         userService.deleteUser(id);
         return ResponseEntity.status(200)

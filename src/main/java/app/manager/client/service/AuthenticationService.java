@@ -5,6 +5,7 @@ import app.manager.client.dto.request.AuthenticationRequest;
 import app.manager.client.dto.request.RegisterRequest;
 import app.manager.client.dto.response.FailAuthenticationResponse;
 import app.manager.client.dto.response.SuccessAuthenticationResponse;
+import app.manager.client.exeption.ResourceNotFoundException;
 import app.manager.client.model.Role;
 import app.manager.client.model.User;
 import app.manager.client.service.implement.UserService;
@@ -53,9 +54,6 @@ public class AuthenticationService {
                     )
             );
         } catch (AuthenticationException e) {
-
-            logger.error(e.getMessage());
-
             return new FailAuthenticationResponse(
                     e.getMessage(),
                     "FAILED",
@@ -65,7 +63,7 @@ public class AuthenticationService {
 
         var jwtToken = jwtService.generateToken(
                 userService.findByUsername(authenticationRequest.getUsername())
-                        .orElseThrow(() -> new RuntimeException("Error in findByMail"))
+                        .orElseThrow(() -> new ResourceNotFoundException("User does not exist"))
         );
 
         return new SuccessAuthenticationResponse(
