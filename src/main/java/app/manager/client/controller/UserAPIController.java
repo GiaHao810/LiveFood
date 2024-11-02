@@ -8,11 +8,13 @@ import app.manager.client.dto.response.ResponseObject;
 import app.manager.client.model.User;
 import app.manager.client.service.AuthenticationService;
 import app.manager.client.service.implement.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -20,6 +22,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/user")
+@Validated
 public class UserAPIController {
     private final UserService userService;
     private final AuthenticationService authenticationService;
@@ -39,40 +42,16 @@ public class UserAPIController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Response> addUser(@RequestBody RegisterRequest registerRequest) {
-//        Check if register information is valid
-//        Check if register information is existed or not
-
-        if(registerRequest.username().isBlank() ||
-                registerRequest.mail().isBlank() ||
-                registerRequest.password().isBlank()
-        ) {
-            return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(new ResponseObject("The register information is invalid!!!",
-                            "FAIL",
-                            registerRequest
-                    ));
-        }
-        if(userService.findByUsernameOrMail(
-                registerRequest.username(),
-                registerRequest.mail()
-        ).isPresent()
-        ) {
-            return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(new ResponseObject("Username or Mail already existed!!!",
-                            "FAIL",
-                            registerRequest
-                    ));
-        }
+    public ResponseEntity<Response> addUser(@Valid @RequestBody RegisterRequest registerRequest) {
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(new ResponseObject("User registered successfully!!!",
+                .body(new ResponseObject("User created successfully",
                         "SUCCESS",
                         authenticationService.register(registerRequest)
                 ));
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<Response> authenticate(@RequestBody AuthenticationRequest authenticationRequest) {
+    public ResponseEntity<Response> authenticate(@Valid @RequestBody AuthenticationRequest authenticationRequest) {
         return ResponseEntity.ok(authenticationService.authenticate(authenticationRequest));
     }
 

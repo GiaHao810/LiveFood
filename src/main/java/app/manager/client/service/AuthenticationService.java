@@ -29,9 +29,9 @@ public class AuthenticationService {
 
     public Response register(RegisterRequest registerRequest) {
         User user = User.builder()
-                .username(registerRequest.username())
-                .mail(registerRequest.mail())
-                .password(passwordEncoder.encode(registerRequest.password()))
+                .username(registerRequest.getUsername())
+                .mail(registerRequest.getMail())
+                .password(passwordEncoder.encode(registerRequest.getPassword()))
                 .role(Role.USER)
                 .build();
         userService.save(user);
@@ -48,8 +48,8 @@ public class AuthenticationService {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            authenticationRequest.username(),
-                            authenticationRequest.password()
+                            authenticationRequest.getUsername(),
+                            authenticationRequest.getPassword()
                     )
             );
         } catch (AuthenticationException e) {
@@ -64,7 +64,7 @@ public class AuthenticationService {
         }
 
         var jwtToken = jwtService.generateToken(
-                userService.findByUsername(authenticationRequest.username())
+                userService.findByUsername(authenticationRequest.getUsername())
                         .orElseThrow(() -> new RuntimeException("Error in findByMail"))
         );
 
