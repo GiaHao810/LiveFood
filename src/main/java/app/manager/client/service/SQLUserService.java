@@ -1,6 +1,7 @@
 package app.manager.client.service;
 
 import app.manager.client.dto.request.UpdateUserRequest;
+import app.manager.client.exeption.resource.ResourceNotFoundException;
 import app.manager.client.model.User;
 import app.manager.client.repository.SQLUserRepository;
 import app.manager.client.service.implement.UserService;
@@ -43,14 +44,15 @@ public class SQLUserService implements UserService {
     }
 
     @Override
-    public Optional<User> updateUser(String id, UpdateUserRequest updateUserRequest) {
+    public User updateUser(String id, UpdateUserRequest updateUserRequest) {
         return userRepository.findById(id).map(
                 user -> {
-                    user.setMail(updateUserRequest.mail());
-                    user.setUsername(updateUserRequest.username());
-                    return userRepository.save(user);
+                    user.setMail(updateUserRequest.getMail());
+                    user.setUsername(updateUserRequest.getUsername());
+                    userRepository.save(user);
+                    return user;
                 }
-        );
+        ).orElseThrow(() -> new ResourceNotFoundException("Can't find User's ID " + id));
     }
 
     @Override

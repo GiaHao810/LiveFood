@@ -1,5 +1,7 @@
 package app.manager.client.exeption;
 
+import app.manager.client.exeption.resource.ResourceExistException;
+import app.manager.client.exeption.resource.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -35,9 +37,9 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 
-    @ExceptionHandler(ResourceExistedException.class)
+    @ExceptionHandler(ResourceExistException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
-    public ResponseEntity<String> handleResourceNotFoundException(ResourceExistedException ex) {
+    public ResponseEntity<String> handleResourceNotFoundException(ResourceExistException ex) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
     }
 }

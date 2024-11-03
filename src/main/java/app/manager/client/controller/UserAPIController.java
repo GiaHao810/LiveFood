@@ -5,9 +5,8 @@ import app.manager.client.dto.request.AuthenticationRequest;
 import app.manager.client.dto.request.RegisterRequest;
 import app.manager.client.dto.request.UpdateUserRequest;
 import app.manager.client.dto.response.ResponseObject;
-import app.manager.client.exeption.ResourceExistedException;
-import app.manager.client.exeption.ResourceNotFoundException;
-import app.manager.client.model.User;
+import app.manager.client.exeption.resource.ResourceExistException;
+import app.manager.client.exeption.resource.ResourceNotFoundException;
 import app.manager.client.service.AuthenticationService;
 import app.manager.client.service.implement.UserService;
 import jakarta.validation.Valid;
@@ -18,8 +17,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
@@ -46,8 +43,8 @@ public class UserAPIController {
     @PostMapping("/register")
     public ResponseEntity<Response> addUser(@Valid @RequestBody RegisterRequest registerRequest) {
         userService.findByUsernameOrMail(registerRequest.getUsername(), registerRequest.getMail())
-                .map(user -> {
-                    throw new ResourceExistedException("Register information is existed");
+                .ifPresent(user -> {
+                    throw new ResourceExistException("Register information is existed");
                 });
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new ResponseObject("User created successfully",
@@ -67,12 +64,10 @@ public class UserAPIController {
      * @return User Information
      */
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseObject> getUser(@PathVariable String id) {
-        return ResponseEntity.ok(
-                new ResponseObject("OK",
-                        "OK",
-                        userService.findById(id))
-        );
+    public ResponseEntity getUser(@PathVariable String id) {
+        return userService.findById(id)
+                .map(user -> ResponseEntity.status(HttpStatus.FOUND).body(user))
+                .orElseThrow(() -> new ResourceNotFoundException("Can't find User's ID " + id));
     }
 
     /**
@@ -82,10 +77,13 @@ public class UserAPIController {
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<ResponseObject> deleteUser(@PathVariable String id) {
-        if(userService.findById(id).isEmpty()){
-            throw new ResourceNotFoundException("Can't find User's with ID " + id);
-        }
-        userService.deleteUser(id);
+        userService.findById(id)
+                .ifPresentOrElse(
+                        user -> userService.deleteUser(id),
+                        () ->  {
+                            throw new ResourceNotFoundException("Can't find User's with ID " + id);
+                        }
+                );
         return ResponseEntity.status(200)
                 .body(
                 new ResponseObject("User Deleted",
@@ -104,49 +102,27 @@ public class UserAPIController {
     public ResponseEntity<ResponseObject> searchUsers(
             @RequestParam(required = false) String username,
             @RequestParam(required = false) String mail) {
-        return ResponseEntity.ok(
-                new ResponseObject("OK",
-                        "OK",
-                        userService.searchUsers(username, mail))
-        );
+        return userService.searchUsers(username, mail)
+                .map(user ->
+                        ResponseEntity.ok(
+                            new ResponseObject("OK",
+                                    "OK",
+                                    user))
+                )
+                .orElseThrow(() -> new ResourceNotFoundException("Can't find User's information"));
     }
 
     @PutMapping("/updateWithNameAndMail/{id}")
     public ResponseEntity<ResponseObject> updateUserWithNameAndMail(
             @PathVariable(required = true) String id,
             @RequestBody(required = true) UpdateUserRequest updateUserRequest
-            ) {
-
-        if(updateUserRequest.username().isBlank() || updateUserRequest.mail().isBlank()){
-            return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body(
-                            new ResponseObject("Invalid update data",
-                                    "FAIL",
-                                    updateUserRequest
-                            )
-                    );
-        }
-           Optional<User> userOptional = userService.findById(id);
-
-            if(userOptional.isEmpty()){
-                return ResponseEntity
-                        .status(HttpStatus.NOT_FOUND)
-                        .body(
-                                new ResponseObject("Cant find any user with this ID " + id,
-                                        "FAIL",
-                                        id
-                                )
-                        );
-            }
-
-            userService.updateUser(id, updateUserRequest);
-        return ResponseEntity
-                .status(HttpStatus.OK)
+            )
+    {
+        return ResponseEntity.status(HttpStatus.OK)
                 .body(
                 new ResponseObject("User updated",
                         "OK",
-                        updateUserRequest)
+                        userService.updateUser(id, updateUserRequest))
         );
     }
 }

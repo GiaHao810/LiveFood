@@ -17,5 +17,5 @@ public interface UserService{
     Optional<User> findByUsernameOrMail(String username, String mail);
     void deleteUser(String id);
     Optional<User> searchUsers(String username, String email);
-    Optional<User> updateUser(String id, UpdateUserRequest updateUserRequest);
+    User updateUser(String id, UpdateUserRequest updateUserRequest);
 }
