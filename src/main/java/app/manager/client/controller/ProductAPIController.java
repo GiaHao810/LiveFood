@@ -4,9 +4,12 @@ import app.manager.client.dto.Response;
 import app.manager.client.dto.request.AddProductRequest;
 import app.manager.client.dto.request.UpdateProductRequest;
 import app.manager.client.dto.response.ResponseObject;
+import app.manager.client.exeption.resource.ResourceExistException;
+import app.manager.client.exeption.resource.ResourceNotFoundException;
 import app.manager.client.model.Category;
 import app.manager.client.model.Product;
 import app.manager.client.service.implement.ProductService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,43 +46,27 @@ public class ProductAPIController {
      * @return
      */
     @PostMapping("/add")
-    public ResponseEntity<Response> addProduct(@RequestBody AddProductRequest request) {
+    public ResponseEntity<Response> addProduct(@Valid @RequestBody AddProductRequest request) {
 
-        if(request.category().isBlank() ||
-                request.price().isNaN() ||
-                request.name().isBlank()
-        ) {
-            return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(new ResponseObject("The register information is invalid!!!",
-                            "FAIL",
-                            request
-                    ));
-        }
+        productService.findByName(request.getName())
+                .ifPresent(product -> {
+                    throw new ResourceExistException("Product Information is existed");
+                });
 
-        if(productService.findByName(
-                request.name()).isPresent()
-        ) {
-            return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(new ResponseObject("Product name already existed!!!",
-                            "FAIL",
-                            request
-                    ));
-        }
-
-        productService.save(
-                Product.builder()
+        Product product = Product.builder()
                         .code("TEMP-CODE")
-                        .name(request.name())
-                        .price(request.price())
-                        .category(Category.valueOf(request.category().toUpperCase()))
-                        .build()
-        );
+                        .name(request.getName())
+                        .price(request.getPrice())
+                        .category(Category.valueOf(request.getCategory().toUpperCase()))
+                        .build();
+
+        productService.save(product);
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new ResponseObject(
                         "Product added successfully!!",
                         "SUCCESS",
-                        productService.findByName(request.name()).get()
+                        product
                         )
                 );
     }
@@ -100,16 +87,12 @@ public class ProductAPIController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ResponseObject> deleteProduct(@PathVariable String id) {
-        if(productService.findById(id).isEmpty()){
-            return ResponseEntity.status(200)
-                    .body(
-                            new ResponseObject("Cant find any product with this ID " + id,
-                                    "FAIL"
-                                    , id
-                            )
-                    );
-        }
-        productService.deleteProduct(id);
+        productService.findById(id)
+                .ifPresentOrElse(product -> productService.deleteProduct(id),
+                        () -> {
+                    throw new ResourceNotFoundException("ID invalid");
+                }
+                );
         return ResponseEntity.status(HttpStatus.OK)
                 .body(
                         new ResponseObject("Product Deleted",
