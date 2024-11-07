@@ -7,6 +7,7 @@ import app.manager.client.dto.request.UpdateUserRequest;
 import app.manager.client.dto.response.ResponseObject;
 import app.manager.client.exeption.resource.ResourceExistException;
 import app.manager.client.exeption.resource.ResourceNotFoundException;
+import app.manager.client.model.User;
 import app.manager.client.service.AuthenticationService;
 import app.manager.client.service.implement.UserService;
 import jakarta.validation.Valid;
@@ -118,11 +119,12 @@ public class UserAPIController {
             @RequestBody(required = true) UpdateUserRequest updateUserRequest
             )
     {
+        User user = userService.updateUser(id, updateUserRequest);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(
-                new ResponseObject("User updated",
-                        "OK",
-                        userService.updateUser(id, updateUserRequest))
+                new ResponseObject("API called",
+                        "200",
+                        user)
         );
     }
 }

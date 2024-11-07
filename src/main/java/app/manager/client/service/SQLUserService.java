@@ -16,7 +16,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class SQLUserService implements UserService {
     private final SQLUserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
 
     @Override
     public Optional<User> findByMail(String mail) {
@@ -45,12 +44,11 @@ public class SQLUserService implements UserService {
 
     @Override
     public User updateUser(String id, UpdateUserRequest updateUserRequest) {
-        return userRepository.findById(id).map(
-                user -> {
+        return userRepository.findById(id)
+                .map(user -> {
                     user.setMail(updateUserRequest.getMail());
                     user.setUsername(updateUserRequest.getUsername());
-                    userRepository.save(user);
-                    return user;
+                    return userRepository.save(user);
                 }
         ).orElseThrow(() -> new ResourceNotFoundException("Can't find User's ID " + id));
     }
