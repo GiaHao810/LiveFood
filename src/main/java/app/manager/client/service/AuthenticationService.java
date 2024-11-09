@@ -38,10 +38,7 @@ public class AuthenticationService {
 
         var jwtToken = jwtService.generateToken(user);
 
-        return new SuccessAuthenticationResponse(
-                jwtToken,
-                jwtService.getExpirationTime()
-        );
+        return new Response(jwtToken);
     }
 
     public Response authenticate(AuthenticationRequest authenticationRequest) {
@@ -53,11 +50,7 @@ public class AuthenticationService {
                     )
             );
         } catch (AuthenticationException e) {
-            return new FailAuthenticationResponse(
-                    e.getMessage(),
-                    "FAILED",
-                    authenticationRequest
-            );
+            return new Response(e.getMessage());
         }
 
         var jwtToken = jwtService.generateToken(
@@ -65,9 +58,6 @@ public class AuthenticationService {
                         .orElseThrow(() -> new ResourceNotFoundException("User does not exist"))
         );
 
-        return new SuccessAuthenticationResponse(
-                jwtToken,
-                jwtService.getExpirationTime()
-        );
+        return new Response(jwtToken);
     }
 }
