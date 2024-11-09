@@ -1,5 +1,6 @@
 package app.manager.client.service.implement;
 
+import app.manager.client.dto.request.AddProductRequest;
 import app.manager.client.dto.request.UpdateProductRequest;
 import app.manager.client.model.Product;
 import app.manager.client.model.User;
@@ -20,4 +21,5 @@ public interface ProductService {
     Optional<Product> findByName(String name);
     Optional<Product> updateProduct(String id, UpdateProductRequest updateProductRequest);
     Page<Product> getPage(int page, int size, String category);
+    Product addProduct(AddProductRequest request);
 }

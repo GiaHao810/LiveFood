@@ -1,5 +1,6 @@
 package app.manager.client.service;
 
+import app.manager.client.dto.request.AddProductRequest;
 import app.manager.client.dto.request.UpdateProductRequest;
 import app.manager.client.dto.request.UpdateUserRequest;
 import app.manager.client.model.Category;
@@ -52,10 +53,10 @@ public class SQLProductService implements ProductService {
     public Optional<Product> updateProduct(String id, UpdateProductRequest updateProductRequest) {
         return productRepository.findById(id).map(
                 product -> {
-                    product.setCode(updateProductRequest.code());
-                    product.setName(updateProductRequest.name());
-                    product.setPrice(updateProductRequest.price());
-                    product.setCategory(Category.valueOf(updateProductRequest.category().toUpperCase()));
+                    product.setCode(updateProductRequest.getCode());
+                    product.setName(updateProductRequest.getName());
+                    product.setPrice(updateProductRequest.getPrice());
+                    product.setCategory(Category.valueOf(updateProductRequest.getCategory().toUpperCase()));
                     return productRepository.save(product);
                 }
         );
@@ -65,4 +66,16 @@ public class SQLProductService implements ProductService {
     public Page<Product> getPage(int page, int size, String category) {
         return productRepository.findAll(PageRequest.of(page, size), Category.valueOf(category));
     }
+
+    @Override
+    public Product addProduct(AddProductRequest request) {
+        return productRepository.save(Product.builder()
+                .code("TEMP-CODE")
+                .name(request.getName())
+                .price(request.getPrice())
+                .category(Category.valueOf(request.getCategory().toUpperCase()))
+                .build());
+    }
+
+
 }

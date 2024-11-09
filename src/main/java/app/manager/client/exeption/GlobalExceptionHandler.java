@@ -38,7 +38,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<?> handleResourceNotFoundException(ResourceNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                new ResponseObject("fail", ex.getMessage())
+                new ResponseObject<>("fail", ex.getMessage())
         );
     }
 
@@ -46,31 +46,31 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.CONFLICT)
     public ResponseEntity<?> handleResourceNotFoundException(ResourceExistException ex) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(
-                new ResponseObject("fail", ex.getMessage())
+                new ResponseObject<>("fail", ex.getMessage())
         );
     }
 
     @ExceptionHandler(ExpiredJwtException.class)
     public ResponseEntity<?> handleExpiredJwtException(ExpiredJwtException ex) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
-                new ResponseObject("fail", "Token Expired"));
+                new ResponseObject<>("fail", "Token Expired"));
     }
 
     @ExceptionHandler(SignatureException.class)
     public ResponseEntity<?> handleSignatureException(SignatureException ex) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
-                new ResponseObject("fail", "Token Signature Invalid"));
+                new ResponseObject<>("fail", "Token Signature Invalid"));
     }
 
     @ExceptionHandler(MalformedJwtException.class)
     public ResponseEntity<?> handleMalformedJwtException(MalformedJwtException ex) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
-                new ResponseObject("fail", "Token Invalid"));
+                new ResponseObject<>("fail", "Token Invalid"));
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleGeneralException(Exception ex) {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(
-                new ResponseObject("fail", "Token Authentication Error"));
+                new ResponseObject<>("fail", "Token Authentication Error"));
     }
 }

@@ -32,10 +32,9 @@ public class ProductAPIController {
      * @return List of Product
      */
     @GetMapping("/")
-    public ResponseEntity<Response> getAllProduct() {
+    public ResponseEntity<?> getAllProduct() {
         return ResponseEntity.ok(
-                new ResponseObject("OK",
-                        "OK",
+                new ResponseObject<>("success",
                         productService.getAllProduct())
         );
     }
@@ -46,27 +45,18 @@ public class ProductAPIController {
      * @return
      */
     @PostMapping("/add")
-    public ResponseEntity<Response> addProduct(@Valid @RequestBody AddProductRequest request) {
-
+    public ResponseEntity<?> addProduct(@Valid @RequestBody AddProductRequest request) {
         productService.findByName(request.getName())
-                .ifPresent(product -> {
-                    throw new ResourceExistException("Product Information is existed");
-                });
-
-        Product product = Product.builder()
-                        .code("TEMP-CODE")
-                        .name(request.getName())
-                        .price(request.getPrice())
-                        .category(Category.valueOf(request.getCategory().toUpperCase()))
-                        .build();
-
-        productService.save(product);
+                .ifPresent(
+                        product -> {
+                            throw new ResourceExistException("Product Information is existed");
+                        }
+                );
 
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(new ResponseObject(
-                        "Product added successfully!!",
-                        "SUCCESS",
-                        product
+                .body(new ResponseObject<>(
+                        "success",
+                        productService.addProduct(request)
                         )
                 );
     }
@@ -77,16 +67,16 @@ public class ProductAPIController {
      * @return
      */
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseObject> getProduct(@PathVariable String id) {
-        return ResponseEntity.ok(
-                new ResponseObject("OK",
-                        "OK",
-                        productService.findById(id))
-        );
+    public ResponseEntity<?> getProduct(@PathVariable String id) {
+        return productService.findById(id)
+                .map(product -> ResponseEntity.status(HttpStatus.FOUND)
+                        .body(new ResponseObject<Product>("success", product))
+                )
+                .orElseThrow(() -> new ResourceNotFoundException("Can't find Product's ID " + id));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ResponseObject> deleteProduct(@PathVariable String id) {
+    public ResponseEntity<?> deleteProduct(@PathVariable String id) {
         productService.findById(id)
                 .ifPresentOrElse(product -> productService.deleteProduct(id),
                         () -> {
@@ -94,50 +84,20 @@ public class ProductAPIController {
                 }
                 );
         return ResponseEntity.status(HttpStatus.OK)
-                .body(
-                        new ResponseObject("Product Deleted",
-                                "SUCCESS",
-                                id)
+                    .body(new ResponseObject<>("success")
                 );
     }
     @PutMapping("/update/{id}")
-    public ResponseEntity<ResponseObject> updateProduct(
+    public ResponseEntity<?> updateProduct(
             @PathVariable(required = true) String id,
-            @RequestBody(required = true) UpdateProductRequest updateProductRequest
+            @Valid @RequestBody(required = true) UpdateProductRequest updateProductRequest
     ) {
-
-        if(updateProductRequest.code().isBlank() ||
-                updateProductRequest.name().isBlank() ||
-                updateProductRequest.price().isNaN() ||
-                updateProductRequest.category().isBlank()){
-            return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body(
-                            new ResponseObject("Invalid update data",
-                                    "FAIL",
-                                    updateProductRequest
-                            )
-                    );
-        }
-        Optional<Product> productOptional = productService.findById(id);
-
-        if(productOptional.isEmpty()){
-            return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
-                    .body(
-                            new ResponseObject("Cant find any product with this ID " + id,
-                                    "FAIL",
-                                    id
-                            )
-                    );
-        }
-
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(
-                        new ResponseObject("Product updated",
-                                "OK",
-                                updateProductRequest)
+                        new ResponseObject<>("success",
+                                productService.updateProduct(id, updateProductRequest)
+                                )
                 );
     }
 
