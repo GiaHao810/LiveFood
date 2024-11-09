@@ -1,5 +1,6 @@
 package app.manager.client.exeption;
 
+import app.manager.client.dto.response.ResponseObject;
 import app.manager.client.exeption.resource.ResourceExistException;
 import app.manager.client.exeption.resource.ResourceNotFoundException;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -35,33 +36,41 @@ public class GlobalExceptionHandler {
     // Xử lý lỗi không tìm thấy
     @ExceptionHandler(ResourceNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<String> handleResourceNotFoundException(ResourceNotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    public ResponseEntity<?> handleResourceNotFoundException(ResourceNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                new ResponseObject("fail", ex.getMessage())
+        );
     }
 
     @ExceptionHandler(ResourceExistException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
-    public ResponseEntity<String> handleResourceNotFoundException(ResourceExistException ex) {
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+    public ResponseEntity<?> handleResourceNotFoundException(ResourceExistException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(
+                new ResponseObject("fail", ex.getMessage())
+        );
     }
 
     @ExceptionHandler(ExpiredJwtException.class)
-    public ResponseEntity<String> handleExpiredJwtException(ExpiredJwtException ex) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token Expired");
+    public ResponseEntity<?> handleExpiredJwtException(ExpiredJwtException ex) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
+                new ResponseObject("fail", "Token Expired"));
     }
 
     @ExceptionHandler(SignatureException.class)
-    public ResponseEntity<String> handleSignatureException(SignatureException ex) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token Signature Invalid");
+    public ResponseEntity<?> handleSignatureException(SignatureException ex) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
+                new ResponseObject("fail", "Token Signature Invalid"));
     }
 
     @ExceptionHandler(MalformedJwtException.class)
-    public ResponseEntity<String> handleMalformedJwtException(MalformedJwtException ex) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token Invalid");
+    public ResponseEntity<?> handleMalformedJwtException(MalformedJwtException ex) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
+                new ResponseObject("fail", "Token Invalid"));
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleGeneralException(Exception ex) {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Token Authentication Error");
+    public ResponseEntity<?> handleGeneralException(Exception ex) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(
+                new ResponseObject("fail", "Token Authentication Error"));
     }
 }
