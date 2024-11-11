@@ -2,11 +2,8 @@ package app.manager.client.service.implement;
 
 import app.manager.client.dto.request.AddProductRequest;
 import app.manager.client.dto.request.UpdateProductRequest;
-import app.manager.client.model.Product;
-import app.manager.client.model.User;
+import app.manager.client.entity.Product;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

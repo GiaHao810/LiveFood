@@ -1,8 +1,7 @@
 package app.manager.client.repository;
 
-import app.manager.client.model.Category;
-import app.manager.client.model.Product;
-import org.jetbrains.annotations.NotNull;
+import app.manager.client.entity.model.Category;
+import app.manager.client.entity.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

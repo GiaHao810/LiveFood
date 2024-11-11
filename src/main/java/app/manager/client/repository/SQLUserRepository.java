@@ -1,6 +1,6 @@
 package app.manager.client.repository;
 
-import app.manager.client.model.User;
+import app.manager.client.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

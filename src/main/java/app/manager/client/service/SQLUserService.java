@@ -2,11 +2,10 @@ package app.manager.client.service;
 
 import app.manager.client.dto.request.UpdateUserRequest;
 import app.manager.client.exeption.resource.ResourceNotFoundException;
-import app.manager.client.model.User;
+import app.manager.client.entity.User;
 import app.manager.client.repository.SQLUserRepository;
 import app.manager.client.service.implement.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

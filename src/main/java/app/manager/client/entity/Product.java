@@ -1,5 +1,6 @@
-package app.manager.client.model;
+package app.manager.client.entity;
 
+import app.manager.client.entity.model.Category;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,7 +10,6 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.UUID;
 
 @Data
 @Builder

@@ -2,17 +2,14 @@ package app.manager.client.service;
 
 import app.manager.client.dto.request.AddProductRequest;
 import app.manager.client.dto.request.UpdateProductRequest;
-import app.manager.client.dto.request.UpdateUserRequest;
-import app.manager.client.model.Category;
-import app.manager.client.model.Product;
-import app.manager.client.model.User;
+import app.manager.client.entity.model.Category;
+import app.manager.client.entity.Product;
 import app.manager.client.repository.SQLProductRepository;
 import app.manager.client.service.implement.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

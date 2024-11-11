@@ -1,13 +1,11 @@
 package app.manager.client.controller;
 
-import app.manager.client.dto.Response;
 import app.manager.client.dto.request.AddProductRequest;
 import app.manager.client.dto.request.UpdateProductRequest;
 import app.manager.client.dto.response.ResponseObject;
 import app.manager.client.exeption.resource.ResourceExistException;
 import app.manager.client.exeption.resource.ResourceNotFoundException;
-import app.manager.client.model.Category;
-import app.manager.client.model.Product;
+import app.manager.client.entity.Product;
 import app.manager.client.service.implement.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,8 +15,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController

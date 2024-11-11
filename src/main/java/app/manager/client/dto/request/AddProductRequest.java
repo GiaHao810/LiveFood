@@ -1,6 +1,5 @@
 package app.manager.client.dto.request;
 
-import app.manager.client.model.Category;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

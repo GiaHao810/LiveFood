@@ -1,8 +1,8 @@
 package app.manager.client.controller;
 
-import app.manager.client.model.ProductMedia;
+import app.manager.client.entity.ProductMedia;
 import app.manager.client.dto.response.ResponseObject;
-import app.manager.client.model.Product;
+import app.manager.client.entity.Product;
 import app.manager.client.service.implement.ProductMediaService;
 import app.manager.client.service.implement.ProductService;
 import lombok.*;

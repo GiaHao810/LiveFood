@@ -1,6 +1,6 @@
 package app.manager.client.service.implement;
 
-import app.manager.client.model.ProductMedia;
+import app.manager.client.entity.ProductMedia;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 

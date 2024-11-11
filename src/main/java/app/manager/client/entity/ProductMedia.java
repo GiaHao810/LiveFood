@@ -1,11 +1,7 @@
-package app.manager.client.model;
+package app.manager.client.entity;
 
-import app.manager.client.model.Product;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.UUID;
 
 @Builder
 @Data

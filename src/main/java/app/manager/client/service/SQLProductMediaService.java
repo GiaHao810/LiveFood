@@ -1,7 +1,7 @@
 package app.manager.client.service;
 
-import app.manager.client.model.ProductMedia;
-import app.manager.client.model.Category;
+import app.manager.client.entity.ProductMedia;
+import app.manager.client.entity.model.Category;
 import app.manager.client.repository.SQLProductMediaRepository;
 import app.manager.client.service.implement.ProductMediaService;
 import lombok.RequiredArgsConstructor;

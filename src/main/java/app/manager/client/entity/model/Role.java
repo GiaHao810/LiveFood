@@ -1,4 +1,4 @@
-package app.manager.client.model;
+package app.manager.client.entity.model;
 
 public enum Role {
     ADMIN,

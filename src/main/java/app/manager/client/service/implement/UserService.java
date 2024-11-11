@@ -1,7 +1,7 @@
 package app.manager.client.service.implement;
 
 import app.manager.client.dto.request.UpdateUserRequest;
-import app.manager.client.model.User;
+import app.manager.client.entity.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

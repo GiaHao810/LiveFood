@@ -3,7 +3,7 @@ package app.manager.client.controller;
 import app.manager.client.dto.request.UpdateUserRequest;
 import app.manager.client.dto.response.ResponseObject;
 import app.manager.client.exeption.resource.ResourceNotFoundException;
-import app.manager.client.model.User;
+import app.manager.client.entity.User;
 import app.manager.client.service.implement.UserService;
 
 import jakarta.validation.Valid;
