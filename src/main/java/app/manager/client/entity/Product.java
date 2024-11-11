@@ -16,22 +16,23 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "product")
+@Table(name = "products")
 public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(columnDefinition = "CHAR(36)", nullable = false)
     private String id;
 
-    @Column(nullable = false)
+    @Column(name = "code", nullable = false)
     private String code;
 
-    @Column(nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(name="price", nullable = false)
     private Double price;
 
+    @Column(name = "category", nullable = false)
     @Enumerated(EnumType.STRING)
     private Category category;
 

@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "product_detail")
+@Table(name = "product_details")
 public class ProductDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

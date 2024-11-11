@@ -18,15 +18,23 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(columnDefinition = "CHAR(36)", nullable = false)
+    @Column(name = "id", columnDefinition = "CHAR(36)", nullable = false)
     private String id;
+
+    @Column(name = "username", nullable = false)
     private String username;
+
+    @Column(name = "password", nullable = false)
     private String password;
+
+    @Column(name = "mail", nullable = false)
     private String mail;
+
+    @Column(name = "role", nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
 
