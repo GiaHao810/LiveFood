@@ -1,6 +1,6 @@
 package app.manager.client.controller;
 
-import app.manager.client.dto.ProductMedia;
+import app.manager.client.model.ProductMedia;
 import app.manager.client.dto.response.ResponseObject;
 import app.manager.client.model.Product;
 import app.manager.client.service.implement.ProductMediaService;
@@ -18,7 +18,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.List;
 import java.util.Optional;
 
 @AllArgsConstructor

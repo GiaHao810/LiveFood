@@ -30,8 +30,7 @@ public class UserAPIController {
     @GetMapping("/")
     public ResponseEntity<?> getAllUser() {
         return ResponseEntity.ok(
-                new ResponseObject<>("OK",
-                        "OK",
+                new ResponseObject<>("success",
                         userService.getAllUser())
         );
     }

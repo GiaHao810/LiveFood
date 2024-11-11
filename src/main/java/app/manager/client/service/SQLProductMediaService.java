@@ -1,6 +1,6 @@
 package app.manager.client.service;
 
-import app.manager.client.dto.ProductMedia;
+import app.manager.client.model.ProductMedia;
 import app.manager.client.model.Category;
 import app.manager.client.repository.SQLProductMediaRepository;
 import app.manager.client.service.implement.ProductMediaService;

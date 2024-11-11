@@ -1,9 +1,11 @@
-package app.manager.client.dto;
+package app.manager.client.model;
 
 import app.manager.client.model.Product;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.UUID;
 
 @Builder
 @Data
@@ -13,8 +15,8 @@ import lombok.*;
 public class ProductMedia {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(columnDefinition = "CHAR(36)", nullable = false)
     private String id;
-
     private String url;
 
     @ManyToOne
