@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -25,13 +26,17 @@ public class Order {
     @JoinColumn(name = "owner_id", referencedColumnName = "id", nullable = false)
     private User owner;
 
-    @Column(name = "orderDate", nullable = false)
+    @Column(name = "orderDate", columnDefinition = "DATETIME(6)", nullable = false)
     private LocalDateTime orderDate;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "orderStatus", nullable = false)
     private OrderStatus orderStatus;
 
-    @Column(name = "totalPrice", nullable = false)
+    @Column(name = "totalPrice", columnDefinition = "DOUBLE", nullable = false)
     private Double totalPrice;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Column(name = "order_item")
+    private List<OrderItem> orderItem;
 }

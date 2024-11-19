@@ -25,20 +25,21 @@ public class User implements UserDetails {
     @Column(name = "id", columnDefinition = "CHAR(36)", nullable = false)
     private String id;
 
-    @Column(name = "username", nullable = false)
+    @Column(name = "username", columnDefinition = "VARCHAR(40)", nullable = false)
     private String username;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "password", columnDefinition = "VARCHAR(255)", nullable = false)
     private String password;
 
-    @Column(name = "mail", nullable = false)
+    @Column(name = "mail", columnDefinition = "VARCHAR(100)", nullable = false)
     private String mail;
 
     @Column(name = "role", nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "owner")
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Column(name = "orders")
     private List<Order> orders;
 
     @Override

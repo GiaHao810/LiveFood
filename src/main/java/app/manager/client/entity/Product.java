@@ -23,13 +23,13 @@ public class Product implements Serializable {
     @Column(columnDefinition = "CHAR(36)", nullable = false)
     private String id;
 
-    @Column(name = "code", nullable = false)
+    @Column(name = "code", columnDefinition = "VARCHAR(50)", nullable = false)
     private String code;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", columnDefinition = "VARCHAR(255)", nullable = false)
     private String name;
 
-    @Column(name="price", nullable = false)
+    @Column(name="price", columnDefinition = "DOUBLE", nullable = false)
     private Double price;
 
     @Column(name = "category", nullable = false)
@@ -37,6 +37,10 @@ public class Product implements Serializable {
     private Category category;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
-    private List<ProductMedia> images;
+    @Column(name = "details")
+    private List<ProductDetail> productDetails;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Column(name = "order_item")
+    private List<OrderItem> orderItems;
 }

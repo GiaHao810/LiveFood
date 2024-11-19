@@ -18,8 +18,13 @@ public class ProductDetail {
     @Column(columnDefinition = "CHAR(36)", nullable = false)
     private String id;
 
-    @Column(nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false)
     private Product product;
+
+    @Column(name = "description", columnDefinition = "VARCHAR(255)")
     private String description;
+
+    @Column(name = "additionalInfo", columnDefinition = "VARCHAR(255)")
     private String additionalInfo;
 }
