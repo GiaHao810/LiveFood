@@ -36,11 +36,9 @@ public class Product implements Serializable {
     @Enumerated(EnumType.STRING)
     private Category category;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    @Column(name = "details")
-    private List<ProductDetail> productDetails;
+    @OneToOne(mappedBy = "product")
+    private ProductDetail productDetails;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    @Column(name = "order_item")
-    private List<OrderItem> orderItems;
+    @OneToOne(mappedBy = "product")
+    private OrderItem orderItems;
 }

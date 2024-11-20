@@ -39,7 +39,6 @@ public class User implements UserDetails {
     private Role role;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
-    @Column(name = "orders")
     private List<Order> orders;
 
     @Override

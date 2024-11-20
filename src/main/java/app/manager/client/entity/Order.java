@@ -37,6 +37,6 @@ public class Order {
     private Double totalPrice;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    @Column(name = "order_item")
+    @Column(name = "order_items")
     private List<OrderItem> orderItem;
 }
