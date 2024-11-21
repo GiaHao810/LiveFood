@@ -1,6 +1,6 @@
 package app.manager.client.entity;
 
-import app.manager.client.entity.model.Role;
+import app.manager.client.entity.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,6 +40,12 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orders;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Address> addresses;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private ShoppingCart shoppingCart;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

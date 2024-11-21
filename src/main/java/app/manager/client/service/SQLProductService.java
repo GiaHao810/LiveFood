@@ -2,7 +2,7 @@ package app.manager.client.service;
 
 import app.manager.client.dto.request.AddProductRequest;
 import app.manager.client.dto.request.UpdateProductRequest;
-import app.manager.client.entity.model.Category;
+import app.manager.client.entity.enums.Category;
 import app.manager.client.entity.Product;
 import app.manager.client.repository.SQLProductRepository;
 import app.manager.client.service.implement.ProductService;

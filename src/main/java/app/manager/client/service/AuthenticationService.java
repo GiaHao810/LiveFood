@@ -4,7 +4,7 @@ import app.manager.client.dto.Response;
 import app.manager.client.dto.request.AuthenticationRequest;
 import app.manager.client.dto.request.RegisterRequest;
 import app.manager.client.exeption.resource.ResourceNotFoundException;
-import app.manager.client.entity.model.Role;
+import app.manager.client.entity.enums.Role;
 import app.manager.client.entity.User;
 import app.manager.client.service.implement.UserService;
 import lombok.RequiredArgsConstructor;

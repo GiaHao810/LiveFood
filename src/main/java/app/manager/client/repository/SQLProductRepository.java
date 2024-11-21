@@ -1,6 +1,6 @@
 package app.manager.client.repository;
 
-import app.manager.client.entity.model.Category;
+import app.manager.client.entity.enums.Category;
 import app.manager.client.entity.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -1,4 +1,4 @@
-package app.manager.client.entity.model;
+package app.manager.client.entity.enums;
 
 public enum Category {
     FRUIT,

@@ -1,7 +1,6 @@
 package app.manager.client.entity;
 
-import app.manager.client.entity.model.Category;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import app.manager.client.entity.enums.Category;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Data
 @Builder
@@ -36,9 +34,12 @@ public class Product implements Serializable {
     @Enumerated(EnumType.STRING)
     private Category category;
 
-    @OneToOne(mappedBy = "product")
+    @OneToOne(mappedBy = "product", orphanRemoval = true, cascade = CascadeType.ALL)
     private ProductDetail productDetails;
 
-    @OneToOne(mappedBy = "product")
+    @OneToOne(mappedBy = "product", orphanRemoval = true, cascade = CascadeType.ALL)
     private OrderItem orderItems;
+
+    @OneToOne(mappedBy = "product", orphanRemoval = true, cascade = CascadeType.ALL)
+    private CartItem cartItem;
 }

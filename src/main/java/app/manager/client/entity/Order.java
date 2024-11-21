@@ -1,6 +1,6 @@
 package app.manager.client.entity;
 
-import app.manager.client.entity.model.OrderStatus;
+import app.manager.client.entity.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
