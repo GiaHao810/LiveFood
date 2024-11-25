@@ -27,6 +27,6 @@ public class ShoppingCart {
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "shoppingCard", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CartItem> cartItems;
 }

@@ -1,6 +1,10 @@
 package app.manager.client.controller;
 
+import app.manager.client.dto.OrderDTO;
 import app.manager.client.dto.response.ResponseObject;
+import app.manager.client.entity.Order;
+import app.manager.client.entity.User;
+import app.manager.client.entity.enums.OrderStatus;
 import app.manager.client.exeption.resource.ResourceNotFoundException;
 import app.manager.client.service.implement.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 
 @RequestMapping("/order")
 @Validated
@@ -44,6 +50,21 @@ public class OrderController {
                             throw new ResourceNotFoundException("Can't find Order's ID: " + id);
                         }
                 );
+        return ResponseEntity.status(200)
+                .body(new ResponseObject<>("success"));
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<?> addOrder(@RequestBody OrderDTO orderDTO){
+        orderService.save(
+                Order.builder()
+                        .orderDate(LocalDateTime.now())
+                        .totalPrice(orderDTO.totalPrice())
+                        .orderItem(orderDTO.orderItems())
+                        .orderStatus(OrderStatus.PENDING)
+                        .build()
+        );
+
         return ResponseEntity.status(200)
                 .body(new ResponseObject<>("success"));
     }
