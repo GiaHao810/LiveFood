@@ -8,6 +8,7 @@ import app.manager.client.repository.SQLOrderRepository;
 import app.manager.client.service.implement.OrderService;
 import app.manager.client.service.implement.UserService;
 import app.manager.client.util.AuthenticationUtil;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
+@Transactional
 public class SQLOrderService implements OrderService {
 
     private final SQLOrderRepository sqlOrderRepository;

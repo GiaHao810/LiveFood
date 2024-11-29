@@ -70,7 +70,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleGeneralException(Exception ex) {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(
-                new ResponseObject<>("fail", "Token Authentication Error"));
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(
+                new ResponseObject<>("fail", ex.toString()));
     }
 }

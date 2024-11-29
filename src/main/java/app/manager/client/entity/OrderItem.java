@@ -1,5 +1,6 @@
 package app.manager.client.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,10 +21,12 @@ public class OrderItem {
 
     @ManyToOne
     @JoinColumn(name = "order_id", referencedColumnName = "id", nullable = false)
+    @JsonIgnore
     private Order order;
 
     @OneToOne
     @JoinColumn(name = "product_id", referencedColumnName = "id", nullable = false)
+    @JsonIgnore
     private Product product;
 
     @Column(name = "quantity", columnDefinition = "DOUBLE", nullable = false)

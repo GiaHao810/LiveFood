@@ -4,5 +4,5 @@ import app.manager.client.entity.OrderItem;
 
 import java.util.List;
 
-public record OrderDTO(Double totalPrice, List<OrderItem> orderItems) {
+public record OrderDTO(List<OrderItem> orderItems) {
 }

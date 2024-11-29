@@ -1,6 +1,7 @@
 package app.manager.client.entity;
 
 import app.manager.client.entity.enums.OrderStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -24,6 +26,7 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "owner_id", referencedColumnName = "id", nullable = false)
+    @JsonIgnore
     private User owner;
 
     @Column(name = "orderDate", columnDefinition = "DATETIME(6)", nullable = false)
@@ -38,5 +41,10 @@ public class Order {
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     @Column(name = "order_items")
-    private List<OrderItem> orderItem;
+    private List<OrderItem> orderItem = new ArrayList<>();
+
+    public void addOrderItem(OrderItem item) {
+        orderItem.add(item);
+        item.setOrder(this);
+    }
 }

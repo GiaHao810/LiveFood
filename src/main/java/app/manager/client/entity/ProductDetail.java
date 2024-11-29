@@ -1,5 +1,6 @@
 package app.manager.client.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,6 +21,7 @@ public class ProductDetail {
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(referencedColumnName = "id", nullable = false)
+    @JsonIgnore
     private Product product;
 
     @Column(name = "description", columnDefinition = "VARCHAR(255)")
