@@ -1,8 +1,7 @@
 package app.manager.client.service.implement;
 
-import app.manager.client.dto.request.UpdateUserRequest;
+import app.manager.client.dto.OrderDTO;
 import app.manager.client.entity.Order;
-import app.manager.client.entity.User;
 import app.manager.client.entity.enums.OrderStatus;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +11,7 @@ import java.util.Optional;
 
 @Service
 public interface OrderService {
-    void save(Order order);
+    void save(List<OrderDTO> order);
     void deleteOrder(String id);
     List<Order> getAllOrder();
     Optional<Order> findByOwner(String username);

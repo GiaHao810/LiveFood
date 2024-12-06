@@ -17,6 +17,7 @@ public interface SQLProductRepository extends JpaRepository<Product, String> {
     @Query("SELECT e FROM Product e ORDER BY e.name ASC")
     List<Product> findAll();
     Optional<Product> findByName(String name);
+    Optional<Product> findByCode(String CODE);
     @Query("SELECT e FROM Product e WHERE e.category = :category")
     Page<Product> findAll(Pageable pageable, @Param("category") Category category);
 }

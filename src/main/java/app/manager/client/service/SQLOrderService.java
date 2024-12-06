@@ -1,11 +1,14 @@
 package app.manager.client.service;
 
+import app.manager.client.dto.OrderDTO;
 import app.manager.client.entity.Order;
+import app.manager.client.entity.OrderItem;
 import app.manager.client.entity.User;
 import app.manager.client.entity.enums.OrderStatus;
 import app.manager.client.exeption.resource.ResourceNotFoundException;
 import app.manager.client.repository.SQLOrderRepository;
 import app.manager.client.service.implement.OrderService;
+import app.manager.client.service.implement.ProductService;
 import app.manager.client.service.implement.UserService;
 import app.manager.client.util.AuthenticationUtil;
 import jakarta.transaction.Transactional;
@@ -16,6 +19,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,21 +30,36 @@ public class SQLOrderService implements OrderService {
 
     private final SQLOrderRepository sqlOrderRepository;
     private final UserService userService;
+    private final ProductService productService;
     private final AuthenticationUtil authenticationUtil;
 
     @Override
-    public void save(Order order) {
-        String username = authenticationUtil.getCurrentUsername();
+    public void save(List<OrderDTO> orderDTO) {
+        User owner = userService.findByUsername(authenticationUtil.getCurrentUsername())
+                .orElseThrow( () -> new RuntimeException("Something went wrong!!!"));
+        Double price = 0.0;
+        List<OrderItem> orderItems = new ArrayList<>();
 
-        userService.findByUsername(username)
-                        .ifPresentOrElse(
-                                user -> {
-                                    order.setOwner(user);
-                                    sqlOrderRepository.save(order);
-                                }, () -> {
-                                    throw new ResourceNotFoundException("Can't find User's Name: " + username);
-                                }
-                        );
+        Order order = Order.builder()
+                .orderStatus(OrderStatus.PENDING)
+                .orderItem(orderItems)
+                .orderDate(LocalDateTime.now())
+                .owner(owner)
+                .totalPrice(price)
+                .build();
+
+        for(int i = 0; i < orderDTO.size(); i++) {
+            orderItems.add(
+                    OrderItem.builder()
+                            .price(orderDTO.get(i).price())
+                            .quantity(orderDTO.get(i).quantity())
+                            .order(order)
+                            .product(productService.findByCode(orderDTO.get(i).CODE()).get())
+                            .build()
+            );
+            order.setTotalPrice(price += (orderDTO.get(i).price() * orderDTO.get(i).quantity()));
+        }
+        sqlOrderRepository.save(order);
     }
 
     @Override

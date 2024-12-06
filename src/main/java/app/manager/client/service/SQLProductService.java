@@ -47,6 +47,11 @@ public class SQLProductService implements ProductService {
     }
 
     @Override
+    public Optional<Product> findByCode(String CODE) {
+        return productRepository.findByCode(CODE);
+    }
+
+    @Override
     public Optional<Product> updateProduct(String id, UpdateProductRequest updateProductRequest) {
         return productRepository.findById(id).map(
                 product -> {

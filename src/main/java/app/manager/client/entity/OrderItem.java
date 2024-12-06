@@ -35,3 +35,5 @@ public class OrderItem {
     @Column(name = "price",  columnDefinition = "DOUBLE", nullable = false)
     private Double price;
 }
+
+

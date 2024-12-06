@@ -16,6 +16,7 @@ public interface ProductService {
     List<Product> getAllProduct();
     Optional<Product> findById(String id);
     Optional<Product> findByName(String name);
+    Optional<Product> findByCode(String CODE);
     Optional<Product> updateProduct(String id, UpdateProductRequest updateProductRequest);
     Page<Product> getPage(int page, int size, String category);
     Product addProduct(AddProductRequest request);

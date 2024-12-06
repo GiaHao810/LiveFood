@@ -4,6 +4,7 @@ import app.manager.client.dto.OrderDTO;
 import app.manager.client.dto.response.ResponseObject;
 import app.manager.client.entity.Order;
 import app.manager.client.entity.OrderItem;
+import app.manager.client.entity.Product;
 import app.manager.client.entity.enums.OrderStatus;
 import app.manager.client.exeption.resource.ResourceNotFoundException;
 import app.manager.client.service.implement.OrderService;
@@ -16,6 +17,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @RequestMapping("/api/order")
@@ -59,21 +61,8 @@ public class OrderController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> addOrder(@RequestBody OrderDTO orderDTO){
-        Double price = orderDTO.orderItems().stream()
-                .mapToDouble(orderItem -> orderItem.getPrice() * orderItem.getQuantity())
-                .sum();
-
-        Order order = Order.builder()
-                .orderDate(LocalDateTime.now())
-                .totalPrice(price)
-                .owner(userService.findByUsername("hao").get())
-                .orderItem(orderDTO.orderItems())
-                .orderStatus(OrderStatus.PENDING)
-                .build();
-
-        orderService.save(order);
-
+    public ResponseEntity<?> addOrder(@RequestBody List<OrderDTO> orderDTO){
+        orderService.save(orderDTO);
         return ResponseEntity.status(200)
                 .body(new ResponseObject<>("success"));
     }
