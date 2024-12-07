@@ -2,10 +2,6 @@ package app.manager.client.controller;
 
 import app.manager.client.dto.OrderDTO;
 import app.manager.client.dto.response.ResponseObject;
-import app.manager.client.entity.Order;
-import app.manager.client.entity.OrderItem;
-import app.manager.client.entity.Product;
-import app.manager.client.entity.enums.OrderStatus;
 import app.manager.client.exeption.resource.ResourceNotFoundException;
 import app.manager.client.service.implement.OrderService;
 import app.manager.client.service.implement.UserService;
@@ -16,8 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @RequestMapping("/api/order")
@@ -27,43 +21,33 @@ import java.util.List;
 public class OrderController {
     @Autowired
     private final OrderService orderService;
-
     private final UserService userService;
 
     @GetMapping("/")
     public ResponseEntity<?> getAllOrder(){
         return ResponseEntity.ok(
-                new ResponseObject<>("success",
+                new ResponseObject<>(true,
                         orderService.getAllOrder())
         );
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getOrderById(@PathVariable String id) {
-        return orderService.findById(id)
-                .map(order -> ResponseEntity.status(HttpStatus.FOUND)
-                        .body(new ResponseObject<>("success", order))
-                )
-                .orElseThrow(() -> new ResourceNotFoundException("Can't find Order's ID: " + id));
+        return ResponseEntity.status(HttpStatus.FOUND)
+                .body(new ResponseObject<>(true, orderService.findById(id)));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteOrder(@PathVariable String id) {
-        orderService.findById(id)
-                .ifPresentOrElse(
-                        order -> orderService.deleteOrder(id),
-                        () -> {
-                            throw new ResourceNotFoundException("Can't find Order's ID: " + id);
-                        }
-                );
+        orderService.deleteOrder(id);
         return ResponseEntity.status(200)
-                .body(new ResponseObject<>("success"));
+                .body(new ResponseObject<>(true));
     }
 
     @PostMapping("/add")
     public ResponseEntity<?> addOrder(@RequestBody List<OrderDTO> orderDTO){
         orderService.save(orderDTO);
         return ResponseEntity.status(200)
-                .body(new ResponseObject<>("success"));
+                .body(new ResponseObject<>(true));
     }
 }

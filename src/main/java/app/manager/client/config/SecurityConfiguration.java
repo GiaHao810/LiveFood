@@ -34,7 +34,7 @@ public class SecurityConfiguration {
                                 "/api/product/**",
                                 "/api/image/**",
                                 "/api/order/**"
-                        ).hasRole("ADMIN")
+                        ).hasAnyRole("ADMIN", "USER")
                         .anyRequest()
                         .authenticated()
                 )

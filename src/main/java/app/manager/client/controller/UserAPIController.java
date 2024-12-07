@@ -30,7 +30,7 @@ public class UserAPIController {
     @GetMapping("/")
     public ResponseEntity<?> getAllUser() {
         return ResponseEntity.ok(
-                new ResponseObject<>("success",
+                new ResponseObject<>(true,
                         userService.getAllUser())
         );
     }
@@ -43,7 +43,7 @@ public class UserAPIController {
     public ResponseEntity<?> getUser(@PathVariable String id) {
         return userService.findById(id)
                 .map(user -> ResponseEntity.status(HttpStatus.FOUND)
-                        .body(new ResponseObject<>("success", user))
+                        .body(new ResponseObject<>(true, user))
                 )
                 .orElseThrow(() -> new ResourceNotFoundException("Can't find User's ID " + id));
     }
@@ -63,7 +63,7 @@ public class UserAPIController {
                         }
                 );
         return ResponseEntity.status(200)
-                .body(new ResponseObject<>("success"));
+                .body(new ResponseObject<>(true));
     }
 
     /**
@@ -77,7 +77,7 @@ public class UserAPIController {
         return userService.searchUsers(username, mail)
                 .map(user ->
                         ResponseEntity.status(HttpStatus.FOUND).body(
-                            new ResponseObject<>("success", user)
+                            new ResponseObject<>(true, user)
                         )
                 )
                 .orElseThrow(() -> new ResourceNotFoundException("Can't find User information"));
@@ -91,7 +91,7 @@ public class UserAPIController {
     {
         User user = userService.updateUser(id, updateUserRequest);
         return ResponseEntity.status(HttpStatus.OK).body(
-                new ResponseObject<>("success", user)
+                new ResponseObject<>(true, user)
                 );
     }
 }

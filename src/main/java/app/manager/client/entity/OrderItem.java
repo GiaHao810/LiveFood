@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -19,21 +21,18 @@ public class OrderItem {
     @Column(columnDefinition = "CHAR(36)", nullable = false)
     private String id;
 
+    @Column(name = "quantity", columnDefinition = "DOUBLE", nullable = false)
+    private Double quantity;
+
+
     @ManyToOne
     @JoinColumn(name = "order_id", referencedColumnName = "id", nullable = false)
     @JsonIgnore
     private Order order;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "product_id", referencedColumnName = "id", nullable = false)
-    @JsonIgnore
     private Product product;
-
-    @Column(name = "quantity", columnDefinition = "DOUBLE", nullable = false)
-    private Double quantity;
-
-    @Column(name = "price",  columnDefinition = "DOUBLE", nullable = false)
-    private Double price;
 }
 
 

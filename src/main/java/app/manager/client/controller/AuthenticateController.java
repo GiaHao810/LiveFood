@@ -31,14 +31,14 @@ public class AuthenticateController {
                     throw new ResourceExistException("Register information is existed");
                 });
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(new ResponseObject<>("success",
+                .body(new ResponseObject<>(true,
                         authenticationService.register(registerRequest)
                 ));
     }
 
     @PostMapping("/authenticate")
     public ResponseEntity<?> authenticate(@Valid @RequestBody AuthenticationRequest authenticationRequest) {
-        return ResponseEntity.ok(new ResponseObject<>("success",
+        return ResponseEntity.ok(new ResponseObject<>(true,
                 authenticationService.authenticate(authenticationRequest)
         ));
     }

@@ -16,7 +16,7 @@ public interface OrderService {
     List<Order> getAllOrder();
     Optional<Order> findByOwner(String username);
     Optional<Order> findByOrderDate(LocalDateTime date);
-    Optional<Order> findById(String id);
+    Order findById(String id);
     Optional<Order> findByStatus(OrderStatus status);
     Optional<Order> update();
 }

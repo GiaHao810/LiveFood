@@ -22,7 +22,7 @@ public class ShoppingCartController {
     @GetMapping("/")
     public ResponseEntity<?> getAllOrder(){
         return ResponseEntity.ok(
-                new ResponseObject<>("success",
+                new ResponseObject<>(true,
                         service.getAllCart())
         );
     }
@@ -31,7 +31,7 @@ public class ShoppingCartController {
     public ResponseEntity<?> getOrderById(@PathVariable String id) {
         return service.findById(id)
                 .map(cart -> ResponseEntity.status(HttpStatus.FOUND)
-                        .body(new ResponseObject<>("success", cart))
+                        .body(new ResponseObject<>(true, cart))
                 )
                 .orElseThrow(() -> new ResourceNotFoundException("Can't find Cart's ID: " + id));
     }
@@ -46,7 +46,7 @@ public class ShoppingCartController {
                         }
                 );
         return ResponseEntity.status(200)
-                .body(new ResponseObject<>("success"));
+                .body(new ResponseObject<>(true));
     }
 
     @PostMapping("/add")
@@ -56,6 +56,6 @@ public class ShoppingCartController {
 //        );
 
         return ResponseEntity.status(200)
-                .body(new ResponseObject<>("success"));
+                .body(new ResponseObject<>(true));
     }
 }

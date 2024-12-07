@@ -12,29 +12,29 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResponseObject<T> {
-    private String status;
+    private Boolean status;
     private String error;
     private T data;
 
-    public ResponseObject(String status, T data){
+    public ResponseObject(Boolean status, T data){
         this.status = status;
         this.data = data;
         this.error = null;
     }
 
-    public ResponseObject(String status, String error, T data){
+    public ResponseObject(Boolean status, String error, T data){
         this.status = status;
         this.error = error;
         this.data = data;
     }
 
-    public ResponseObject(String status, String error) {
+    public ResponseObject(Boolean status, String error) {
         this.status = status;
         this.error = error;
         this.data = null;
     }
 
-    public ResponseObject(String status){
+    public ResponseObject(Boolean status){
         this.status = status;
         this.error = null;
         this.data = null;

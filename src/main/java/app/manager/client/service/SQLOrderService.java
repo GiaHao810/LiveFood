@@ -1,8 +1,10 @@
 package app.manager.client.service;
 
 import app.manager.client.dto.OrderDTO;
+import app.manager.client.dto.response.ResponseObject;
 import app.manager.client.entity.Order;
 import app.manager.client.entity.OrderItem;
+import app.manager.client.entity.Product;
 import app.manager.client.entity.User;
 import app.manager.client.entity.enums.OrderStatus;
 import app.manager.client.exeption.resource.ResourceNotFoundException;
@@ -15,6 +17,8 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -37,7 +41,7 @@ public class SQLOrderService implements OrderService {
     public void save(List<OrderDTO> orderDTO) {
         User owner = userService.findByUsername(authenticationUtil.getCurrentUsername())
                 .orElseThrow( () -> new RuntimeException("Something went wrong!!!"));
-        Double price = 0.0;
+        double price = 0.0;
         List<OrderItem> orderItems = new ArrayList<>();
 
         Order order = Order.builder()
@@ -45,26 +49,25 @@ public class SQLOrderService implements OrderService {
                 .orderItem(orderItems)
                 .orderDate(LocalDateTime.now())
                 .owner(owner)
-                .totalPrice(price)
                 .build();
 
-        for(int i = 0; i < orderDTO.size(); i++) {
+        for (OrderDTO dto : orderDTO) {
+            Product product = productService.findByCode(dto.CODE()).get();
             orderItems.add(
                     OrderItem.builder()
-                            .price(orderDTO.get(i).price())
-                            .quantity(orderDTO.get(i).quantity())
+                            .quantity(dto.quantity())
                             .order(order)
-                            .product(productService.findByCode(orderDTO.get(i).CODE()).get())
+                            .product(product)
                             .build()
             );
-            order.setTotalPrice(price += (orderDTO.get(i).price() * orderDTO.get(i).quantity()));
+            order.setTotalPrice(price += (product.getPrice() * dto.quantity()));
         }
         sqlOrderRepository.save(order);
     }
 
     @Override
     public void deleteOrder(String id) {
-        sqlOrderRepository.deleteById(id);
+        sqlOrderRepository.deleteById(findById(id).getId());
     }
 
     @Override
@@ -83,8 +86,9 @@ public class SQLOrderService implements OrderService {
     }
 
     @Override
-    public Optional<Order> findById(String id) {
-        return sqlOrderRepository.findById(id);
+    public Order findById(String id) {
+        return sqlOrderRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Can't find Order's ID: " + id));
     }
 
     @Override

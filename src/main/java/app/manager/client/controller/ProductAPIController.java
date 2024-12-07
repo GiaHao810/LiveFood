@@ -30,7 +30,7 @@ public class ProductAPIController {
     @GetMapping("/")
     public ResponseEntity<?> getAllProduct() {
         return ResponseEntity.ok(
-                new ResponseObject<>("success",
+                new ResponseObject<>(true,
                         productService.getAllProduct())
         );
     }
@@ -51,7 +51,7 @@ public class ProductAPIController {
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new ResponseObject<>(
-                        "success",
+                        true,
                         productService.addProduct(request)
                         )
                 );
@@ -66,7 +66,7 @@ public class ProductAPIController {
     public ResponseEntity<?> getProduct(@PathVariable String id) {
         return productService.findById(id)
                 .map(product -> ResponseEntity.status(HttpStatus.FOUND)
-                        .body(new ResponseObject<Product>("success", product))
+                        .body(new ResponseObject<Product>(true, product))
                 )
                 .orElseThrow(() -> new ResourceNotFoundException("Can't find Product's ID " + id));
     }
@@ -80,7 +80,7 @@ public class ProductAPIController {
                 }
                 );
         return ResponseEntity.status(HttpStatus.OK)
-                    .body(new ResponseObject<>("success")
+                    .body(new ResponseObject<>(true)
                 );
     }
     @PutMapping("/update/{id}")
@@ -91,7 +91,7 @@ public class ProductAPIController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(
-                        new ResponseObject<>("success",
+                        new ResponseObject<>(true,
                                 productService.updateProduct(id, updateProductRequest)
                                 )
                 );

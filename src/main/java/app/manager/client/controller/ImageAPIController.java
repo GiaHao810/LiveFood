@@ -32,49 +32,49 @@ public class ImageAPIController {
      * @param id
      */
 
-    /**
-     * Function to upload multiple File to Product Media with Product's ID and save it to DIRECTORY
-     * @param productId
-     * @param files
-     * @return
-     * @throws IOException
-     */
-    @PostMapping("/uploadproductMedia/{productId}")
-    public ResponseEntity<ResponseObject> uploadproductMedias(@PathVariable String productId,
-                                                      @RequestParam("files") MultipartFile[] files) throws IOException {
-        // Kiểm tra sản phẩm có tồn tại
-        Optional<Product> product = productService.findById(productId);
-        if (product.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                    new ResponseObject("Product not found",
-                            "NOT FOUND",
-                            productId)
-            );
-        }
-
-        try {
-            // Lưu từng hình ảnh
-            for (MultipartFile file : files) {
-                // Định nghĩa thư mục lưu trữ hình ảnh
-                String DIRECTORY = "src/main/resources/static/image/product/";
-                String FILENAME = file.getOriginalFilename();
-                Path FILEPATH = Paths.get(DIRECTORY + FILENAME);
-
-                // Lưu hình ảnh vào thư mục
-                Files.copy(file.getInputStream(), FILEPATH, StandardCopyOption.REPLACE_EXISTING);
-
-            }
-            return ResponseEntity.ok(
-                    new ResponseObject("Images uploaded successfully",
-                            "OK",
-                            product)
-            );
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                    new ResponseObject(e.toString(),
-                            "INTERNAL SERVER ERROR",
-                            productId)
-            );
-        }
-    }
+//    /**
+//     * Function to upload multiple File to Product Media with Product's ID and save it to DIRECTORY
+//     * @param productId
+//     * @param files
+//     * @return
+//     * @throws IOException
+//     */
+//    @PostMapping("/uploadproductMedia/{productId}")
+//    public ResponseEntity<ResponseObject> uploadproductMedias(@PathVariable String productId,
+//                                                      @RequestParam("files") MultipartFile[] files) throws IOException {
+//        // Kiểm tra sản phẩm có tồn tại
+//        Optional<Product> product = productService.findById(productId);
+//        if (product.isEmpty()) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+//                    new ResponseObject("Product not found",
+//                            "NOT FOUND",
+//                            productId)
+//            );
+//        }
+//
+//        try {
+//            // Lưu từng hình ảnh
+//            for (MultipartFile file : files) {
+//                // Định nghĩa thư mục lưu trữ hình ảnh
+//                String DIRECTORY = "src/main/resources/static/image/product/";
+//                String FILENAME = file.getOriginalFilename();
+//                Path FILEPATH = Paths.get(DIRECTORY + FILENAME);
+//
+//                // Lưu hình ảnh vào thư mục
+//                Files.copy(file.getInputStream(), FILEPATH, StandardCopyOption.REPLACE_EXISTING);
+//
+//            }
+//            return ResponseEntity.ok(
+//                    new ResponseObject("Images uploaded successfully",
+//                            "OK",
+//                            product)
+//            );
+//        } catch (IOException e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+//                    new ResponseObject(e.toString(),
+//                            "INTERNAL SERVER ERROR",
+//                            productId)
+//            );
+//        }
+//    }
 }
