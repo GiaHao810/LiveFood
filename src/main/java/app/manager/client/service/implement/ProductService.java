@@ -14,10 +14,10 @@ public interface ProductService {
     void save(Product product);
     void deleteProduct(String id);
     List<Product> getAllProduct();
-    Optional<Product> findById(String id);
-    Optional<Product> findByName(String name);
-    Optional<Product> findByCode(String CODE);
-    Optional<Product> updateProduct(String id, UpdateProductRequest updateProductRequest);
+    Product findById(String id);
+    Product findByName(String name);
+    Product findByCode(String CODE);
+    Product updateProduct(String id, UpdateProductRequest updateProductRequest);
     Page<Product> getPage(int page, int size, String category);
-    Product addProduct(AddProductRequest request);
+    void addProduct(AddProductRequest request);
 }

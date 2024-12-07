@@ -26,14 +26,9 @@ public class AuthenticateController {
 
     @PostMapping("/register")
     public ResponseEntity<?> addUser(@Valid @RequestBody RegisterRequest registerRequest) {
-        userService.findByUsernameOrMail(registerRequest.getUsername(), registerRequest.getMail())
-                .ifPresent(user -> {
-                    throw new ResourceExistException("Register information is existed");
-                });
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(new ResponseObject<>(true,
-                        authenticationService.register(registerRequest)
-                ));
+        return ResponseEntity.ok(new ResponseObject<>(true,
+                authenticationService.register(registerRequest)
+        ));
     }
 
     @PostMapping("/authenticate")

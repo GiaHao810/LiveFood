@@ -26,6 +26,9 @@ public class AuthenticationService {
     private final JwtService jwtService;
 
     public Response register(RegisterRequest registerRequest) {
+
+        if(userService.findByUsernameOrMail(registerRequest.getUsername(), registerRequest.getMail()) != null) return new Response("Credentials is existed");
+
         User user = User.builder()
                 .username(registerRequest.getUsername())
                 .mail(registerRequest.getMail())
@@ -53,7 +56,6 @@ public class AuthenticationService {
 
         var jwtToken = jwtService.generateToken(
                 userService.findByUsername(authenticationRequest.getUsername())
-                        .orElseThrow(() -> new ResourceNotFoundException("User does not exist"))
         );
 
         return new Response(jwtToken);

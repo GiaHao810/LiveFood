@@ -39,10 +39,9 @@ public class SQLOrderService implements OrderService {
 
     @Override
     public void save(List<OrderDTO> orderDTO) {
-        User owner = userService.findByUsername(authenticationUtil.getCurrentUsername())
-                .orElseThrow( () -> new RuntimeException("Something went wrong!!!"));
-        double price = 0.0;
+        User owner = userService.findByUsername(authenticationUtil.getCurrentUsername());
         List<OrderItem> orderItems = new ArrayList<>();
+        double price = 0.0;
 
         Order order = Order.builder()
                 .orderStatus(OrderStatus.PENDING)
@@ -52,7 +51,7 @@ public class SQLOrderService implements OrderService {
                 .build();
 
         for (OrderDTO dto : orderDTO) {
-            Product product = productService.findByCode(dto.CODE()).get();
+            Product product = productService.findByCode(dto.CODE());
             orderItems.add(
                     OrderItem.builder()
                             .quantity(dto.quantity())

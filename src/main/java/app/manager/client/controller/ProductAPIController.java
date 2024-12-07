@@ -42,19 +42,8 @@ public class ProductAPIController {
      */
     @PostMapping("/add")
     public ResponseEntity<?> addProduct(@Valid @RequestBody AddProductRequest request) {
-        productService.findByName(request.getName())
-                .ifPresent(
-                        product -> {
-                            throw new ResourceExistException("Product Information is existed");
-                        }
-                );
-
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(new ResponseObject<>(
-                        true,
-                        productService.addProduct(request)
-                        )
-                );
+        productService.addProduct(request);
+        return ResponseEntity.ok(new ResponseObject<>(true));
     }
 
     /**
@@ -63,22 +52,16 @@ public class ProductAPIController {
      * @return
      */
     @GetMapping("/{id}")
-    public ResponseEntity<?> getProduct(@PathVariable String id) {
-        return productService.findById(id)
-                .map(product -> ResponseEntity.status(HttpStatus.FOUND)
-                        .body(new ResponseObject<Product>(true, product))
+    public ResponseEntity<?> getProductByID(@PathVariable String id) {
+        return ResponseEntity.ok(new ResponseObject<>(true,
+                        productService.findById(id)
                 )
-                .orElseThrow(() -> new ResourceNotFoundException("Can't find Product's ID " + id));
+        );
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProduct(@PathVariable String id) {
-        productService.findById(id)
-                .ifPresentOrElse(product -> productService.deleteProduct(id),
-                        () -> {
-                    throw new ResourceNotFoundException("ID invalid");
-                }
-                );
+        productService.deleteProduct(id);
         return ResponseEntity.status(HttpStatus.OK)
                     .body(new ResponseObject<>(true)
                 );
@@ -88,12 +71,9 @@ public class ProductAPIController {
             @PathVariable(required = true) String id,
             @Valid @RequestBody(required = true) UpdateProductRequest updateProductRequest
     ) {
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(
-                        new ResponseObject<>(true,
-                                productService.updateProduct(id, updateProductRequest)
-                                )
+        return ResponseEntity.ok(new ResponseObject<>(true,
+                        productService.updateProduct(id, updateProductRequest)
+                    )
                 );
     }
 

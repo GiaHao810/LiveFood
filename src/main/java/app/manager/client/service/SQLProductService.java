@@ -4,6 +4,8 @@ import app.manager.client.dto.request.AddProductRequest;
 import app.manager.client.dto.request.UpdateProductRequest;
 import app.manager.client.entity.enums.Category;
 import app.manager.client.entity.Product;
+import app.manager.client.exeption.resource.ResourceExistException;
+import app.manager.client.exeption.resource.ResourceNotFoundException;
 import app.manager.client.repository.SQLProductRepository;
 import app.manager.client.service.implement.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -23,12 +25,12 @@ public class SQLProductService implements ProductService {
 
     @Override
     public void save(Product product) {
-        productRepository.save(product);
+        if(productRepository.findByName(product.getName()).isEmpty()) productRepository.save(product);
     }
 
     @Override
     public void deleteProduct(String id) {
-        productRepository.deleteById(id);
+        productRepository.deleteById(findById(id).getId());
     }
 
     @Override
@@ -37,22 +39,25 @@ public class SQLProductService implements ProductService {
     }
 
     @Override
-    public Optional<Product> findById(String id) {
-        return productRepository.findById(id);
+    public Product findById(String id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Can't find Product's ID: " + id));
     }
 
     @Override
-    public Optional<Product> findByName(String name) {
-        return productRepository.findByName(name);
+    public Product findByName(String name) {
+        return productRepository.findByName(name)
+                .orElseThrow(() -> new ResourceNotFoundException("Can't find Product's Name: " + name));
     }
 
     @Override
-    public Optional<Product> findByCode(String CODE) {
-        return productRepository.findByCode(CODE);
+    public Product findByCode(String CODE) {
+        return productRepository.findByCode(CODE)
+                .orElseThrow(() -> new ResourceNotFoundException("Can't find Product's CODE: " + CODE));
     }
 
     @Override
-    public Optional<Product> updateProduct(String id, UpdateProductRequest updateProductRequest) {
+    public Product updateProduct(String id, UpdateProductRequest updateProductRequest) {
         return productRepository.findById(id).map(
                 product -> {
                     product.setCode(updateProductRequest.getCode());
@@ -61,7 +66,7 @@ public class SQLProductService implements ProductService {
                     product.setCategory(Category.valueOf(updateProductRequest.getCategory().toUpperCase()));
                     return productRepository.save(product);
                 }
-        );
+        ).orElseThrow(() -> new ResourceNotFoundException("..."));
     }
 
     @Override
@@ -70,13 +75,13 @@ public class SQLProductService implements ProductService {
     }
 
     @Override
-    public Product addProduct(AddProductRequest request) {
-        return productRepository.save(Product.builder()
-                .code("TEMP-CODE")
-                .name(request.getName())
-                .price(request.getPrice())
-                .category(Category.valueOf(request.getCategory().toUpperCase()))
-                .build());
+    public void addProduct(AddProductRequest request) {
+        save(Product.builder()
+            .code("TEMP-CODE")
+            .name(request.getName())
+            .price(request.getPrice())
+            .category(Category.valueOf(request.getCategory().toUpperCase()))
+            .build());
     }
 
 

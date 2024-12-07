@@ -1,5 +1,6 @@
 package app.manager.client.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,8 +24,11 @@ public class ShoppingCart {
     @Column(name = "quantity", columnDefinition = "DOUBLE", nullable = false)
     private Double quantity;
 
+
+
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    @JsonIgnore
     private User user;
 
     @OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.ALL, orphanRemoval = true)

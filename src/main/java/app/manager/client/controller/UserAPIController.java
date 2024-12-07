@@ -41,11 +41,8 @@ public class UserAPIController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<?> getUser(@PathVariable String id) {
-        return userService.findById(id)
-                .map(user -> ResponseEntity.status(HttpStatus.FOUND)
-                        .body(new ResponseObject<>(true, user))
-                )
-                .orElseThrow(() -> new ResourceNotFoundException("Can't find User's ID " + id));
+        return ResponseEntity.status(HttpStatus.FOUND)
+                .body(new ResponseObject<>(true, userService.findById(id)));
     }
 
     /**
@@ -55,13 +52,7 @@ public class UserAPIController {
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable String id) {
-        userService.findById(id)
-                .ifPresentOrElse(
-                        user -> userService.deleteUser(id),
-                        () ->  {
-                            throw new ResourceNotFoundException("Can't find User's with ID " + id);
-                        }
-                );
+        userService.deleteUser(id);
         return ResponseEntity.status(200)
                 .body(new ResponseObject<>(true));
     }
@@ -74,13 +65,8 @@ public class UserAPIController {
     public ResponseEntity<?> searchUsers(
             @RequestParam(required = false) String username,
             @RequestParam(required = false) String mail) {
-        return userService.searchUsers(username, mail)
-                .map(user ->
-                        ResponseEntity.status(HttpStatus.FOUND).body(
-                            new ResponseObject<>(true, user)
-                        )
-                )
-                .orElseThrow(() -> new ResourceNotFoundException("Can't find User information"));
+        return ResponseEntity.status(HttpStatus.FOUND)
+                .body(new ResponseObject<>(true, userService.findByUsernameOrMail(username, mail)));
     }
 
     @PutMapping("/updateWithNameAndMail/{id}")
@@ -89,9 +75,10 @@ public class UserAPIController {
             @Valid @RequestBody(required = true) UpdateUserRequest updateUserRequest
             )
     {
-        User user = userService.updateUser(id, updateUserRequest);
-        return ResponseEntity.status(HttpStatus.OK).body(
-                new ResponseObject<>(true, user)
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new ResponseObject<>(true,
+                        userService.updateUser(id, updateUserRequest)
+                        )
                 );
     }
 }
