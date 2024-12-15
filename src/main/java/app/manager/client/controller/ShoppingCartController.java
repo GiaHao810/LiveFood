@@ -29,31 +29,20 @@ public class ShoppingCartController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getOrderById(@PathVariable String id) {
-        return service.findById(id)
-                .map(cart -> ResponseEntity.status(HttpStatus.FOUND)
-                        .body(new ResponseObject<>(true, cart))
-                )
-                .orElseThrow(() -> new ResourceNotFoundException("Can't find Cart's ID: " + id));
+        return ResponseEntity.ok(new ResponseObject<>(true,
+                service.findById(id)
+        ));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteOrder(@PathVariable String id) {
-        service.findById(id)
-                .ifPresentOrElse(
-                        order -> service.deleteCart(id),
-                        () -> {
-                            throw new ResourceNotFoundException("Can't find Cart's ID: " + id);
-                        }
-                );
+        service.deleteCart(id);
         return ResponseEntity.status(200)
                 .body(new ResponseObject<>(true));
     }
 
     @PostMapping("/add")
     public ResponseEntity<?> addOrder(@RequestBody ShoppingCartDTO shoppingCartDTO){
-//        service.save(
-//
-//        );
 
         return ResponseEntity.status(200)
                 .body(new ResponseObject<>(true));

@@ -26,13 +26,13 @@ public class User implements UserDetails {
     @Column(name = "id", columnDefinition = "CHAR(36)", nullable = false)
     private String id;
 
-    @Column(name = "username", columnDefinition = "VARCHAR(40)", nullable = false)
+    @Column(name = "username", columnDefinition = "VARCHAR(40)", nullable = false, unique = true)
     private String username;
 
     @Column(name = "password", columnDefinition = "VARCHAR(255)", nullable = false)
     private String password;
 
-    @Column(name = "mail", columnDefinition = "VARCHAR(100)", nullable = false)
+    @Column(name = "mail", columnDefinition = "VARCHAR(100)", nullable = false, unique = true)
     private String mail;
 
     @Column(name = "role", nullable = false)

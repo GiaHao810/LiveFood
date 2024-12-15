@@ -10,7 +10,8 @@ import java.util.Optional;
 public interface ShoppingCartService {
     void save(ShoppingCart cart);
     List<ShoppingCart> getAllCart();
-    Optional<ShoppingCart> findById(String id);
+    ShoppingCart findById(String id);
     void deleteCart(String id);
+    void addCart(ShoppingCart cart);
 //    ShoppingCart updateCart(String id, UpdateUserRequest updateUserRequest);
 }
