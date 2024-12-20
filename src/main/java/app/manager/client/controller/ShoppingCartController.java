@@ -20,7 +20,7 @@ public class ShoppingCartController {
     private final ShoppingCartService service;
 
     @GetMapping("/")
-    public ResponseEntity<?> getAllOrder(){
+    public ResponseEntity<?> getAllShoppingCarts(){
         return ResponseEntity.ok(
                 new ResponseObject<>(true,
                         service.getAllCart())
@@ -28,22 +28,22 @@ public class ShoppingCartController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getOrderById(@PathVariable String id) {
+    public ResponseEntity<?> getCartByID(@PathVariable String id) {
         return ResponseEntity.ok(new ResponseObject<>(true,
                 service.findById(id)
         ));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteOrder(@PathVariable String id) {
+    public ResponseEntity<?> deleteCart(@PathVariable String id) {
         service.deleteCart(id);
         return ResponseEntity.status(200)
                 .body(new ResponseObject<>(true));
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> addOrder(@RequestBody ShoppingCartDTO shoppingCartDTO){
-
+    public ResponseEntity<?> addCart(@RequestBody ShoppingCartDTO shoppingCartDTO){
+        service.addCart(shoppingCartDTO);
         return ResponseEntity.status(200)
                 .body(new ResponseObject<>(true));
     }

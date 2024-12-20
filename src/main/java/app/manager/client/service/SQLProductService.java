@@ -25,7 +25,7 @@ public class SQLProductService implements ProductService {
 
     @Override
     public void save(Product product) {
-        if(productRepository.findByName(product.getName()).isEmpty()) productRepository.save(product);
+        productRepository.save(product);
     }
 
     @Override

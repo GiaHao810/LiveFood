@@ -11,7 +11,8 @@ import java.util.Optional;
 
 @Service
 public interface OrderService {
-    void save(List<OrderDTO> order);
+    void addOrder(List<OrderDTO> order);
+    void save(Order order);
     void deleteOrder(String id);
     List<Order> getAllOrder();
     Optional<Order> findByOwner(String username);

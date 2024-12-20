@@ -46,7 +46,7 @@ public class OrderController {
 
     @PostMapping("/add")
     public ResponseEntity<?> addOrder(@RequestBody List<OrderDTO> orderDTO){
-        orderService.save(orderDTO);
+        orderService.addOrder(orderDTO);
         return ResponseEntity.status(200)
                 .body(new ResponseObject<>(true));
     }

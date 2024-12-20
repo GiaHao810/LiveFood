@@ -1,5 +1,6 @@
 package app.manager.client.service.implement;
 
+import app.manager.client.dto.ShoppingCartDTO;
 import app.manager.client.entity.ShoppingCart;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,6 @@ public interface ShoppingCartService {
     List<ShoppingCart> getAllCart();
     ShoppingCart findById(String id);
     void deleteCart(String id);
-    void addCart(ShoppingCart cart);
+    void addCart(ShoppingCartDTO cartDTO);
 //    ShoppingCart updateCart(String id, UpdateUserRequest updateUserRequest);
 }

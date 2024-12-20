@@ -38,7 +38,12 @@ public class SQLOrderService implements OrderService {
     private final AuthenticationUtil authenticationUtil;
 
     @Override
-    public void save(List<OrderDTO> orderDTO) {
+    public void save(Order order){
+        sqlOrderRepository.save(order);
+    }
+
+    @Override
+    public void addOrder(List<OrderDTO> orderDTO) {
         User owner = userService.findByUsername(authenticationUtil.getCurrentUsername());
         List<OrderItem> orderItems = new ArrayList<>();
         double price = 0.0;
@@ -61,7 +66,7 @@ public class SQLOrderService implements OrderService {
             );
             order.setTotalPrice(price += (product.getPrice() * dto.quantity()));
         }
-        sqlOrderRepository.save(order);
+        save(order);
     }
 
     @Override

@@ -38,6 +38,12 @@ public class SQLUserService implements UserService {
     }
 
     @Override
+    public boolean ifUserExist(String username, String mail) {
+        return userRepository.findByUsernameOrMail(username, mail)
+                .isPresent();
+    }
+
+    @Override
     public User findByUsername(String username) {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new ResourceNotFoundException("Can't find Username: " + username));

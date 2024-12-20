@@ -27,7 +27,8 @@ public class AuthenticationService {
 
     public Response register(RegisterRequest registerRequest) {
 
-        if(userService.findByUsernameOrMail(registerRequest.getUsername(), registerRequest.getMail()) != null) return new Response("Credentials is existed");
+        if(userService.ifUserExist(registerRequest.getUsername(), registerRequest.getMail()))
+            return new Response("Credentials is existed");
 
         User user = User.builder()
                 .username(registerRequest.getUsername())

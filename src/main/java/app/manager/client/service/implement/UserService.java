@@ -15,6 +15,7 @@ public interface UserService{
     User findByMail(String mail);
     User findById(String id);
     User findByUsernameOrMail(String username, String mail);
+    boolean ifUserExist(String username, String mail);
     void deleteUser(String id);
     User updateUser(String id, UpdateUserRequest updateUserRequest);
 }
