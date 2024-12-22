@@ -45,16 +45,18 @@ public class SQLShoppingCartService implements ShoppingCartService {
     @Override
     public void addCart(ShoppingCartDTO cartDTO) {
         User owner = userService.findByUsername(authenticationUtil.getCurrentUsername());
-        Double quantity = 0.0;
-        for (CartItem i :
-                cartDTO.cartItems()) {
-            quantity++;
-        }
-        save(ShoppingCart.builder()
+        Double quantity = (double) cartDTO.cartItems().size();
+        ShoppingCart shoppingCart = ShoppingCart.builder()
                 .quantity(quantity)
                 .user(owner)
-                .cartItems(cartDTO.cartItems())
-                .build()
-        );
+                .build();
+
+        for(CartItem item : cartDTO.cartItems()) {
+            item.setShoppingCart(shoppingCart);
+        }
+
+        shoppingCart.setCartItems(cartDTO.cartItems());
+
+        save(shoppingCart);
     }
 }

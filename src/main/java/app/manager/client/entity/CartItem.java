@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -25,7 +27,7 @@ public class CartItem {
     @Column(name = "quantity", columnDefinition = "DOUBLE", nullable = false)
     private Double quantity;
 
-    @OneToOne
+    @ManyToMany
     @JoinColumn(name = "product_id", referencedColumnName = "id", nullable = false)
-    private Product product;
+    private List<Product> product;
 }
