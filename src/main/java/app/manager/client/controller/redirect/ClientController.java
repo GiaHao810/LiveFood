@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/client")
 public class ClientController {
-    @GetMapping("/home")
+    @GetMapping("/listed")
     public String getDashboard(){
-        return "client_page/home";
+        return "client/listed";
     }
     @GetMapping("/item")
     public String getItem(){

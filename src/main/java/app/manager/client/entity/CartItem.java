@@ -1,5 +1,6 @@
 package app.manager.client.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,6 +23,7 @@ public class CartItem {
 
     @ManyToOne
     @JoinColumn(name = "shopping_cart", referencedColumnName = "id", nullable = false)
+    @JsonIgnore
     private ShoppingCart shoppingCart;
 
     @Column(name = "quantity", columnDefinition = "DOUBLE", nullable = false)

@@ -1,4 +1,17 @@
 package app.manager.client.dto;
 
-public record OrderDTO(String CODE, Double quantity) {
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import lombok.*;
+
+@AllArgsConstructor
+@RequiredArgsConstructor
+@Data
+@Builder
+public class OrderDTO {
+    @NotBlank(message = "CODE is required")
+    private String code;
+
+    @Min(value = 1, message = "Quantity must be greater than 0")
+    private double quantity;
 }

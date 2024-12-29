@@ -14,5 +14,4 @@ public interface ShoppingCartService {
     ShoppingCart findById(String id);
     void deleteCart(String id);
     void addCart(ShoppingCartDTO cartDTO);
-//    ShoppingCart updateCart(String id, UpdateUserRequest updateUserRequest);
 }

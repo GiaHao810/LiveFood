@@ -5,6 +5,7 @@ import app.manager.client.dto.response.ResponseObject;
 import app.manager.client.exeption.resource.ResourceNotFoundException;
 import app.manager.client.service.implement.OrderService;
 import app.manager.client.service.implement.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,7 +46,7 @@ public class OrderController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> addOrder(@RequestBody List<OrderDTO> orderDTO){
+    public ResponseEntity<?> addOrder(@Valid @RequestBody List<OrderDTO> orderDTO){
         orderService.addOrder(orderDTO);
         return ResponseEntity.status(200)
                 .body(new ResponseObject<>(true));

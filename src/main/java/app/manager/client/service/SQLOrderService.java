@@ -56,15 +56,15 @@ public class SQLOrderService implements OrderService {
                 .build();
 
         for (OrderDTO dto : orderDTO) {
-            Product product = productService.findByCode(dto.CODE());
+            Product product = productService.findByCode(dto.getCode());
             orderItems.add(
                     OrderItem.builder()
-                            .quantity(dto.quantity())
+                            .quantity(dto.getQuantity())
                             .order(order)
                             .product(product)
                             .build()
             );
-            order.setTotalPrice(price += (product.getPrice() * dto.quantity()));
+            order.setTotalPrice(price += (product.getPrice() * dto.getQuantity()));
         }
         save(order);
     }

@@ -23,20 +23,22 @@ public class SecurityConfiguration {
         httpSecurity
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorizatizeHttpRequests -> authorizatizeHttpRequests
-                        .requestMatchers("/authentication/register"
-                                ,"/authentication/authenticate"
-                                ,"/login"
-                                ,"/swagger-ui/**"
-                                ,"/swagger-ui.html"
-                                ,"/v3/api-docs/**"
-                        ).permitAll()
-                        .requestMatchers("/api/user/**",
-                                "/api/product/**",
-                                "/api/image/**",
-                                "/api/order/**"
-                        ).hasAnyRole("ADMIN", "USER")
+//                        .requestMatchers("/authentication/register"
+//                                ,"/authentication/authenticate"
+//                                ,"/login"
+//                                ,"/swagger-ui/**"
+//                                ,"/swagger-ui.html"
+//                                ,"/v3/api-docs/**"
+//                        ).permitAll()
+//                        .requestMatchers("/api/user/**",
+//                                "/api/product/**",
+//                                "/api/image/**",
+//                                "/api/order/**",
+//                                "/api/address/**"
+//                        ).hasAnyRole("ADMIN", "USER")
                         .anyRequest()
-                        .authenticated()
+                                .permitAll()
+//                        .authenticated()
                 )
                 .sessionManagement(sessionManagement -> sessionManagement
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
