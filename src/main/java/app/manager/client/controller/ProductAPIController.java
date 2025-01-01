@@ -28,7 +28,7 @@ public class ProductAPIController {
      * @return List of Product
      */
     @GetMapping("/")
-    public ResponseEntity<?> getAllProduct() {
+    public ResponseEntity<?> getAll() {
         return ResponseEntity.ok(
                 new ResponseObject<>(true,
                         productService.getAllProduct())
@@ -41,7 +41,7 @@ public class ProductAPIController {
      * @return
      */
     @PostMapping("/add")
-    public ResponseEntity<?> addProduct(@Valid @RequestBody AddProductRequest request) {
+    public ResponseEntity<?> add(@Valid @RequestBody AddProductRequest request) {
         productService.addProduct(request);
         return ResponseEntity.ok(new ResponseObject<>(true));
     }
@@ -52,7 +52,7 @@ public class ProductAPIController {
      * @return
      */
     @GetMapping("/{id}")
-    public ResponseEntity<?> getProductByID(@PathVariable String id) {
+    public ResponseEntity<?> getByID(@PathVariable String id) {
         return ResponseEntity.ok(new ResponseObject<>(true,
                         productService.findById(id)
                 )
@@ -60,14 +60,14 @@ public class ProductAPIController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteProduct(@PathVariable String id) {
+    public ResponseEntity<?> deleteById(@PathVariable String id) {
         productService.deleteProduct(id);
         return ResponseEntity.status(HttpStatus.OK)
                     .body(new ResponseObject<>(true)
                 );
     }
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateProduct(
+    public ResponseEntity<?> updateById(
             @PathVariable(required = true) String id,
             @Valid @RequestBody(required = true) UpdateProductRequest updateProductRequest
     ) {
@@ -78,7 +78,7 @@ public class ProductAPIController {
     }
 
     @GetMapping("/products")
-    public Page<Product> getProducts(@RequestParam(defaultValue = "0") int page,
+    public Page<Product> getWithPage(@RequestParam(defaultValue = "0") int page,
                                      @RequestParam(defaultValue = "5") int size,
                                      @RequestParam(defaultValue = "VEGETABLE") String category) {
         return productService.getPage(page, size, category);

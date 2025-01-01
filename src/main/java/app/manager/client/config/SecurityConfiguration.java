@@ -34,7 +34,8 @@ public class SecurityConfiguration {
 //                                "/api/product/**",
 //                                "/api/image/**",
 //                                "/api/order/**",
-//                                "/api/address/**"
+//                                "/api/address/**",
+//                                "/api/review/**"
 //                        ).hasAnyRole("ADMIN", "USER")
                         .anyRequest()
                                 .permitAll()

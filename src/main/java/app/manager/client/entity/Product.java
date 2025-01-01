@@ -47,4 +47,7 @@ public class Product implements Serializable {
     @ManyToMany(mappedBy = "product", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<CartItem> cartItem;
+
+    @OneToMany(mappedBy = "product", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<Review> reviews;
 }

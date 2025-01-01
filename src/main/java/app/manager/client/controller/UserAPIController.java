@@ -28,7 +28,7 @@ public class UserAPIController {
      * @return List of user
      */
     @GetMapping("/")
-    public ResponseEntity<?> getAllUser() {
+    public ResponseEntity<?> getAll() {
         return ResponseEntity.ok(
                 new ResponseObject<>(true,
                         userService.getAllUser())
@@ -40,7 +40,7 @@ public class UserAPIController {
      * @return User Information
      */
     @GetMapping("/{id}")
-    public ResponseEntity<?> getUser(@PathVariable String id) {
+    public ResponseEntity<?> getById(@PathVariable String id) {
         return ResponseEntity.status(HttpStatus.FOUND)
                 .body(new ResponseObject<>(true, userService.findById(id)));
     }
@@ -51,7 +51,7 @@ public class UserAPIController {
      * @return id
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable String id) {
+    public ResponseEntity<?> deleteById(@PathVariable String id) {
         userService.deleteUser(id);
         return ResponseEntity.status(200)
                 .body(new ResponseObject<>(true));
@@ -62,7 +62,7 @@ public class UserAPIController {
      * @return
      */
     @GetMapping("/search")
-    public ResponseEntity<?> searchUsers(
+    public ResponseEntity<?> searchByUsernameOrMail(
             @RequestParam(required = false) String username,
             @RequestParam(required = false) String mail) {
         return ResponseEntity.status(HttpStatus.FOUND)
@@ -70,7 +70,7 @@ public class UserAPIController {
     }
 
     @PutMapping("/updateWithNameAndMail/{id}")
-    public ResponseEntity<?> updateUserWithNameAndMail(
+    public ResponseEntity<?> updateWithNameAndMail(
             @PathVariable(required = true) String id,
             @Valid @RequestBody(required = true) UpdateUserRequest updateUserRequest
             )
