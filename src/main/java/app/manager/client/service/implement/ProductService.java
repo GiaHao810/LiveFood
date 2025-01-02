@@ -17,7 +17,10 @@ public interface ProductService {
     Product findById(String id);
     Product findByName(String name);
     Product findByCode(String CODE);
+    boolean existByCode(String CODE);
     Product updateProduct(String id, UpdateProductRequest updateProductRequest);
     Page<Product> getPage(int page, int size, String category);
     void addProduct(AddProductRequest request);
+    String generateUniqueCode(String productName);
+    String generateBaseCode(String productName);
 }

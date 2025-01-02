@@ -30,7 +30,7 @@ public class Review {
     @Column(name = "comment", length = 500)
     private String comment;
 
-    @Column(name = "code", updatable = false, nullable = false)
+    @Column(name = "reviewDate", updatable = false, nullable = false)
     private LocalDateTime reviewDate;
 
     @ManyToOne

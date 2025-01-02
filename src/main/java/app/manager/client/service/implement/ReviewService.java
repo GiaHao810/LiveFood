@@ -1,5 +1,6 @@
 package app.manager.client.service.implement;
 
+import app.manager.client.dto.ReviewDTO;
 import app.manager.client.entity.Review;
 import org.springframework.stereotype.Service;
 
@@ -11,5 +12,5 @@ public interface ReviewService {
     List<Review> getAll();
     Review findById(String id);
     void deleteById(String id);
-    void add(Review review);
+    void add(ReviewDTO reviewDTO);
 }

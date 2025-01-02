@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RequestMapping("/api/shoppingcart")
 @Validated
@@ -42,7 +44,7 @@ public class ShoppingCartController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> add(@RequestBody ShoppingCartDTO shoppingCartDTO){
+    public ResponseEntity<?> add(@RequestBody List<ShoppingCartDTO> shoppingCartDTO){
         service.addCart(shoppingCartDTO);
         return ResponseEntity.status(200)
                 .body(new ResponseObject<>(true));

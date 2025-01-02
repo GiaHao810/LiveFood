@@ -4,5 +4,5 @@ import app.manager.client.entity.CartItem;
 
 import java.util.List;
 
-public record ShoppingCartDTO(List<CartItem> cartItems) {
+public record ShoppingCartDTO(Double quantity, String code) {
 }

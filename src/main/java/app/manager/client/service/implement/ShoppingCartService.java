@@ -13,5 +13,5 @@ public interface ShoppingCartService {
     List<ShoppingCart> getAllCart();
     ShoppingCart findById(String id);
     void deleteCart(String id);
-    void addCart(ShoppingCartDTO cartDTO);
+    void addCart(List<ShoppingCartDTO> cartDTO);
 }

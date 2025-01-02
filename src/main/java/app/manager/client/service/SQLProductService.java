@@ -57,6 +57,12 @@ public class SQLProductService implements ProductService {
     }
 
     @Override
+    public boolean existByCode(String CODE) {
+        return productRepository.findByCode(CODE).isPresent();
+    }
+
+
+    @Override
     public Product updateProduct(String id, UpdateProductRequest updateProductRequest) {
         return productRepository.findById(id).map(
                 product -> {
@@ -77,12 +83,35 @@ public class SQLProductService implements ProductService {
     @Override
     public void addProduct(AddProductRequest request) {
         save(Product.builder()
-            .code("TEMP-CODE")
+            .code(generateUniqueCode(request.getName()))
             .name(request.getName())
             .price(request.getPrice())
             .category(Category.valueOf(request.getCategory().toUpperCase()))
             .build());
     }
 
+    @Override
+    public String generateUniqueCode(String productName) {
+        String baseCode = generateBaseCode(productName); // Tạo mã CODE cơ bản
+        String uniqueCode = baseCode;
+
+        int counter = 1;
+        while (existByCode(uniqueCode)) { // Kiểm tra trùng lặp trong DB
+            uniqueCode = baseCode + counter; // Thêm số đếm nếu bị trùng
+            counter++;
+        }
+
+        return uniqueCode;
+    }
+
+    @Override
+    public String generateBaseCode(String productName) {
+        String[] words = productName.split(" ");
+        StringBuilder codeBuilder = new StringBuilder();
+        for (String word : words) {
+            codeBuilder.append(word.substring(0, Math.min(3, word.length())).toUpperCase());
+        }
+        return codeBuilder.toString().substring(0, Math.min(8, codeBuilder.length()));
+    }
 
 }

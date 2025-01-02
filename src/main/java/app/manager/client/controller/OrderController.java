@@ -2,9 +2,7 @@ package app.manager.client.controller;
 
 import app.manager.client.dto.OrderDTO;
 import app.manager.client.dto.response.ResponseObject;
-import app.manager.client.exeption.resource.ResourceNotFoundException;
 import app.manager.client.service.implement.OrderService;
-import app.manager.client.service.implement.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +20,6 @@ import java.util.List;
 public class OrderController {
     @Autowired
     private final OrderService orderService;
-    private final UserService userService;
 
     @GetMapping("/")
     public ResponseEntity<?> getAll(){

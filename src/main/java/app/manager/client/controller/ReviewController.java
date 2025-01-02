@@ -1,7 +1,9 @@
 package app.manager.client.controller;
 
 import app.manager.client.dto.OrderDTO;
+import app.manager.client.dto.ReviewDTO;
 import app.manager.client.dto.response.ResponseObject;
+import app.manager.client.entity.Review;
 import app.manager.client.service.implement.ReviewService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -43,9 +45,8 @@ public class ReviewController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> add(){
-//        Code
-
+    public ResponseEntity<?> add(@Valid @RequestBody ReviewDTO reviewDTO){
+        service.add(reviewDTO);
         return ResponseEntity.status(200)
                 .body(new ResponseObject<>(true));
     }
