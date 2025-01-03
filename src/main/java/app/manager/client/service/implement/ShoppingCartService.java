@@ -1,11 +1,11 @@
 package app.manager.client.service.implement;
 
-import app.manager.client.dto.ShoppingCartDTO;
+import app.manager.client.dto.CartItemDTO;
 import app.manager.client.entity.ShoppingCart;
+import app.manager.client.entity.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public interface ShoppingCartService {
@@ -13,5 +13,7 @@ public interface ShoppingCartService {
     List<ShoppingCart> getAllCart();
     ShoppingCart findById(String id);
     void deleteCart(String id);
-    void addCart(List<ShoppingCartDTO> cartDTO);
+    void addCart(User owner);
+    void addCart(String user_mail);
+    void addItemToCart(CartItemDTO cartItemDTO);
 }

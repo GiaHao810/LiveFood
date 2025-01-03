@@ -1,12 +1,13 @@
 package app.manager.client.service;
 
-import app.manager.client.dto.ShoppingCartDTO;
+import app.manager.client.dto.CartItemDTO;
 import app.manager.client.entity.CartItem;
 import app.manager.client.entity.Product;
 import app.manager.client.entity.ShoppingCart;
 import app.manager.client.entity.User;
 import app.manager.client.exeption.resource.ResourceNotFoundException;
 import app.manager.client.repository.SQLShoppingCartRepository;
+import app.manager.client.service.implement.CartItemService;
 import app.manager.client.service.implement.ProductService;
 import app.manager.client.service.implement.ShoppingCartService;
 import app.manager.client.service.implement.UserService;
@@ -21,9 +22,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SQLShoppingCartService implements ShoppingCartService {
     private final SQLShoppingCartRepository repository;
-    private final AuthenticationUtil authenticationUtil;
     private final UserService userService;
-    private final ProductService productService;
+    private final CartItemService cartItemService;
 
     @Override
     public void save(ShoppingCart cart) {
@@ -47,29 +47,23 @@ public class SQLShoppingCartService implements ShoppingCartService {
     }
 
     @Override
-    public void addCart(List<ShoppingCartDTO> cartDTO) {
-        User owner = userService.findByUsername(authenticationUtil.getCurrentUsername());
-        Double quantity = (double) cartDTO.size();
-        List<CartItem> cartItems = new ArrayList<>();
-        ShoppingCart shoppingCart = ShoppingCart.builder()
-                .quantity(quantity)
+    public void addCart(User owner) {
+        save(ShoppingCart.builder()
                 .user(owner)
-                .build();
+                .quantity(0.0)
+                .build());
+    }
 
-        cartDTO.forEach(cart -> {
-            List<Product> products = new ArrayList<>();
-            products.add(productService.findByCode(cart.code()));
-            cartItems.add(
-                    CartItem.builder()
-                            .shoppingCart(shoppingCart)
-                            .product(products)
-                            .quantity(cart.quantity())
-                            .build()
-            );
-        });
+    @Override
+    public void addCart(String user_mail) {
+        save(ShoppingCart.builder()
+                .user(userService.findByMail(user_mail))
+                .quantity(0.0)
+                .build());
+    }
 
-        shoppingCart.setCartItems(cartItems);
-
-        save(shoppingCart);
+    @Override
+    public void addItemToCart(CartItemDTO cartItemDTO) {
+        cartItemService.addCartItem(cartItemDTO);
     }
 }

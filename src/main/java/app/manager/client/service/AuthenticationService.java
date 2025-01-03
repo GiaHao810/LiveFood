@@ -6,6 +6,7 @@ import app.manager.client.dto.request.RegisterRequest;
 import app.manager.client.exeption.resource.ResourceNotFoundException;
 import app.manager.client.entity.enums.Role;
 import app.manager.client.entity.User;
+import app.manager.client.service.implement.ShoppingCartService;
 import app.manager.client.service.implement.UserService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -24,6 +25,7 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
+    private final ShoppingCartService shoppingCartService;
 
     public Response register(RegisterRequest registerRequest) {
 
@@ -37,6 +39,8 @@ public class AuthenticationService {
                 .role(Role.USER)
                 .build();
         userService.save(user);
+
+        shoppingCartService.addCart(user);
 
         var jwtToken = jwtService.generateToken(user);
 

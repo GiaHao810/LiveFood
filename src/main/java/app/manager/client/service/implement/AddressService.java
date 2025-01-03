@@ -1,8 +1,6 @@
 package app.manager.client.service.implement;
 
-import app.manager.client.dto.ShoppingCartDTO;
 import app.manager.client.entity.Address;
-import app.manager.client.entity.ShoppingCart;
 
 import java.util.List;
 

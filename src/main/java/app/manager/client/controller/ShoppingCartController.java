@@ -1,11 +1,10 @@
 package app.manager.client.controller;
 
-import app.manager.client.dto.ShoppingCartDTO;
+import app.manager.client.dto.CartItemDTO;
 import app.manager.client.dto.response.ResponseObject;
-import app.manager.client.exeption.resource.ResourceNotFoundException;
+import app.manager.client.entity.User;
 import app.manager.client.service.implement.ShoppingCartService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -44,8 +43,15 @@ public class ShoppingCartController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> add(@RequestBody List<ShoppingCartDTO> shoppingCartDTO){
-        service.addCart(shoppingCartDTO);
+    public ResponseEntity<?> add(@RequestBody String user_mail){
+        service.addCart(user_mail);
+        return ResponseEntity.status(200)
+                .body(new ResponseObject<>(true));
+    }
+
+    @PostMapping("/add-cart-item")
+    public ResponseEntity<?> add(@RequestBody CartItemDTO cartItemDTO) {
+        service.addItemToCart(cartItemDTO);
         return ResponseEntity.status(200)
                 .body(new ResponseObject<>(true));
     }
