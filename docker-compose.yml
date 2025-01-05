@@ -1,12 +1,33 @@
-version: '3'
-
+version: '3.8'
 services:
-  mongodb:
-    image: mongo
-
-  spring-app:
-    image: client:latest
+  app:
+    image: my-spring-app:latest
+    container_name: spring_app
+    build:
+      context: .
     ports:
-      - "8080:8080"
+      - "8080:8080" # Map cổng 8080 của container ra ngoài
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3307/livefood
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
     depends_on:
-      - mongodb
+      - db
+
+  db:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: livefood
+      MYSQL_USER: hao
+      MYSQL_PASSWORD: hao
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
