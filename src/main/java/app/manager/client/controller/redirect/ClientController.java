@@ -11,12 +11,8 @@ public class ClientController {
     public String getDashboard(){
         return "client/listed";
     }
-    @GetMapping("/item")
-    public String getItem(){
-        return "";
-    }
-    @GetMapping("/test")
-    public String get(){
-        return "s";
+    @GetMapping("/login")
+    public String getLogin() {
+        return "client/login";
     }
 }

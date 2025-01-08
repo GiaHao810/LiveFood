@@ -13,6 +13,10 @@ import app.manager.client.service.implement.ShoppingCartService;
 import app.manager.client.service.implement.UserService;
 import app.manager.client.util.AuthenticationUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Primary;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,6 +28,7 @@ public class SQLShoppingCartService implements ShoppingCartService {
     private final SQLShoppingCartRepository repository;
     private final UserService userService;
     private final CartItemService cartItemService;
+    private final AuthenticationUtil authenticationUtil;
 
     @Override
     public void save(ShoppingCart cart) {
@@ -39,6 +44,15 @@ public class SQLShoppingCartService implements ShoppingCartService {
     public ShoppingCart findById(String id) {
         return repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Can't find Cart's ID: " + id));
+    }
+
+    @Override
+    public ShoppingCart findByUserId() {
+        String username = authenticationUtil.getCurrentUsername();
+
+        String id = userService.findByUsername(username).getId();
+        return repository.findByUserId(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Can't find User's Cart ID: " + id));
     }
 
     @Override

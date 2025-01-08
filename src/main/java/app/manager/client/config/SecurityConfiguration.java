@@ -38,8 +38,14 @@ public class SecurityConfiguration {
 //                                "/api/review/**"
 //                        ).hasAnyRole("ADMIN", "USER")
                         .anyRequest()
-                                .permitAll()
-//                        .authenticated()
+//                                .permitAll()
+                        .authenticated()
+
+                )
+                .formLogin(form -> form
+                        .loginPage("/client/login")
+                        .defaultSuccessUrl("/client/listed", true)
+                        .permitAll()
                 )
                 .sessionManagement(sessionManagement -> sessionManagement
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

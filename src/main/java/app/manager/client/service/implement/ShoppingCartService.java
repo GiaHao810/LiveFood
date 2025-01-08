@@ -12,6 +12,7 @@ public interface ShoppingCartService {
     void save(ShoppingCart cart);
     List<ShoppingCart> getAllCart();
     ShoppingCart findById(String id);
+    ShoppingCart findByUserId();
     void deleteCart(String id);
     void addCart(User owner);
     void addCart(String user_mail);

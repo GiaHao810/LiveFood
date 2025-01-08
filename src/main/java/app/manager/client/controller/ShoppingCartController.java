@@ -35,6 +35,13 @@ public class ShoppingCartController {
         ));
     }
 
+    @GetMapping("/user")
+    public ResponseEntity<?> getByUserID() {
+        return ResponseEntity.ok(new ResponseObject<>(true,
+                service.findByUserId()
+        ));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(@PathVariable String id) {
         service.deleteCart(id);
