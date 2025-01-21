@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/resources/bootstrap-5.0.2-dist/css/bootstrap.min.css">
+
+    <script src="/resources/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/resources/jquery.min.js"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/client/listed.css">
+    
+    
+    <!-- Custom JS -->
+     <script src="/js/client/listed.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="bg-success text-white py-2">
+        <div class="container d-flex justify-content-between align-items-center">
+            <h1 class="h4">Fruit Shop Xanh</h1>
+            
+            <input type="search" class="form-control w-25" placeholder="Search...">
+            
+            <button type="button" onclick="toggleCart()">
+                <i id="cart-btn" class="fa-solid fa-cart-shopping"></i>
+            </button>
+            
+            <div class="cart-wrapper position-absolute shadow-lg rounded p-3">
+                <div id="cart" class="d-flex flex-column text-white">
+                    <h2>Giỏ hàng</h2>
+                    <ul id="cart-list" class="list-group">
+                        <li class="d-flex justify-content-between list-group-item">
+                            <span>Product 1</span>
+                            <span>10.000 đ</span>
+                        </li>
+                        <li class="d-flex justify-content-between list-group-item">
+                            <span>Product 2</span>
+                            <span>20.000 đ</span>
+                        </li>
+                        <li class="d-flex justify-content-between list-group-item">
+                            <span>Product 3</span>
+                            <span>20.000 đ</span>
+                        </li>
+                    </ul>
+                    
+                    <div class="d-flex justify-content-between">
+                        <span>Tổng cộng:</span>
+                        <span>50.000 đ</span>
+                    </div>
+    
+                    <button>Thanh toan</button>
+                </div>
+            </div>
+
+            <div class="login-container">
+                <button type="button" class="btn btn-outline-light" onclick="loginForm()">Login</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container my-4">
+        <div class="row">
+            <!-- Sidebar -->
+            <!-- <aside class="col-md-3 category-menu">
+                <h5>DANH MỤC SẢN PHẨM</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-decoration-none text-dark">Giỏ Trái Cây</a></li>
+                    <li><a href="#" class="text-decoration-none text-dark">Giỏ Hoa Quả</a></li>
+                    <li><a href="#" class="text-decoration-none text-dark">Giỏ Quà Tết 2025</a></li>
+                    <li><a href="#" class="text-decoration-none text-dark">Trái Cây Nhập Khẩu</a></li>
+                    <li><a href="#" class="text-decoration-none text-dark">Trái Cây Việt Nam</a></li>
+                </ul>
+                <hr>
+                <h5>Lọc theo giá</h5>
+                <input type="range" class="form-range" min="0" max="2200000" id="priceRange">
+                <p>Giá: <span id="priceLabel">0 đ</span></p>
+                <button class="btn btn-success w-100">Lọc</button>
+            </aside> -->
+
+            <!-- Products Section -->
+            <section class="col-md-12">
+                <div class="row products" id="products">
+                    <div class="col text-center category">
+                        <span class="text-uppercase badge fs-3 text-wrap bg-primary">FRUITS</span>
+                    </div>
+
+                    <div class="row product-list">
+                        <div class="col-md-4 mb-4">
+                            <div class="product-card">
+                                <img src="https://via.placeholder.com/150" alt="Product" class="img-fluid">
+                                <h5 class="mt-2">DUA HAU ne</h5>
+                                <p class="product-price">10.500 đ</p>
+                                <button class="btn btn-primary btn-sm" onclick="toggleCart()" data-name="DUA HAU" data-price="10.5">Thêm vào giỏ</button>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-4">
+                            <div class="product-card">
+                                <img src="https://via.placeholder.com/150" alt="Product" class="img-fluid">
+                                <h5 class="mt-2">DUA HAU</h5>
+                                <p class="product-price">10.500 đ</p>
+                                <button class="btn btn-primary btn-sm" onclick="updateCart();" data-name="DUA HAU" data-price="10.5">Thêm vào giỏ</button>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-4">
+                            <div class="product-card">
+                                <img src="https://via.placeholder.com/150" alt="Product" class="img-fluid">
+                                <h5 class="mt-2">DUA HAU</h5>
+                                <p class="product-price">10.500 đ</p>
+                                <button class="btn btn-primary btn-sm" onclick="updateCart();" data-name="DUA HAU" data-price="10.5">Thêm vào giỏ</button>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-4">
+                            <div class="product-card">
+                                <img src="https://via.placeholder.com/150" alt="Product" class="img-fluid">
+                                <h5 class="mt-2">DUA HAU</h5>
+                                <p class="product-price">10.500 đ</p>
+                                <button class="btn btn-primary btn-sm" onclick="updateCart();" data-name="DUA HAU" data-price="10.5">Thêm vào giỏ</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <div class="row products" id="products">
+                    <div class="col text-center category">
+                        <span class="text-uppercase badge fs-3 text-wrap bg-primary">VEGETABLE</span>
+                    </div>
+
+                    <div class="row product-list">
+                        <div class="col-md-4 mb-4">
+                            <div class="product-card">
+                                <img src="https://via.placeholder.com/150" alt="Product" class="img-fluid">
+                                <h5 class="mt-2">RAU CAI</h5>
+                                <p class="product-price">20.000 đ</p>
+                                <button class="btn btn-primary btn-sm" onclick="updateCart();" data-name="${product.name}" data-price="${product.price}">Thêm vào giỏ</button>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-4">
+                            <div class="product-card">
+                                <img src="https://via.placeholder.com/150" alt="Product" class="img-fluid">
+                                <h5 class="mt-2">RAU CAI</h5>
+                                <p class="product-price">20.000 đ</p>
+                                <button class="btn btn-primary btn-sm" onclick="updateCart();" data-name="${product.name}" data-price="${product.price}">Thêm vào giỏ</button>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-4">
+                            <div class="product-card">
+                                <img src="https://via.placeholder.com/150" alt="Product" class="img-fluid">
+                                <h5 class="mt-2">RAU CAI</h5>
+                                <p class="product-price">20.000 đ</p>
+                                <button class="btn btn-primary btn-sm" onclick="updateCart();" data-name="${product.name}" data-price="${product.price}">Thêm vào giỏ</button>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-4">
+                            <div class="product-card">
+                                <img src="https://via.placeholder.com/150" alt="Product" class="img-fluid">
+                                <h5 class="mt-2">RAU CAI</h5>
+                                <p class="product-price">20.000 đ</p>
+                                <button class="btn btn-primary btn-sm" onclick="updateCart();" data-name="${product.name}" data-price="${product.price}">Thêm vào giỏ</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-success text-white text-center py-3">
+        <p>&copy; 2024 LiveFood. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+body {
+    font-family: Arial, sans-serif;
+}
+.category-menu {
+    border-right: 1px solid #ddd;
+    padding-right: 15px;
+}
+.product-card {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.3s;
+}
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.product-price {
+    color: red;
+    font-weight: bold;
+}
+
+.cart-wrapper {
+    display: none;
+    width: 20rem;
+    right: 10%;
+    top: 5%;
+    background-color: #28c07a;
+}
