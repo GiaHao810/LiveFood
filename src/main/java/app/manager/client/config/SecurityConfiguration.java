@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -23,30 +24,27 @@ public class SecurityConfiguration {
         httpSecurity
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorizatizeHttpRequests -> authorizatizeHttpRequests
-//                        .requestMatchers("/authentication/register"
-//                                ,"/authentication/authenticate"
-//                                ,"/login"
-//                                ,"/swagger-ui/**"
-//                                ,"/swagger-ui.html"
-//                                ,"/v3/api-docs/**"
-//                        ).permitAll()
-//                        .requestMatchers("/api/user/**",
-//                                "/api/product/**",
-//                                "/api/image/**",
-//                                "/api/order/**",
-//                                "/api/address/**",
-//                                "/api/review/**"
-//                        ).hasAnyRole("ADMIN", "USER")
+                        .requestMatchers("/authentication/register"
+                                ,"/authentication/authenticate"
+                                ,"/login"
+                                ,"/swagger-ui/**"
+                                ,"/swagger-ui.html"
+                                ,"/v3/api-docs/**"
+                                ,"/client/login"
+                        ).permitAll()
+                        .requestMatchers("/api/user/**",
+                                "/api/product/**",
+                                "/api/image/**",
+                                "/api/order/**",
+                                "/api/address/**",
+                                "/api/review/**"
+                        ).hasAnyRole("ADMIN", "USER")
                         .anyRequest()
-//                                .permitAll()
                         .authenticated()
 
                 )
-                .formLogin(form -> form
-                        .loginPage("/client/login")
-                        .defaultSuccessUrl("/client/listed", true)
-                        .permitAll()
-                )
+                .formLogin(AbstractHttpConfigurer::disable)
+                .httpBasic(AbstractHttpConfigurer::disable)
                 .sessionManagement(sessionManagement -> sessionManagement
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
