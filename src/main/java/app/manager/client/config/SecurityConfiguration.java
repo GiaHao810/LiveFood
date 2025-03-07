@@ -24,24 +24,25 @@ public class SecurityConfiguration {
         httpSecurity
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorizatizeHttpRequests -> authorizatizeHttpRequests
-                        .requestMatchers("/authentication/register"
-                                ,"/authentication/authenticate"
-                                ,"/login"
-                                ,"/swagger-ui/**"
-                                ,"/swagger-ui.html"
-                                ,"/v3/api-docs/**"
-                                ,"/client/login"
-                        ).permitAll()
-                        .requestMatchers("/api/user/**",
-                                "/api/product/**",
-                                "/api/image/**",
-                                "/api/order/**",
-                                "/api/address/**",
-                                "/api/review/**"
-                        ).hasAnyRole("ADMIN", "USER")
-                        .anyRequest()
-                        .authenticated()
-
+//                        .requestMatchers("/authentication/register"
+//                                ,"/authentication/authenticate"
+//                                ,"/login"
+//                                ,"/swagger-ui/**"
+//                                ,"/swagger-ui.html"
+//                                ,"/v3/api-docs/**"
+//                                ,"/client/login"
+//                        ).permitAll()
+//                        .requestMatchers("/api/user/**",
+//                                "/api/product/**",
+//                                "/api/image/**",
+//                                "/api/order/**",
+//                                "/api/address/**",
+//                                "/api/review/**"
+//                        ).hasAnyRole("ADMIN", "USER")
+//                        .anyRequest()
+//                        .authenticated()
+                                .anyRequest()
+                                .permitAll()
                 )
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)

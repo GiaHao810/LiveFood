@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminController {
     @GetMapping("/")
     public String getDashboard(){
-        return "admin_page/dashboard";
+        return "admin/product-manage";
     }
 }

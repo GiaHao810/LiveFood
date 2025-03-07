@@ -48,20 +48,20 @@ public class ExcelServiceImpl implements ExcelService {
         outputStream.close();
     }
 
-    public List<Object> importFromExcel(MultipartFile file) throws IOException {
-        List<String[]> data = new ArrayList<>();
-        Workbook workbook = new XSSFWorkbook(file.getInputStream());
-        Sheet sheet = workbook.getSheetAt(0);
-
-        for (Row row : sheet) {
-            List<String> rowData = new ArrayList<>();
-            for (Cell cell : row) {
-                rowData.add(cell.getStringCellValue());
-            }
-            data.add(rowData.toArray(new String[0]));
-        }
-
-        workbook.close();
-        return data;
-    }
+//    public List<Object> importFromExcel(MultipartFile file) throws IOException {
+//        List<String[]> data = new ArrayList<>();
+//        Workbook workbook = new XSSFWorkbook(file.getInputStream());
+//        Sheet sheet = workbook.getSheetAt(0);
+//
+//        for (Row row : sheet) {
+//            List<String> rowData = new ArrayList<>();
+//            for (Cell cell : row) {
+//                rowData.add(cell.getStringCellValue());
+//            }
+//            data.add(rowData.toArray(new String[0]));
+//        }
+//
+//        workbook.close();
+//        return data;
+//    }
 }
